@@ -1,0 +1,5 @@
+---- Installation and Configure ----
+
+1. Git pull files
+2. Rename config_default.php to config.php and fill all variables
+3. Make folder "Uploads" in the root folder
