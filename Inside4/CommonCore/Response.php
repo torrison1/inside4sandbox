@@ -11,7 +11,7 @@ Class Response
     {
         $response['new_token'] = $this->sessions->token;
         header('Content-Type: application/json');
-        echo json_encode($response);
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
 }
