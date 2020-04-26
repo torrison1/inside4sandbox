@@ -13,6 +13,8 @@ Class Inside extends BaseController
 
     public function modules() {
 
+        // Modules : Files - Blocks, Tables Columns, Dependencies - Modules, Links - Interfaces, API Docs, Documents, Help Info Links
+
         // TO DO
         $res['modules'] = Array(
             Array(
