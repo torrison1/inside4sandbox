@@ -34,7 +34,7 @@ Class Inside_AT extends BaseController
         }
 
         // Other HTML Template
-        $this->view->render($this->data,'AutoTables/interface', 'inside_admin_template');
+        $this->view->render($this->data,'InsideAutoTables/interface', 'inside_admin_template');
 
     }
 
