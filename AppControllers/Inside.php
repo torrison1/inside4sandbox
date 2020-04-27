@@ -1,7 +1,6 @@
 <?php
 namespace AppControllers;
 use Inside4\CommonCore\BaseController as BaseController;
-use stdClass;
 
 Class Inside extends BaseController
 {
