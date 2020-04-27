@@ -10,6 +10,8 @@ Class InsideDatabaseView {
 
         $system_root_url = '';
 
+        $database = 'ikiev_inside4';
+
         $sql = "
         SELECT
             cols.TABLE_NAME 'Table',
@@ -20,11 +22,12 @@ Class InsideDatabaseView {
             cols.COLUMN_DEFAULT 'Default',
             cols.EXTRA 'Extra'
         FROM information_schema.columns as cols
-        WHERE cols.table_schema = 'ikiev_inside4'
+        WHERE cols.table_schema = '{$database}'
         ORDER BY cols.TABLE_NAME, cols.COLUMN_NAME";
         $result = $this->db->sql_get_data($sql);
 
         echo "<html><title>System DataBase</title><body>";
+        echo "<h3>DataBase : {$database}</h3>";
         echo "
         <style>
             .arial-fs10 {

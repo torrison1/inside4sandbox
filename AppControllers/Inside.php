@@ -15,8 +15,23 @@ Class Inside extends BaseController
         // Admin Panel
 
         $this->data['top_menu'] = 'MENU';
+
+        $modules_system = new \Inside4\InsideTools\InsideModularSystem;
+        $modules_system->db =& $this->db;
+        $this->data['modules_arr'] = $modules_system->get_modules_arr();
+
         // Other HTML Template
         $this->view->render($this->data,'admin_main', 'inside_admin_template');
+    }
+
+    public function module_info()
+    {
+
+        $modules_system = new \Inside4\InsideTools\InsideModularSystem;
+
+        $modules_system->db =& $this->db;
+        $modules_system->view =& $this->view;
+        echo $modules_system->module_info($_GET['system_name']);
     }
 
     public function menu_tree()
