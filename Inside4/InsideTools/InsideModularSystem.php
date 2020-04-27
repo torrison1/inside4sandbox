@@ -17,11 +17,19 @@ Class InsideModularSystem
         // - IF File in Module ADD
         // - IF Block in File ADD
 
+        $obj = new \Inside4\InsideTools\InsideProjectFiles;
+        $obj->view();
+
     }
 
     public function check_update_modules_database_relations()
     {
         // TO DO
+
+        // if Admin Check ( TO DO )
+        $obj = new \Inside4\InsideTools\InsideDatabaseView;
+        $obj->db =& $this->db;
+        $obj->view();
 
         // DELETE ALL Relations
         // Foreach ALL Tables

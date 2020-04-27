@@ -34,6 +34,16 @@ Class Inside extends BaseController
         echo $modules_system->module_info($_GET['system_name']);
     }
 
+    public function refresh_modules_data()
+    {
+        $modules_system = new \Inside4\InsideTools\InsideModularSystem;
+        $modules_system->db =& $this->db;
+
+        $modules_system->check_update_modules_files_relations();
+        $modules_system->check_update_modules_database_relations();
+
+    }
+
     public function menu_tree()
     {
 

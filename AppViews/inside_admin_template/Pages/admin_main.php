@@ -28,6 +28,10 @@
         Inside 4 Modules XML:
         <a href="https://inside4sandbox.ikiev.biz/xTMP/modules.xml">https://inside4sandbox.ikiev.biz/xTMP/modules.xml</a>
         <br>
+        Refresh Modules Data:
+        <a href="https://inside4sandbox.ikiev.biz/inside/refresh_modules_data">https://inside4sandbox.ikiev.biz/inside/refresh_modules_data</a>
+        <br>
+
     </p>
     <div class="clearfix"></div>
 </div>
