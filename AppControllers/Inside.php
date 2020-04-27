@@ -15,6 +15,7 @@ Class Inside extends BaseController
 
         // Admin Panel
 
+        $this->data['top_menu'] = 'MENU';
         // Other HTML Template
         $this->view->render($this->data,'admin_main', 'inside_admin_template');
     }
@@ -29,6 +30,8 @@ Class Inside extends BaseController
         // - Modules List : table => inside_modules { id, name, info_html, img, etc. }
         // - Modules Dependencies : table => inside_modules_dependencies { id, module_id, dependency_module_id }
 
+        // - Modules Folders : table => inside_modules_folders { id, module_id, folder_path }
+
         // Foreach Modules
         // Add Dependencies Lists
         // Show Blocks and Info
@@ -41,6 +44,8 @@ Class Inside extends BaseController
         // In Data Base : Table/Column Status / Costs / Manager / Developer / ...
 
 
+        // Check ALL Files and Folders
+        // Check ALL Tables and Columns
 
     }
     public function modules_from_xml() {
