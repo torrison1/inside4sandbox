@@ -32,6 +32,14 @@
         <a href="https://inside4sandbox.ikiev.biz/inside/refresh_modules_data">https://inside4sandbox.ikiev.biz/inside/refresh_modules_data</a>
         <br>
 
+        Left Menu Admin Table:
+        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu</a>
+        <br>
+
+        Modules Table:
+        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules</a>
+        <br>
+
     </p>
     <div class="clearfix"></div>
 </div>

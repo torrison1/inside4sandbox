@@ -6,7 +6,7 @@
 
     <?php
 
-    $table_name = 'Inside Admin';
+    if (!isset($table_name)) $table_name = 'Inside Admin';
 
     if (isset($table_name)) $seo_title = $table_name;
     if (!isset($seo_title)) $seo_title = 'Inside';
@@ -83,7 +83,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 left_side">
-                        <h1 class="top_logo"><?= $seo_title ?></h1>
                         <div class="form-group top_search_holder">
                             <input type="text" class="form-control top_search" placeholder="Поиск">
                             <i class="fa fa-search" aria-hidden="true"></i>
@@ -91,6 +90,9 @@
                     </div>
                     <div class="col-md-6 right_side">
                         <ul class="top_nav">
+                            <li>
+                                <h1 class="top_logo"><?= $seo_title ?></h1>
+                            </li>
                             <li><a class="settings_btn"
                                    onclick="$.get('/admin/ajax/user_data/',function(data){alert(data)})"><i
                                             class="fa fa-cogs" aria-hidden="true"></i></a></li>
@@ -139,7 +141,7 @@
     <!--/sidebar-menu-->
     <div class="sidebar-menu">
         <header class="logo1">
-            <span class="mobile_logo">Inside 3.1</span>
+            <a class="mobile_logo" href="/inside/admin">Inside 3.1</a>
             <button type="button" class="sidebar-icon"><span class="fa fa-bars"></span></button>
         </header>
         <div class="menu">

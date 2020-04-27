@@ -5,12 +5,10 @@ use Inside4\CommonCore\BaseController as BaseController;
 Class Inside extends BaseController
 {
 
-    public function index()
-    {
+    public function index() {
         $this->website->redirect_refresh('/inside/admin');
     }
-    public function admin()
-    {
+    public function admin() {
 
         // Admin Panel
 
@@ -24,8 +22,7 @@ Class Inside extends BaseController
         $this->view->render($this->data,'admin_main', 'inside_admin_template');
     }
 
-    public function module_info()
-    {
+    public function module_info() {
 
         $modules_system = new \Inside4\InsideTools\InsideModularSystem;
 
@@ -34,9 +31,20 @@ Class Inside extends BaseController
         echo $modules_system->module_info($_GET['system_name']);
     }
 
-    public function refresh_modules_data()
-    {
+    public function refresh_modules_data() {
+
         $modules_system = new \Inside4\InsideTools\InsideModularSystem;
+        $modules_system->db =& $this->db;
+
+        $modules_arr = $modules_system->get_modules_arr();
+
+        foreach ($modules_arr as $module) {
+        ?>
+
+                    <b><?=$module['name']?> : <?=$module['system_name']?> </b><br>
+
+        <?php
+        }
         $modules_system->db =& $this->db;
 
         $modules_system->check_update_modules_files_relations();
@@ -44,8 +52,7 @@ Class Inside extends BaseController
 
     }
 
-    public function menu_tree()
-    {
+    public function menu_tree() {
 
     }
 

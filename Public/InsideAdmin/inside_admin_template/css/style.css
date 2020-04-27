@@ -328,6 +328,9 @@ li#menu-academico{
 	font-weight:bold;
 	width:90px;
 }
+.mobile_logo:hover {
+	color: #ddf;
+}
 .page-container.sidebar-collapsed .mobile_logo{
 	opacity:0;
 	position:absolute;
@@ -400,7 +403,6 @@ ul#menu .search_box .fa-search{
 	position:relative;
 }
 .top_header .top_logo{
-	position:absolute;
 	font-weight: bold;
 	font-size:32px;
 }
@@ -408,7 +410,6 @@ ul#menu .search_box .fa-search{
 	position:relative;
 	width:100%;
 	max-width:563px;
-	padding-left: 150px;
 	margin-bottom:0;
 }
 .top_header .top_search_holder input{
