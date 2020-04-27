@@ -6,11 +6,43 @@ use stdClass;
 Class Inside extends BaseController
 {
 
+    public function index()
+    {
+        $this->website->redirect_refresh('/inside/admin');
+    }
+    public function admin()
+    {
+
+        // Admin Panel
+
+        // Other HTML Template
+        $this->view->render($this->data,'admin_main', 'inside_admin_template');
+    }
+
     public function menu_tree()
     {
 
     }
 
+    public function generate_modules_xml() {
+
+        // - Modules List : table => inside_modules { id, name, info_html, img, etc. }
+        // - Modules Dependencies : table => inside_modules_dependencies { id, module_id, dependency_module_id }
+
+        // Foreach Modules
+        // Add Dependencies Lists
+        // Show Blocks and Info
+
+        // Check ALL files and blocks (ADD Files, ADD Blocks)
+        // In Project Files
+        // Blocks/File : Status / Costs / Manager / Developer / ...
+
+        // Check ALL Tables and Columns (ADD Tables, Columns)
+        // In Data Base : Table/Column Status / Costs / Manager / Developer / ...
+
+
+
+    }
     public function modules_from_xml() {
         // echo __DIR__;
 
