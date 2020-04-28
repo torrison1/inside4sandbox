@@ -59,6 +59,16 @@ Class Inside extends BaseController
 
     public function menu_tree() {
 
+        $admin_system = new \Inside4\InsideAdminSystem\InsideAdminSystem;
+        $admin_system->init();
+        $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
+        $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
+        $this->data['data'] = $this->data['top_menu'];
+
+        $this->data['seo_title'] = 'Menu tree';
+
+        $this->view->render($this->data,'menu_tree', 'inside_admin_template');
+
     }
 
     public function generate_modules_xml() {

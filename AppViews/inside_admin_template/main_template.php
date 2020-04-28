@@ -93,10 +93,14 @@
                             <li>
                                 <h1 class="top_logo"><?= $seo_title ?></h1>
                             </li>
+
+                            <!--
                             <li><a class="settings_btn"
                                    onclick="$.get('/admin/ajax/user_data/',function(data){alert(data)})"><i
                                             class="fa fa-cogs" aria-hidden="true"></i></a></li>
                             <li><a><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
+                            -->
+
                             <li><a href="/auth/profile"><i class="fa fa-user"
                                                            aria-hidden="true"></i>&nbsp;<?= $user['email'] ?></a><span
                                         class="nav_divider">|</span></li>
