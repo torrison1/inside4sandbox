@@ -212,5 +212,7 @@ Class Inside_Modules
 
         // Files
 
+        $this->table_config = $table_config;
+        $this->table_columns = $table_columns;
     }
 }
