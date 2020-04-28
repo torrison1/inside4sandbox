@@ -18,6 +18,11 @@ Class Inside extends BaseController
         $modules_system->db =& $this->db;
         $this->data['modules_arr'] = $modules_system->get_modules_arr();
 
+        $admin_system = new \Inside4\InsideAdminSystem\InsideAdminSystem;
+        $admin_system->init();
+        $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
+        $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
+
         // Other HTML Template
         $this->view->render($this->data,'admin_main', 'inside_admin_template');
     }

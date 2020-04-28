@@ -1,4 +1,4 @@
-<div class="wblock1" style="padding: 10px; margin-bottom: 10px;">
+<div class="wblock1" style="padding: 10px; margin-bottom: 10px; width:100%; overflow-x: hidden;">
     <h2 style="margin-bottom: 7px;">Inside 4 System</h2>
     <p>
         <b>Inside 4</b> - это модульная система для построения сложных <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%B1-%D1%81%D0%BB%D1%83%D0%B6%D0%B1%D0%B0">веб-сервисов</a>.
@@ -43,7 +43,7 @@
     </p>
     <div class="clearfix"></div>
 </div>
-<ul class="list-group">
+<ul class="list-group" style="width:100%; overflow-x: hidden;">
     <li class="list-group-item active">
         Inside System Elements and Modules
         <a class="btn btn-sm btn-primary list_group_active_right_button" onclick="filters_toggle()">

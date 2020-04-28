@@ -36,6 +36,11 @@ Class Inside_AT extends BaseController
             $this->data['terminal'] = 'Sorry, this table does not exists';
         }
 
+        $admin_system = new \Inside4\InsideAdminSystem\InsideAdminSystem;
+        $admin_system->init();
+        $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
+        $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
+
         // Other HTML Template
         $this->view->render($this->data,'InsideAutoTables/interface', 'inside_admin_template');
 
