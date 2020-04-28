@@ -172,6 +172,10 @@
                         <a class="nav-link" href="<?=$lang_link_prefix?>/"><?=$t->get('main_page');?></a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MobileApp"><?=$t->get('pwa_app');?></a>
+                    </li>
+
                     <li class="nav-item<?php if ($_SERVER['REQUEST_URI'] == '/content/plist') echo " active";?>">
                         <a class="nav-link" href="<?=$lang_link_prefix?>/content/plist"><?=$t->get('info');?></a>
                     </li>
