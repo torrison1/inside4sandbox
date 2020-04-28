@@ -2,7 +2,7 @@
 
 namespace Inside4\InsideAutoTables\Tables;
 
-Class Inside_Top_Menu
+Class Inside_top_menu
 {
     var $table_config;
     var $table_columns;

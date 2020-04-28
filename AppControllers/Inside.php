@@ -146,4 +146,10 @@ Class Inside extends BaseController
         $obj->view();
 
     }
+
+    public function table($table_name) {
+
+        $this->website->redirect_refresh('/inside_AT/table/'.$table_name);
+
+    }
 }

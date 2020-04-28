@@ -4,9 +4,11 @@ use Inside4\CommonCore\BaseController as BaseController;
 
 Class Inside_AT extends BaseController
 {
-    public function table($table_name = 'Inside_Top_Menu') {
+    public function table($table_name = 'Inside_top_menu') {
 
         $this->data['top_menu'] = 'MENU';
+
+        $table_name = ucfirst($table_name);
 
         $this->data['table_name'] = $table_name;
 

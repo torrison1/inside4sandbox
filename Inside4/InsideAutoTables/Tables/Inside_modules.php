@@ -2,7 +2,7 @@
 
 namespace Inside4\InsideAutoTables\Tables;
 
-Class Inside_Modules
+Class Inside_modules
 {
     var $table_config;
     var $table_columns;

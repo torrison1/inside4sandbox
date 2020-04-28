@@ -2,7 +2,7 @@
 
 namespace Inside4\InsideAutoTables\Tables;
 
-Class Auth_Users
+Class Auth_users
 {
     var $table_config;
     var $table_columns;
