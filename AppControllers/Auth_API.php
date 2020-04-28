@@ -6,6 +6,19 @@ Class Auth_API extends BaseController {
 
     public function check_login(){
 
+        // ==========================  Test form  ==========================
+        if (isset($_GET['test_form'])) {
+            $params = [
+                'data' => [
+                    'email' => array('type'=>'text', 'value'=>''),
+                    'password' => array('type'=>'text', 'value'=>''),
+                ],
+            ];
+            $api_test_form = new \Inside4\APITools\APITestForms;
+            $api_test_form->demo_form_api_test(__FUNCTION__, __CLASS__,  'post', $params);
+        }
+        // https://inside4sandbox.ikiev.biz/Auth_API/check_login?test_form=1
+
         $email = $this->security->xss_cleaner($_POST['email']);
         $password = $this->security->xss_cleaner($_POST['password']);
         $res = Array();
@@ -45,6 +58,19 @@ Class Auth_API extends BaseController {
     }
 
     public function check_reg(){
+
+        // ==========================  Test form  ==========================
+        if (isset($_GET['test_form'])) {
+            $params = [
+                'data' => [
+                    'email' => array('type'=>'text', 'value'=>''),
+                    'password' => array('type'=>'text', 'value'=>''),
+                ],
+            ];
+            $api_test_form = new \Inside4\APITools\APITestForms;
+            $api_test_form->demo_form_api_test(__FUNCTION__, __CLASS__,  'post', $params);
+        }
+        // https://inside4sandbox.ikiev.biz/Auth_API/check_reg?test_form=1
 
         $email = $this->security->xss_cleaner($_POST['email']);
         $password = $this->security->xss_cleaner($_POST['password']);
@@ -96,6 +122,18 @@ Class Auth_API extends BaseController {
     }
 
     public function check_recovery() {
+
+        // ==========================  Test form  ==========================
+        if (isset($_GET['test_form'])) {
+            $params = [
+                'data' => [
+                    'recovery_email' => array('type'=>'text', 'value'=>'')
+                ],
+            ];
+            $api_test_form = new \Inside4\APITools\APITestForms;
+            $api_test_form->demo_form_api_test(__FUNCTION__, __CLASS__,  'post', $params);
+        }
+        // https://inside4sandbox.ikiev.biz/Auth_API/check_recovery?test_form=1
 
         $email = $this->security->xss_cleaner($_POST['recovery_email']);
 
@@ -245,5 +283,40 @@ Class Auth_API extends BaseController {
 
     }
 
+    public function user_row_json() {
 
+        // ==========================  Test form  ==========================
+        if (isset($_GET['test_form'])) {
+            $api_test_form = new \Inside4\APITools\APITestForms;
+            $api_test_form->demo_form_api_test(__FUNCTION__, __CLASS__,  'post');
+        }
+        // https://inside4sandbox.ikiev.biz/Auth_API/user_row_json?test_form=1
+
+        header('Content-Type: application/json');
+
+        if ($this->auth->user) {
+
+            if (isset($_GET['user_id'])) $user_id = intval($_GET['user_id']);
+            else {
+                $user_id = $this->auth->user['id'];
+            }
+
+            $result = $this->auth->get_user_row($user_id, $this->auth->user);
+
+            $result['is_admin'] = 0;
+            if ($this->auth->in_groups(Array('admin_demo', 'admin')))$result['is_admin'] = 1;
+
+            $result['csfr_token'] = $this->auth->make_csfr_token($user_id);
+
+            $this->response->echo_json($result);
+        } else {
+            $result['id'] = 0;
+            $this->response->echo_json($result);
+        }
+
+    }
+
+    public function get_user_app_texts() {
+
+    }
 }

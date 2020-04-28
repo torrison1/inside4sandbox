@@ -421,6 +421,37 @@ Class AuthSystem {
         return true;
     }
 
+    public function get_user_row($user_id, $user_visitor = false)
+    {
+
+        $user_data = "
+
+        {$this->users_table}.id,
+        {$this->users_table}.username,
+        SUBSTRING_INDEX({$this->users_table}.email, '@', 1) as email,
+        {$this->users_table}.phone,
+        {$this->users_table}.img,
+        {$this->users_table}.is_verified_email,
+        {$this->users_table}.is_verified_phone
+        ";
+
+        if ($user_id == $user_visitor) $user_data = "{$this->users_table}.*";
+
+        $res = $this->db->sql_get_data("SELECT
+                                        {$user_data}
+										FROM {$this->users_table}
+										WHERE id = ".intval($user_id)."
+										LIMIT 1
+										");
+
+        if (isset($res[0])) return $res[0];
+        else return false;
+    }
+
+
+    public function make_csfr_token($user_id) {
+
+    }
 
 
 }

@@ -31,7 +31,7 @@
     $(function() {
 
         $('#fb_login_a').on('click', function () {
-            $.get('/auth_api/fb_oauth_link', function(data) {
+            $.get('/Auth_API/fb_oauth_link', function(data) {
                 // location.href = data;
                 alert(data);
             });
@@ -40,7 +40,7 @@
 
         $('#login-ok').on('click', function() {
 
-            api_call('/auth_api/check_login', 'POST', function(data){
+            api_call('/Auth_API/check_login', 'POST', function(data){
 
                 dump_log(data);
                 if (data.status == "success") {
@@ -73,7 +73,7 @@
         // ------------------------------------------ Reg ----------------
         $('#reg-ok').on('click', function() {
 
-            api_call('/auth_api/check_reg', 'POST', function(data){
+            api_call('/Auth_API/check_reg', 'POST', function(data){
 
                 dump_log(data);
                 if (data.status == "success") {
@@ -90,8 +90,8 @@
                 }
 
             }, {
-                'r_email' : $('#reg-email').val(),
-                'r_password' : $('#reg-pass').val(),
+                'email' : $('#reg-email').val(),
+                'password' : $('#reg-pass').val(),
             });
 
         });
@@ -118,7 +118,7 @@
         // ------------------------------------------ Recovery ----------------
         $('#instruction-ok').on('click', function() {
 
-            api_call('/auth_api/check_recovery', 'POST', function(data){
+            api_call('/Auth_API/check_recovery', 'POST', function(data){
 
                 dump_log(data);
                 if (data.status == "success") {

@@ -55,7 +55,7 @@ $(document).ready(function() {
 
 function check_user_row() {
 
-    api_call('/auth_api/user_row_json', 'GET', function(data){
+    api_call('/Auth_API/user_row_json', 'GET', function(data){
 
         user_data = data;
         localStorage.setItem('user_data', JSON.stringify(user_data));
@@ -76,7 +76,7 @@ function get_ttexts() {
         ttexts_data = JSON.parse(localStorage.getItem('ttexts_data'));
         // console.log(JSON.stringify(ttexts_data));
     } else {
-        api_call('/ajax_api/get_texts', 'GET', function(data){
+        api_call('/Auth_API/get_user_app_texts', 'GET', function(data){
 
             ttexts_data = data;
             localStorage.setItem('ttexts_data', JSON.stringify(ttexts_data));
@@ -127,7 +127,7 @@ function api_call(url, method, callback_function, post_array = {}) {
 
     let ci_session = encodeURIComponent(localStorage.getItem('ci_session'));
 
-    let api_server_url = 'https://ux.ikiev.biz';
+    let api_server_url = 'https://inside4sandbox.ikiev.biz';
 
     url = api_server_url+url;
 
@@ -135,9 +135,9 @@ function api_call(url, method, callback_function, post_array = {}) {
 
         if (url.indexOf('?') > -1)
         {
-            url = url+'&ci_session='+ci_session;
+            url = url+'&inside4_session='+ci_session;
         } else {
-            url = url+'?ci_session='+ci_session;
+            url = url+'?inside4_session='+ci_session;
         }
 
         $.get(url, function(data) {
