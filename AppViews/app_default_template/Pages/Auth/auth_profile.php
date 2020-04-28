@@ -1,4 +1,4 @@
-<div style="background: url('/theme_core/img/bg1.jpg'); background-size:cover; background-position:center;" class="pt-4 pb-4">
+<div style="background: url('/Public/AppFront/app_default_template/img/bg1.jpg'); background-size:cover; background-position:center;" class="pt-4 pb-4">
 
     <div class="container">
 
