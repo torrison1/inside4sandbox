@@ -146,10 +146,4 @@ Class Inside extends BaseController
         $obj->view();
 
     }
-
-
-
-    public function table($table_name = 'inside_top_menu') {
-
-    }
 }

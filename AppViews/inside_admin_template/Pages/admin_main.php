@@ -33,11 +33,11 @@
         <br>
 
         Left Menu Admin Table:
-        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu</a>
+        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/Inside_Top_Menu">https://inside4sandbox.ikiev.biz/inside_AT/table/Inside_Top_Menu</a>
         <br>
 
         Modules Table:
-        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules</a>
+        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/Inside_Modules">https://inside4sandbox.ikiev.biz/inside_AT/table/Inside_Modules</a>
         <br>
 
     </p>

@@ -14,7 +14,7 @@
 
                         <div class="mt-3">
 
-                            <?php if ($inside4_auth->is_admin()) {?>
+                            <?php if ($inside4_auth->in_groups(Array('admin', 'admin_demo'))) {?>
                             <a class="btn btn-primary w_full mb-3" target="_blank" href="<?=$lang_link_prefix?>/inside">Inside Admin Panel &gt;&gt;</a>
                             <?php } ?>
                             <a class="btn btn-secondary mb-3" onclick="$('#user_pass').toggle();" ><?=$t->get('change_password');?></a>

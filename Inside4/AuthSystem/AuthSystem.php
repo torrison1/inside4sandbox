@@ -339,7 +339,53 @@ Class AuthSystem {
     }
     public function is_admin(){
 
-        return true;
+        if (!$this->user) {
+            return false;
+        } else {
+            $query = "SELECT 
+                    auth_users_groups.id
+                    FROM auth_users_groups 
+                    LEFT JOIN auth_groups ON auth_groups.id = auth_users_groups.group_id
+                    WHERE auth_groups.name = 'admin' AND auth_users_groups.user_id = {$this->user['id']}
+            ";
+            $data = $this->db->sql_get_data($query);
+
+            if (isset($data[0]['id'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    }
+
+    public function in_groups($groups_array){
+
+        if (!$this->user) {
+            return false;
+        } else {
+
+            $in = 'IN (';
+            foreach ($groups_array as $group_name) {
+                $in .= "'".$group_name."', ";
+            }
+            $in = substr($in, 0, -2);
+            $in .= ')';
+
+            $query = "SELECT 
+                    auth_users_groups.id
+                    FROM auth_users_groups 
+                    LEFT JOIN auth_groups ON auth_groups.id = auth_users_groups.group_id
+                    WHERE auth_groups.name {$in} AND auth_users_groups.user_id = {$this->user['id']}
+            ";
+            $data = $this->db->sql_get_data($query);
+
+            if (isset($data[0]['id'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public function email_verification_code($code) {

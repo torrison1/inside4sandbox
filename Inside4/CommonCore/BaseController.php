@@ -9,6 +9,7 @@ use Inside4\SEO\SEO as SEO;
 use Inside4\CommonCore\RenderView as RenderView;
 use Inside4\Security\Security as Security;
 use Inside4\CommonCore\Database as Database;
+use Inside4\CommonCore\Input as Input;
 use Inside4\CommonCore\Sessions as Sessions;
 use Inside4\CommonCore\Response as Response;
 use Inside4\Mailing\Mailer as Mailer;
@@ -28,11 +29,17 @@ Class BaseController {
     var $mailer;
     var $response;
     var $commons;
+    var $input;
 
 
     public function __construct(){
 
         $this->commons = new Commons();
+
+        $this->input = new Input();
+        $this->input->db =& $this->db;
+        $this->input->security =& $this->security;
+        $this->input->init();
 
         $this->website = new Website();
         $this->website->init();
@@ -72,7 +79,6 @@ Class BaseController {
         $this->response->sessions =& $this->sessions;
 
 
-
         // Common View Variables
         $this->data['lang_link_prefix'] =& $GLOBALS['inside4']['translate']['uri_prefix'];
         $this->data['inside4_website'] =& $this->website;
@@ -80,6 +86,13 @@ Class BaseController {
         $this->data['inside4_security'] =& $this->security;
         $this->data['t'] =& $this->t;
         $this->data['user'] =& $this->auth->user;
+
+        // GLOBALS Objects
+        $GLOBALS['Commons']['db'] =& $this->db;
+        $GLOBALS['Commons']['user'] =& $this->auth->user;
+        $GLOBALS['Commons']['security'] =& $this->security;
+        $GLOBALS['Commons']['auth'] =& $this->auth;
+        $GLOBALS['Commons']['input'] =& $this->input;
 
         $this->seo = new SEO();
         $this->data = $this->data + $this->seo->add_page_seo_data();
