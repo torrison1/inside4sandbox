@@ -1,0 +1,69 @@
+<div class="content-blog">
+    <div class="container">
+        <div class="row">
+            <section class="col-md-3 category_tags_list main_filters_block">
+                <div class="wblock1 p-3 filters_button_block" style="cursor: pointer;">
+
+                    <h4><i class="fas fa-cog"></i> Content :
+                        <span>ALL</span>
+                    </h4>
+                </div>
+                <div class="wblock1 p-3 filters_holder" style="display: none;">
+                    <h4>Categories</h4>
+                    <div class="categoties_tree it-mb-10">
+                        {{Categories}}
+                    </div>
+                    <h4 class="it-mb-10">Tags</h4>
+                    <ul>
+                        {{Tags}}
+                    </ul>
+                    <form action="/content/plist" method="get" class="showListFilterForm">
+                        <div class="input-group mb-3">
+
+                            <input style="background: #fff;" name="nameAlias" class="show-list-search-input"
+                                   value="Search..."
+                                   placeholder="Search...">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary ">Find</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </section>
+            <section class="col-md-9 pages_list_holder">
+                <!--
+                {{Info_Blocks}}
+                <div class="item wblock1 mb-4 p-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-5 col-md-5 it-product-bg">
+                            <div class="product-img">
+                                <a href="#{{Page}}">
+
+                                    <img class="img-responsive center-block wblock1"
+                                         src="/files/uploads/content_img/#{{Page.img}}"
+                                         alt="#{{Page.alt}}">
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-7 col-md-7">
+
+                            <h2 class="heading-left it-tw-6 content-name"><a
+                                    href="#{{Page}}">#{{Page.name}}</a>
+                            </h2>
+                            <p>#{{Page.Desc}}</p>
+                            <div>
+                                <a href="#{{Page}}" >Подробнее... &#8594;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </section>
+        </div>
+        <div class="pagination">{{Pagination}}</div>
+    </div>
+</div>
