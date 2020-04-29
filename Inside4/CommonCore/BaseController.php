@@ -94,6 +94,10 @@ Class BaseController {
         $GLOBALS['Commons']['auth'] =& $this->auth;
         $GLOBALS['Commons']['input'] =& $this->input;
 
+        // TO DO : Need Refactor Language Check
+        if ($GLOBALS['inside4']['translate']['uri_prefix_value'] == '') $GLOBALS['Commons']['lang'] = 'en';
+        $GLOBALS['Commons']['lang'] = str_replace('/', '', $GLOBALS['inside4']['translate']['uri_prefix_value']);
+
         $this->seo = new SEO();
         $this->data = $this->data + $this->seo->add_page_seo_data();
 
