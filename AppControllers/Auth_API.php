@@ -161,6 +161,21 @@ Class Auth_API extends BaseController {
 
     public function change_password() {
 
+        // ==========================  Test form  ==========================
+        if (isset($_GET['test_form'])) {
+            $params = [
+                'data' => [
+                    'old_password' => array('type'=>'text', 'value'=>''),
+                    'new_password' => array('type'=>'text', 'value'=>''),
+                    'confirm_password' => array('type'=>'text', 'value'=>''),
+                    'email' => array('type'=>'text', 'value'=>''),
+                ],
+            ];
+            $api_test_form = new \Inside4\APITools\APITestForms;
+            $api_test_form->demo_form_api_test(__FUNCTION__, __CLASS__,  'post', $params);
+        }
+        // https://inside4sandbox.ikiev.biz/Auth_API/change_password?test_form=1
+
         if (!isset($this->auth->user['id']) OR $this->auth->user['id'] == 0) $this->website->redirect_refresh_message('/',"Try Change Password for Zero User");
 
         $old_password = $this->security->xss_cleaner($_POST['old_password']);
@@ -189,6 +204,25 @@ Class Auth_API extends BaseController {
 
     }
     public function update_user_data() {
+
+        // ==========================  Test form  ==========================
+        if (isset($_GET['test_form'])) {
+
+            $email = ''; if (isset($this->auth->user['email'])) $email = $this->auth->user['email'];
+            $phone = ''; if (isset($this->auth->user['phone'])) $phone = $this->auth->user['phone'];
+            $name = ''; if (isset($this->auth->user['name'])) $name = $this->auth->user['name'];
+
+            $params = [
+                'data' => [
+                    'email' => array('type'=>'text', 'value'=> $email),
+                    'phone' => array('type'=>'text', 'value'=> $phone),
+                    'name' => array('type'=>'text', 'value'=> $name),
+                ],
+            ];
+            $api_test_form = new \Inside4\APITools\APITestForms;
+            $api_test_form->demo_form_api_test(__FUNCTION__, __CLASS__,  'post', $params);
+        }
+        // https://inside4sandbox.ikiev.biz/Auth_API/update_user_data?test_form=1
 
         if (!isset($this->auth->user['id']) OR $this->auth->user['id'] == 0) $this->website->redirect_refresh_message('/',"Try Update Profile for Zero User");
 

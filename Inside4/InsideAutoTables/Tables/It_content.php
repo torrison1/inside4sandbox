@@ -204,15 +204,19 @@ Class It_content
         $adv_rel_inputs[$i]['columns'] = $translate_columns;
         $adv_rel_inputs[$i]['tab'] = 'translate';
 
+        /*
         $i++;
         $adv_rel_inputs[$i]['name'] = 'content_activities';
         $adv_rel_inputs[$i]['input_type'] = 'table_activities';
         $adv_rel_inputs[$i]['text'] = 'Message';
         $adv_rel_inputs[$i]['help'] = 'Сообщение';
         $adv_rel_inputs[$i]['tab'] = 'activities';
+        */
 
         $this->table_config = $table_config;
         $this->table_columns = $table_columns;
+        $this->adv_rel_inputs = $adv_rel_inputs;
+
     }
 }
 

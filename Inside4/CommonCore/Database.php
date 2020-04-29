@@ -60,6 +60,13 @@ Class Database
         return($data);
     }
 
+    function run_sql($query) {
+
+        $sql = $this->conn->prepare($query);
+        $res = $sql->execute();
+        return $res;
+    }
+
     function insert($table, $arr=array())
     {
         if (!is_array($arr) || !count($arr)) return false;

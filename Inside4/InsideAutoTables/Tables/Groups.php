@@ -43,8 +43,8 @@ Class Groups
         $adv_rel_inputs[$i]['input_type'] = 'many2many';
         $adv_rel_inputs[$i]['text'] = 'Users in Group';
         $adv_rel_inputs[$i]['help'] = '';
-        $adv_rel_inputs[$i]['table'] = 'users';
-        $adv_rel_inputs[$i]['rel_table'] = 'users_groups';
+        $adv_rel_inputs[$i]['table'] = 'auth_users';
+        $adv_rel_inputs[$i]['rel_table'] = 'auth_users_groups';
         $adv_rel_inputs[$i]['rel_key'] = 'group_id';
         $adv_rel_inputs[$i]['rel_join'] = 'user_id';
         $adv_rel_inputs[$i]['join_key'] = 'id';
@@ -60,5 +60,6 @@ Class Groups
 
         $this->table_config = $table_config;
         $this->table_columns = $table_columns;
+        $this->adv_rel_inputs = $adv_rel_inputs;
     }
 }

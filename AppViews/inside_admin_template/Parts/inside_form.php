@@ -30,9 +30,9 @@
                 <div class="buttons_holder">
 
 
-                    <button type="button" class="btn btn-info pdg_bcopy">КОПИРОВАТЬ</button>
-                    <button type="button" class="btn btn-danger pdg_bdel">УДАЛИТЬ</button>
-                    <a href="/inside/pdg_add/table_name" OnClick="return false;" class="btn btn-success add_btn">ДОБАВИТЬ</a>
+                    <button type="button" class="btn btn-info pdg_bcopy">COPY</button>
+                    <button type="button" class="btn btn-danger pdg_bdel">DELETE</button>
+                    <a href="/inside/pdg_add/table_name" OnClick="return false;" class="btn btn-success add_btn"> + ADD</a>
                 </div>
 
             </div>

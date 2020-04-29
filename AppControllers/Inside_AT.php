@@ -46,7 +46,6 @@ Class Inside_AT extends BaseController
 
     public function scope() {
 
-
         $table_name = $this->input->post_secure('pdg_table');
         $table_name = $this->input->defend_filter(4, $table_name);
 
@@ -80,4 +79,224 @@ Class Inside_AT extends BaseController
         echo $this->view->render_to_var($this->data, 'Parts/inside_table.php', $template_folder = 'inside_admin_template');
 
     }
+
+
+    // ------------------------------------------------------ AJAX Add Window ------------------------------
+    public function add_dialog($cell_id = 0)
+    { // << for ADD
+
+        $table_name = $this->input->post_secure('pdg_table');
+        $table_name = $this->input->defend_filter(4, $table_name);
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
+        // Access Check
+        // $this->inside_lib->check_access('inside_' . $table_name, 'edit');
+
+        //  ================= Check column access ===============
+        $user_groups = array();
+        $user_groups_ion = $this->auth->get_users_groups();
+        if ($user_groups_ion) {
+            foreach ($user_groups_ion as $group) {
+                $user_groups[] = $group['name'];
+            }
+            unset($user_groups_ion);
+        }
+
+        //  ================= Check column access ===============
+
+
+        $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+        if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+        $table_obj = new $table_class();
+        $table_obj->init();
+
+        // Get table row
+        if ($cell_id > 0) $edit_cell_arr = $at_system->get_table_cell_arr($table_obj, $cell_id);
+        else $edit_cell_arr = Array(); // << for ADD
+        // Load Table Config
+
+        // ============== Access system =======================
+
+        if (isset($table_obj->table_config['access_system']) AND !$this->auth->is_admin()) {
+            if (!$this->auth->in_group(Array($table_obj->table_config['access_work_groups']))) {
+                echo 'Access denied'; die();
+            }
+        }
+
+        // ============== Access system =======================
+
+        // =================Tabs access==============
+
+        $unaccess_tabs = array();
+        if (isset($table_obj->table_config['tabs_access'])) {
+            foreach ($table_obj->table_config['tabs_access'] as $key => $groups) {
+                if(!array_intersect($user_groups, $groups)) {
+                    $unaccess_tabs[] = $key;
+                }
+            }
+        }
+
+        // =================Tabs access==============
+
+        // Wear table inputs
+        foreach ($table_obj->table_columns as $config_row) {
+            $tmp_name = $config_row['name'];
+            if (!isset($edit_cell_arr[$tmp_name])) $edit_cell_arr[$tmp_name] = '';
+            if (isset($config_row['default_value'])) $edit_cell_arr[$tmp_name] = $config_row['default_value'];
+            if (isset($config_row['default_current_user_id'])) $edit_cell_arr[$tmp_name] = $this->data['user']->id;
+            $config_row['value'] = $edit_cell_arr[$tmp_name];
+
+            $config_row['cell_id'] = $cell_id;
+            $config_row['table'] = $table_name;
+            $config_row['make_type'] = 'add'; // << for ADD
+            $config_row['cell_row'] = $edit_cell_arr;
+
+            if (isset($config_row['input_type'])) {
+                if(!isset($config_row['group_access_arr']) OR array_intersect($user_groups, $config_row['group_access_arr'])) { // CHECK INPUT ACCESS
+                    $gen_inputs_arr[$tmp_name] = $at_system->make_input("input_form", $config_row);
+                }
+            }
+        }
+        // Add Relationships to table
+        if (isset($adv_rel_inputs)) {
+            foreach ($adv_rel_inputs as $rel_input_row) {
+                if(!isset($rel_input_row['group_access_arr']) OR array_intersect($user_groups, $rel_input_row['group_access_arr'])) { // CHECK INPUT ACCESS
+                    $rel_input_row['base_table'] = $table_name;
+                    $rel_input_row['make_type'] = 'add'; // << for ADD
+                    $gen_inputs_arr[$rel_input_row['name']] = $at_system->make_rel_input("input_form", $rel_input_row, $cell_id);
+                }
+            }
+        }
+
+        // Load View
+        $this->data['edit_cell_arr'] = $edit_cell_arr;
+        $this->data['gen_inputs_arr'] = $gen_inputs_arr;
+        $this->data['table_name'] = $table_name;
+        $this->data['dialog_id'] = intval($this->input->post_secure('dialog_id'));
+        $this->data['cell_id'] = $cell_id;
+
+        $this->data['key_field'] = $table_obj->table_config['key'];
+        $this->data['table_config'] = $table_obj->table_config;
+        $this->data['table_columns'] = $table_obj->table_columns;
+        $this->data['unaccess_tabs'] = $unaccess_tabs;
+        if (isset($table_obj->adv_rel_inputs)) $this->data['adv_rel_inputs'] = $adv_rel_inputs;
+
+        echo $this->view->render_to_var($this->data, 'Parts/inside_add_form.php', $template_folder = 'inside_admin_template');
+
+    }
+
+// ------------------------------------------------------ AJAX Edit Window ------------------------------
+    public function edit_dialog()
+    {
+
+        $table_name = $this->input->post_secure('pdg_table');
+        $table_name = $this->input->defend_filter(4, $table_name);
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
+        $cell_id = intval($this->input->post_secure('cell_id'));
+
+        // Access Check
+        // $this->inside_lib->check_access('inside_' . $table_name, 'view');
+
+        // Load Table Config
+        $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+        if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+        $table_obj = new $table_class();
+        $table_obj->init();
+
+        // Get table row
+        $edit_cell_arr = $at_system->get_table_cell_arr($table_obj, $cell_id);
+
+
+        //  ================= Check column access ===============
+        $user_groups = array();
+        $user_groups_ion = $this->auth->get_users_groups();
+        if ($user_groups_ion) {
+            foreach ($user_groups_ion as $group) {
+                $user_groups[] = $group['name'];
+            }
+            unset($user_groups_ion);
+        }
+        //  ================= Check column access ===============
+
+        // ============== Access system =======================
+        //if (!$edit_cell_arr) {
+        //echo 'Access denied';
+        //die();
+        // }// If no access echo message and stop
+        // ============== Access system =======================
+
+
+        // =================Tabs access==============
+        $unaccess_tabs = array();
+        if (isset($table_obj->table_config['tabs_access'])) {
+            foreach ($table_obj->table_config['tabs_access'] as $key => $groups) {
+                if(!array_intersect($user_groups, $groups)) {
+                    $unaccess_tabs[] = $key;
+                }
+            }
+        }
+        // =================Tabs access==============
+
+        // Wear table inputs
+        foreach ($table_obj->table_columns as $config_row) {
+            $tmp_name = $config_row['name'];
+            $config_row['value'] = $edit_cell_arr[$tmp_name];
+
+            $config_row['cell_id'] = $cell_id;
+            $config_row['table'] = $table_name;
+            $config_row['make_type'] = 'edit';
+            $config_row['cell_row'] = $edit_cell_arr;
+
+            if (isset($config_row['input_type']))
+                // Check column access
+                if(!isset($config_row['group_access_arr']) OR array_intersect($user_groups, $config_row['group_access_arr'])) {
+                    $gen_inputs_arr[$tmp_name] = $at_system->make_input("input_form", $config_row);
+                }
+        }
+        // Add Relationships to table
+        if (isset($table_obj->adv_rel_inputs)) {
+            foreach ($table_obj->adv_rel_inputs as $rel_input_row) {
+                if(!isset($rel_input_row['group_access_arr']) OR array_intersect($user_groups, $rel_input_row['group_access_arr'])) {
+                    $rel_input_row['base_table'] = $table_name;
+                    $rel_input_row['make_type'] = 'edit';
+                    $gen_inputs_arr[$rel_input_row['name']] = $at_system->make_rel_input("input_form", $rel_input_row, $cell_id);
+                }
+            }
+        }
+
+        // Add Chat Data [DEPRECATED]
+        // $query = $this->db->query("SELECT * FROM inside_row_chat WHERE row_chat_invisible = 0 AND row_chat_row_id = " . $cell_id . " AND row_chat_table = '" . $table_name . "' ORDER BY row_chat_datetime DESC");
+        // $this->data['chat_messages'] = $query->result_array();
+        $this->data['chat_messages'] = '';
+
+        // Add All Groups Select
+        // NEED Refactoring!
+        // $this->load->model('inside/custom_interfaces/inside_access/main_model', 'access_custom_model');
+        // $this->data['group_select'] = $this->access_custom_model->group_select_by_id_return();
+
+        $this->data['group_select'] = '';
+
+
+        // Load View
+        $this->data['edit_cell_arr'] = $edit_cell_arr;
+        $this->data['gen_inputs_arr'] = $gen_inputs_arr;
+        $this->data['table_name'] = $table_name;
+        $this->data['dialog_id'] = $this->input->post_secure('dialog_id');
+        $this->data['cell_id'] = $cell_id;
+
+        $this->data['key_field'] = $table_obj->table_config['key'];
+        $this->data['table_config'] = $table_obj->table_config;
+        $this->data['table_columns'] = $table_obj->table_columns;
+        $this->data['unaccess_tabs'] = $unaccess_tabs;
+        if (isset($table_obj->adv_rel_inputs)) $this->data['adv_rel_inputs'] = $table_obj->adv_rel_inputs;
+
+        echo $this->view->render_to_var($this->data, 'Parts/inside_edit_form.php', $template_folder = 'inside_admin_template');
+
+    }
+
 }

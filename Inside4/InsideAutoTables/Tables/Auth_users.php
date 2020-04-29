@@ -26,12 +26,6 @@ Class Auth_users
         $table_columns[$i]['in_crud'] = true;
 
         $i++;
-        $table_columns[$i]['name'] = 'salt';
-        $table_columns[$i]['text'] = 'Salt';
-        $table_columns[$i]['tab'] = 'system';
-        $table_columns[$i]['input_type'] = 'text';
-        $table_columns[$i]['help'] = 'String for encoding data';
-        $i++;
         $table_columns[$i]['name'] = 'email';
         $table_columns[$i]['text'] = 'E-mail';
         $table_columns[$i]['tab'] = 'main';
@@ -45,6 +39,15 @@ Class Auth_users
         $table_columns[$i]['input_type'] = 'text';
         $table_columns[$i]['in_crud'] = true;
 
+        /*
+
+        $i++;
+        $table_columns[$i]['name'] = 'salt';
+        $table_columns[$i]['text'] = 'Salt';
+        $table_columns[$i]['tab'] = 'system';
+        $table_columns[$i]['input_type'] = 'text';
+        $table_columns[$i]['help'] = 'String for encoding data';
+
         $i++;
         $table_columns[$i]['name'] = 'activation_code';
         $table_columns[$i]['text'] = 'Activation code';
@@ -55,7 +58,7 @@ Class Auth_users
         $table_columns[$i]['text'] = 'Password remember code';
         $table_columns[$i]['tab'] = 'system';
         $table_columns[$i]['input_type'] = 'text';
-        /*
+
         $i++;
         $table_columns[$i]['name'] = 'created_on';
         $table_columns[$i]['text'] = 'Created Time';
@@ -120,8 +123,8 @@ Class Auth_users
         $adv_rel_inputs[$i]['input_type'] = 'many2many';
         $adv_rel_inputs[$i]['text'] = 'User Groups';
         $adv_rel_inputs[$i]['help'] = 'Выберете группы, в которые входит данный пользователь';
-        $adv_rel_inputs[$i]['table'] = 'groups';
-        $adv_rel_inputs[$i]['rel_table'] = 'users_groups';
+        $adv_rel_inputs[$i]['table'] = 'auth_groups';
+        $adv_rel_inputs[$i]['rel_table'] = 'auth_users_groups';
         $adv_rel_inputs[$i]['this_key'] = 'user_id';
         $adv_rel_inputs[$i]['rel_key'] = 'user_id';
         $adv_rel_inputs[$i]['rel_join'] = 'group_id';
@@ -131,5 +134,6 @@ Class Auth_users
 
         $this->table_config = $table_config;
         $this->table_columns = $table_columns;
+        $this->adv_rel_inputs = $adv_rel_inputs;
     }
 }

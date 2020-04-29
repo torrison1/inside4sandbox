@@ -387,6 +387,30 @@ Class AuthSystem {
             }
         }
     }
+    public function get_users_groups()
+    {
+        if (!$this->user) {
+            return false;
+        } else {
+            $user_id = $this->user['id'];
+
+            $query = "SELECT 
+                    auth_users_groups.id, auth_groups.name
+                    FROM auth_users_groups 
+                    LEFT JOIN auth_groups ON auth_groups.id = auth_users_groups.group_id
+                    WHERE auth_users_groups.user_id = ".intval($user_id)."
+            ";
+            $data = $this->db->sql_get_data($query);
+
+            if (isset($data[0]['id'])) {
+                return $data;
+            } else {
+                return false;
+            }
+        }
+
+    }
+
 
     public function email_verification_code($code) {
         $res = false;

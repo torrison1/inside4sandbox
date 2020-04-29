@@ -7,8 +7,8 @@ class Html {
 	public function input_form($input_array)
 	{
 		// NEED To Remove to HTML input
-		$CI =& get_instance();
-		if ($CI->ion_auth->is_admin() || $CI->ion_auth->in_group('content')) {
+        $auth =& $GLOBALS['Commons']['auth'];
+		if ($auth->in_groups(Array('content','admin'))) {
 			$_SESSION['kcf'] = 'a_dHgykd_sd7w';
 		}
 

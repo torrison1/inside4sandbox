@@ -53,9 +53,6 @@ Class AutoTablesSystem
             $type = $input_array['input_type'];
             $type = str_replace("-", "_", $type); // Fix Minus to C++ style
 
-            $model_name = "make_input_" . $type;
-            // $CI =& get_instance();
-
             $input_class = "\\Inside4\\InsideAutoTables\\Inputs\\".ucfirst($type);
 
             if (class_exists($input_class)) {
@@ -76,6 +73,27 @@ Class AutoTablesSystem
             } else return "File not found: " . APPPATH . 'models/inside/inputs/' . $type . '.php';
         }
     }
+    public function make_rel_input($part, $input_array, $cell_id)
+    {
+        if (isset($input_array['input_type'])) {
+            if (!isset($input_array['width'])) $input_array['width'] = 500;
+            $type = $input_array['input_type'];
+            $type = str_replace("-", "_", $type); // Fix Minus to C++ style
+
+            $input_class = "\\Inside4\\InsideAutoTables\\Inputs\\".ucfirst($type);
+
+            if (class_exists($input_class)) {
+
+                $input_obj = new $input_class();
+
+                if (method_exists($input_obj, $part)) {
+                    return $input_obj->$part($input_array, $cell_id);
+                }
+            }
+            else return "Class {$input_class} not found!";
+        }
+    }
+
 
     public function get_table_arr($table_name, $filter)
     {
@@ -274,5 +292,16 @@ Class AutoTablesSystem
 
         return $return;
 
+    }
+
+    public function get_table_cell_arr($table_obj, $cell_id)
+    {
+
+        $db =& $GLOBALS['Commons']['db'];
+
+        // Make Request
+        $array = $db->sql_get_data("SELECT * FROM ".$table_obj->db_table_name." WHERE ".$table_obj->table_config['key']." = ".intval($cell_id)." LIMIT 1");
+        // Return One Row!
+        return $array[0];
     }
 }

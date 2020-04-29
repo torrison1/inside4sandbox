@@ -448,7 +448,7 @@
         });
         // AJAX load information
         var array = {pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/inside/add_dialog/', array, function (data) {
+        $.post('/inside_AT/add_dialog/', array, function (data) {
             // Add new AJAX Data
             $('div[dialog_id=' + dialog_id + ']').html(data);
             // Activate Tabs
@@ -490,7 +490,7 @@
         });
         // AJAX load information
         var array = {cell_id: tmp_line_id, pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/inside/add_dialog/' + tmp_line_id, array, function (data) {
+        $.post('/inside_AT/add_dialog/' + tmp_line_id, array, function (data) {
             // Add new AJAX Data
             $('div[dialog_id=' + dialog_id + ']').html(data);
             // Activate Tabs
@@ -552,7 +552,7 @@
         $('div[dialog_id=' + dialog_id + ']').html('...');
         // AJAX load information
         var array = {cell_id: tmp_line_id, pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/inside/edit_dialog/', array, function (data) {
+        $.post('/inside_AT/edit_dialog/', array, function (data) {
             $('div[dialog_id=' + dialog_id + ']').html(data);
             $('div[dialog_id=' + dialog_id + ']').show();
             // Activate Tabs

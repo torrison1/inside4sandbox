@@ -4,6 +4,14 @@ Demo Website: https://inside4sandbox.ikiev.biz/
 
 Demo PWA App: https://inside4sandbox.ikiev.biz/MobileApp
 
+Test Demo Admin User: https://inside4sandbox.ikiev.biz/auth/login
+Login: admin@inside0demo.ikiev.biz
+Password: zzzABC123
+
+Demo Admin Panel: https://inside4sandbox.ikiev.biz/inside/admin
+
+Inside 4 Sandbox Web-project Basis Info : https://docs.google.com/document/d/1dVkGkLbZWq459et_Vlt9AwgEDRykJsGzI_Wz7ovxSnk/edit?usp=sharing
+
 Public Manual: https://docs.google.com/document/d/1ra1ysCFIbnkd_kBDLPXVQziwaBlXRsqWXrNy3BhpsV4/edit?usp=sharing
 
 System Elements Table: https://docs.google.com/spreadsheets/d/1Yu8xkDLpXTrdMf9M3aCtChA_wFEJauaQN3j92tzFOfo/edit?usp=sharing
@@ -16,7 +24,7 @@ Inside 4 Modules: https://inside4sandbox.ikiev.biz/inside/modules
 
 Inside 4 Modules XML: https://inside4sandbox.ikiev.biz/xTMP/modules.xml
 
-Interesting Links:
+Interesting Links about pure PHP vs Frameworks:
 https://www.quora.com/Which-is-better-using-pure-PHP-or-Framework
 https://www.reddit.com/r/PHP/comments/234shb/pure_php_vs_using_a_framework/
 https://code.tutsplus.com/tutorials/should-you-use-a-php-framework-five-pros-and-cons--cms-28905
@@ -24,6 +32,15 @@ https://code.tutsplus.com/tutorials/should-you-use-a-php-framework-five-pros-and
 ---- Installation and Configure ----
 
 1. Git pull files
-2. Rename config_default.php to config.php and fill all variables
-3. Make folder "Uploads" in the root folder
+2. Import Database from /Inside4/DataBaseModel/ikiev_inside4.sql
+3. Rename config_default.php to config.php and fill all variables
+4. Make folder "Uploads" in the root folder
 
+5. Register a user who will be an admin
+6. Insert user_id of this user and group_id = 1 in auth_users_groups table
+7. Try Inside Admin Panel by the Admin User
+
+---- Mobile Apps ----
+
+You can put /MobileApp code into Cordova project
+In the /MobileApp/cordova folder you can find more info for this process
