@@ -304,4 +304,216 @@ Class AutoTablesSystem
         // Return One Row!
         return $array[0];
     }
+
+    public function check_access($module_name, $type)
+    {
+
+        $db =& $GLOBALS['Commons']['db'];
+        $user =& $GLOBALS['Commons']['user'];
+        $auth =& $GLOBALS['Commons']['auth'];
+
+        if (!isset($user['id'])) exit('No User!');
+
+        $user_id =$user['id'];
+
+        $type_clear = '';
+        if ($type == 'init') $type_clear = 'init';
+        if ($type == 'view') $type_clear = 'view';
+        if ($type == 'edit') $type_clear = 'edit';
+        $sql = "
+            SELECT
+            	top_menu_url as url
+
+				FROM inside_top_menu
+
+				LEFT JOIN inside_groups_access ON inside_groups_access.module_id = top_menu_id
+				LEFT JOIN auth_users_groups ON auth_users_groups.group_id = inside_groups_access.group_id
+
+				WHERE
+
+				auth_users_groups.user_id = " . intval($user_id) . "
+
+				AND module_" . $type_clear . " = 1
+
+				AND top_menu_module_name = " . $db->quote($module_name) . "
+
+				GROUP BY top_menu_id
+
+				ORDER BY inside_top_menu.top_menu_name
+
+        ";
+        $res = $db->sql_get_data($sql);
+
+        // print_r($module_name);
+
+        if (isset($res[0]) OR $auth->is_admin()) return true;
+        else {
+            echo "Access Denied!";
+            die();
+        }
+    }
+
+    public function update_table_cell($table_name, $tab, $cell_id)
+    {
+
+        $db =& $GLOBALS['Commons']['db'];
+        $input =& $GLOBALS['Commons']['input'];
+        $user =& $GLOBALS['Commons']['user'];
+
+        // Load Table Config
+        $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+        if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+        $table_obj = new $table_class();
+        $table_obj->init();
+
+        // Make Update Array by Input Fields
+        $update_array = Array();
+
+        if(!isset($_POST['not_update_table_columns'])) {
+            foreach ($table_obj->table_columns as $config_row) {
+                if ((isset($config_row['tab'])) && ($config_row['tab'] == $tab)) {
+                    $tmp_name = $config_row['name'];
+
+                    if (!isset ($config_row['defend_filter'])) $config_row['defend_filter'] = 1;
+                    $config_row['value'] = $input->defend_filter(intval($config_row['defend_filter']), @$_POST[@$tmp_name]);
+
+                    $config_row['cell_id'] = $cell_id;
+                    $config_row['tab'] = $tab;
+                    $config_row['table'] = $table_obj->db_table_name;
+                    $config_row['post_array'] = $_POST;
+                    $config_row['save_type'] = 'update';
+
+                    $save_value = $this->make_input('db_save', $config_row);
+
+                    if (!(is_bool($save_value) && !$save_value)) {
+                        if (is_array($save_value)) {
+                            foreach ($save_value as $key => $value) $update_array[$key] = $value;
+                        } else $update_array[$tmp_name] = $save_value;
+                    }
+
+                    //============== Fix for activities =================
+                    if (isset($config_row['text'])) {
+                        $update_array_names[$tmp_name] = $config_row['text'];
+                    }
+                    //===================================================
+                }
+            }
+        }
+
+
+        // ============== Fix for activities =================
+        if (isset($table_obj->adv_rel_inputs))
+        {
+            foreach ($table_obj->adv_rel_inputs as $rel_input_arr) {
+                $rel_input_arr['base_table'] = $table_obj->db_table_name;
+                $rel_input_arr['update'] = $update_array;
+                $rel_input_arr['names'] = isset($update_array_names) ? $update_array_names: null;
+                $this->make_rel_input("pre_db_save", $rel_input_arr, $cell_id);
+            }
+        }
+        // ===================================================
+
+
+        if (count ($update_array) > 0) $db->update($table_obj->db_table_name, $update_array, ' WHERE '.$table_obj->table_config['key']." = ".intval($cell_id));
+
+        $db->insert(
+            'inside_log',
+            Array(
+                'log_table' => $table_obj->db_table_name,
+                'log_datetime' => time(),
+                'log_sql' => 'UPDATE '.$table_obj->db_table_name.print_r($update_array, true).' WHERE '.$table_obj->table_config['key']." = ".intval($cell_id),
+                'log_user_id' => $user['id'])
+        );
+
+        if (isset($table_obj->adv_rel_inputs))
+        {
+            foreach ($table_obj->adv_rel_inputs as $rel_input_arr) {
+                if ($rel_input_arr['tab'] == $tab) {
+                    $rel_input_arr['base_table'] = $table_obj->db_table_name;
+                    $this->make_rel_input("db_save", $rel_input_arr, $cell_id);
+                }
+            }
+        }
+        return "Ok!";
+    }
+
+
+    public function insert_table_cell($table_name)
+    {
+        $db =& $GLOBALS['Commons']['db'];
+        $input =& $GLOBALS['Commons']['input'];
+        $user =& $GLOBALS['Commons']['user'];
+
+        // Load Table Config
+        $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+        if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+        $table_obj = new $table_class();
+        $table_obj->init();
+
+        // Make Update Array by Input Fields
+        $insert_array = Array();
+        foreach ($table_obj->table_columns as $config_row) {
+            $tmp_name = $config_row['name'];
+
+            if (!isset ($config_row['defend_filter'])) $config_row['defend_filter'] = 1;
+            $config_row['value'] = $input->defend_filter(intval($config_row['defend_filter']), @$_POST[$tmp_name]);
+
+            $config_row['table'] = $table_obj->db_table_name;
+            $config_row['post_array'] = $_POST;
+            $config_row['save_type'] = 'insert';
+
+            $save_value = $this->make_input('db_save', $config_row);
+            if (! (is_bool($save_value) && !$save_value))
+            {
+                if (is_array($save_value))
+                {
+                    foreach ($save_value as $key => $value) $insert_array[$key] = $value;
+                }
+                else $insert_array[$tmp_name] = $save_value;
+            }
+        }
+
+        if (count ($insert_array) > 0) $db->insert($table_obj->db_table_name, $insert_array);
+
+        $cell_id = $db->last_id();
+
+        $db->insert('inside_log', Array('log_table' => $table_obj->db_table_name, 'log_datetime' => time(), 'log_sql' => 'INSERT '.$table_obj->db_table_name.print_r($insert_array, true), 'log_user_id' => $user['id']));
+
+        //$cell_id = $this->db->insert_id();
+
+        if (isset($table_obj->adv_rel_inputs))
+        {
+            foreach ($table_obj->adv_rel_inputs as $rel_input_arr) {
+                $rel_input_arr['base_table'] = $table_obj->db_table_name;
+                $this->make_rel_input("db_add", $rel_input_arr, $cell_id);
+            }
+        }
+        return "Ok!";
+    }
+
+    public function del_table_cell($table_name)
+    {
+        if (isset($_POST['del_ids']))
+        {
+            // Load Config
+            $db =& $GLOBALS['Commons']['db'];
+            $user =& $GLOBALS['Commons']['user'];
+
+            // Load Table Config
+            $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+            if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+            $table_obj = new $table_class();
+            $table_obj->init();
+
+            foreach ($_POST['del_ids'] as $del_id)
+            {
+                echo intval ($del_id);
+                $db->run_sql("DELETE FROM ".$table_obj->db_table_name." WHERE ".$table_obj->table_config['key']." = ".intval($del_id));
+
+                $db->insert('inside_log', Array('log_table' => $table_obj->db_table_name, 'log_datetime' => time(), 'log_sql' => 'DELETE id = '.$del_id.' FROM '.$table_obj->db_table_name, 'log_user_id' => $user['id']));
+            }
+        }
+        return "Ok!";
+    }
+
 }

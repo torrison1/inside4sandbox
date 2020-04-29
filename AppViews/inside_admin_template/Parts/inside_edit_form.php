@@ -25,7 +25,7 @@
                     ob_start();
                     ?>
                     <form method="post"
-                          action="/inside/add_chat_comment/<?php echo $table_name; ?>/<?php echo $edit_cell_arr[$key_field]; ?>/"
+                          action="/inside_AT/add_chat_comment/<?php echo $table_name; ?>/<?php echo $edit_cell_arr[$key_field]; ?>/"
                           class="add_chat_comment">
                         <textarea style="width:610px; height: 60px; margin-right: 20px;" name="comment"></textarea>
                         <a class="btn btn-success white add_comment">Send</a>
@@ -48,7 +48,7 @@
                     ?>
                     <div class="row">
                         <form method="post" enctype="multipart/form-data"
-                              action="/inside/edit_request/<?= $table_name ?>/<?= $key ?>/<?= $edit_cell_arr[$key_field] ?>/"
+                              action="/inside_AT/edit_request/?table_name=<?= $table_name ?>&tab=<?= $key ?>&cell_id=<?= $edit_cell_arr[$key_field] ?>"
                               class="edit_tab_form" tab_id="<?= $key ?>">
                             <div class="top_controls">
 

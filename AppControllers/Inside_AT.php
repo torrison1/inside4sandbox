@@ -6,12 +6,18 @@ Class Inside_AT extends BaseController
 {
     public function table($table_name = 'Inside_top_menu') {
 
+        $admin_system = new \Inside4\InsideAdminSystem\InsideAdminSystem;
+        $admin_system->init();
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
         $table_name = ucfirst($table_name);
 
         $this->data['table_name'] = $table_name;
 
         // Access Check
-        // $this->inside_lib->check_access('inside_' . $table_name, 'init');
+        $at_system->check_access('inside_' . $table_name, 'init');
 
         // Isset Config File
         $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
@@ -22,8 +28,7 @@ Class Inside_AT extends BaseController
             if (isset($table_config)) $this->data['table_config'] = $table_obj->table_config;
             $this->data['table_config'] = $table_obj->table_config;
 
-            $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
-            $at_system->init();
+
             $this->data['filters'] = $at_system->generate_top_filters($table_obj);
             $this->data['inside_filters'] = $this->view->render_to_var($this->data, 'Parts/inside_filters.php', $template_folder = 'inside_admin_template');
             $this->data['scope_type'] = 'table';
@@ -34,8 +39,7 @@ Class Inside_AT extends BaseController
             $this->data['terminal'] = 'Sorry, this table does not exists';
         }
 
-        $admin_system = new \Inside4\InsideAdminSystem\InsideAdminSystem;
-        $admin_system->init();
+
         $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
         $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
 
@@ -49,8 +53,11 @@ Class Inside_AT extends BaseController
         $table_name = $this->input->post_secure('pdg_table');
         $table_name = $this->input->defend_filter(4, $table_name);
 
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
         // Access Check
-        // $this->inside_lib->check_access('inside_' . $table_name, 'view');
+        $at_system->check_access('inside_' . $table_name, 'view');
 
         // Filtering POST data
         $this->data['table_name'] = $table_name;
@@ -65,9 +72,6 @@ Class Inside_AT extends BaseController
         $filter['asc'] = $this->input->defend_filter(1, $filter['asc']);
         $filter['limit'] = intval($filter['limit']);
         $filter['page'] = intval($filter['page']);
-
-        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
-        $at_system->init();
 
         // Get Array
         $table_arr = $at_system->get_table_arr($table_name, $filter);
@@ -92,7 +96,11 @@ Class Inside_AT extends BaseController
         $at_system->init();
 
         // Access Check
-        // $this->inside_lib->check_access('inside_' . $table_name, 'edit');
+        $at_system->check_access('inside_' . $table_name, 'edit');
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
 
         //  ================= Check column access ===============
         $user_groups = array();
@@ -160,8 +168,8 @@ Class Inside_AT extends BaseController
             }
         }
         // Add Relationships to table
-        if (isset($adv_rel_inputs)) {
-            foreach ($adv_rel_inputs as $rel_input_row) {
+        if (isset($table_obj->adv_rel_inputs)) {
+            foreach ($table_obj->adv_rel_inputs as $rel_input_row) {
                 if(!isset($rel_input_row['group_access_arr']) OR array_intersect($user_groups, $rel_input_row['group_access_arr'])) { // CHECK INPUT ACCESS
                     $rel_input_row['base_table'] = $table_name;
                     $rel_input_row['make_type'] = 'add'; // << for ADD
@@ -181,7 +189,7 @@ Class Inside_AT extends BaseController
         $this->data['table_config'] = $table_obj->table_config;
         $this->data['table_columns'] = $table_obj->table_columns;
         $this->data['unaccess_tabs'] = $unaccess_tabs;
-        if (isset($table_obj->adv_rel_inputs)) $this->data['adv_rel_inputs'] = $adv_rel_inputs;
+        if (isset($table_obj->adv_rel_inputs)) $this->data['adv_rel_inputs'] = $table_obj->adv_rel_inputs;
 
         echo $this->view->render_to_var($this->data, 'Parts/inside_add_form.php', $template_folder = 'inside_admin_template');
 
@@ -191,16 +199,16 @@ Class Inside_AT extends BaseController
     public function edit_dialog()
     {
 
-        $table_name = $this->input->post_secure('pdg_table');
-        $table_name = $this->input->defend_filter(4, $table_name);
-
         $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
         $at_system->init();
 
-        $cell_id = intval($this->input->post_secure('cell_id'));
+        $table_name = $this->input->post_secure('pdg_table');
+        $table_name = $this->input->defend_filter(4, $table_name);
 
         // Access Check
-        // $this->inside_lib->check_access('inside_' . $table_name, 'view');
+        $at_system->check_access('inside_' . $table_name, 'view');
+
+        $cell_id = intval($this->input->post_secure('cell_id'));
 
         // Load Table Config
         $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
@@ -296,6 +304,119 @@ Class Inside_AT extends BaseController
         if (isset($table_obj->adv_rel_inputs)) $this->data['adv_rel_inputs'] = $table_obj->adv_rel_inputs;
 
         echo $this->view->render_to_var($this->data, 'Parts/inside_edit_form.php', $template_folder = 'inside_admin_template');
+
+    }
+
+
+    // ------------------------------- INSERT, UPDATE, DELETE DB Requests ----------------------------------
+    public function edit_request()
+    {
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
+        $table_name = $this->input->get_secure('table_name');
+        $tab = $this->input->get_secure('tab');
+        $cell_id = $this->input->get_secure('cell_id');
+
+
+        // Access Check
+        $at_system->check_access('inside_' . $table_name, 'edit');
+
+
+        // access system
+        // if (!$this->access_system_edit('edit',$table_name, $cell_id)) { die(); }
+
+        // ------------------------------------------------------ AJAX EDIT Request ------------------------------
+
+        $at_system->update_table_cell($table_name, $tab, $cell_id);
+
+        // Need Refactoring
+        echo "Data Saved!";
+        // ------------------------------------------------------------------------------------------------------
+
+    }
+
+    // ------------------------------- INSERT, UPDATE, DELETE DB Requests ----------------------------------
+    public function fast_edit()
+    {
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
+        $table_name = $this->input->post_secure('table');
+        $cell_id = intval($this->input->post_secure('line_id'));
+
+        // Access Check
+        $at_system->check_access('inside_' . $table_name, 'edit');
+
+        // Load Table Config
+        $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+        if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+        $table_obj = new $table_class();
+        $table_obj->init();
+
+        $this->db->update(
+            $table_obj->db_table_name,
+            Array($this->input->post_secure('column') => $this->input->post_secure('value')),
+            " WHERE ".$_POST['key_id']." = ".intval($cell_id)
+        );
+
+        // Need Refactoring
+        echo "1";
+
+    }
+
+    public function add_request()
+    {
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
+        $table_name = $this->input->get_secure('table_name');
+
+        // Load Table Config
+        $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
+        if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
+        $table_obj = new $table_class();
+        $table_obj->init();
+
+        // Access Check
+        $at_system->check_access('inside_' . $table_name, 'edit');
+
+        // ============== Access system =======================
+
+        if (isset($table_obj->table_config['access_system']) AND !$this->auth->is_admin()) {
+            if(!$this->auth->in_group(Array($table_config['access_work_groups']))) {
+                echo null; die();
+            }
+        }
+        // ============== Access system =======================
+
+        $at_system->insert_table_cell($table_name);
+
+        // Need Refactoring
+        echo "Data Saved!";
+
+    }
+
+    public function del_request()
+    {
+
+        $at_system = new \Inside4\InsideAutoTables\AutoTablesSystem;
+        $at_system->init();
+
+        $table_name = $this->input->get_secure('table_name');
+
+        // Access Check
+        $at_system->check_access('inside_' . $table_name, 'edit');
+
+        // access system
+        // if (!$this->access_system_edit('del',$table_name)) { die(); }
+
+        $result = $at_system->del_table_cell($table_name);
+
+        // Need Refactoring
+        echo $result." Deleted!";
 
     }
 

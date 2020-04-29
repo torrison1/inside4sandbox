@@ -102,7 +102,7 @@ Class Database
 
         $query = $query." ".$where.";";
 
-        // print_r($query); exit();
+        // print_r($query); print_r($values);
         $sth = $this->conn->prepare($query);
 
         $sth->execute($values); // bind placeholder array to the query and execute everything
@@ -116,4 +116,5 @@ Class Database
     function last_id() {
         return $this->conn->lastInsertId();
     }
+
 }

@@ -124,13 +124,14 @@ class Group_new_access {
 <?php
         return ob_get_clean();
     }
+
+
     public function db_save($input_array, $cell_id)
     {
 
         $db =& $GLOBALS['Commons']['db'];
 
-        $CI->db->where('group_id', $cell_id);
-        $CI->db->delete('inside_groups_access');
+        $db->run_sql("DELETE FROM inside_groups_access WHERE group_id = '".intval($cell_id)."'");
 
         $access_save_arr = Array();
 

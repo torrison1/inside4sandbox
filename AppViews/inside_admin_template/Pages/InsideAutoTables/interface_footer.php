@@ -129,7 +129,7 @@
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
             // Make Dialog
-            $("<div cell_id='" + mob_line_id + "'><form method='post' action='/inside/del_request/" + global_pdg_table + "/' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
+            $("<div cell_id='" + mob_line_id + "'><form method='post' action='/inside_AT/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
                 width: 300,
@@ -162,7 +162,7 @@
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
             // Make Dialog
-            $("<div cell_id='" + this.value + "'><form method='post' action='/inside/del_request/" + global_pdg_table + "/' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
+            $("<div cell_id='" + this.value + "'><form method='post' action='/inside_AT/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
                 width: 300,
@@ -322,7 +322,7 @@
             var table_text = $(this).next();
             var new_value = prompt('', table_text.html());
             if (new_value !== null) {
-                $.post('/inside/fast_edit/', {
+                $.post('/inside_AT/fast_edit/', {
                     table: '<?=$table_name?>',
                     column: $(this).attr('column'),
                     key_id: $(this).attr('key_id'),

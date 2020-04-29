@@ -8,7 +8,7 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        <form method="post" enctype="multipart/form-data" action="/inside/add_request/<?=$table_name?>/" class="add_tab_form">
+        <form method="post" enctype="multipart/form-data" action="/inside_AT/add_request/?table_name=<?=$table_name?>" class="add_tab_form">
 
             <div class="top_controls">
                 <input type="button" style="" class="btn btn-info cell_tab_submit" tab_id="<?=$key?>" value="Save"/>
