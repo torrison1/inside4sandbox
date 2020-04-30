@@ -1,43 +1,47 @@
 <div class="wblock1" style="padding: 10px; margin-bottom: 10px; width:100%; overflow-x: hidden;">
     <h2 style="margin-bottom: 7px;">Inside 4 System</h2>
     <p>
-        <b>Inside 4</b> - это модульная система для построения сложных <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%B1-%D1%81%D0%BB%D1%83%D0%B6%D0%B1%D0%B0">веб-сервисов</a>.
+        <b>Inside 4</b>
+        is a modular system for building complex web services. It is necessary because of the complexity and team need a clear understanding of all elements for easy step by step development.
+        <br>
+        Below is a table with all the modules of this system. Press the function button or double-click on a row in the table to open full information about the module.
+        <!--
+        - это модульная система для построения сложных <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%B1-%D1%81%D0%BB%D1%83%D0%B6%D0%B1%D0%B0" target="_blank">веб-сервисов</a>.
         Она необходима по причине сложности понимания большого количества элементов и с ее помощью можно последовательно, шаг за шагом, создавать и осваивать все функции и возможности.
         <br>
         Ниже представлена таблица со всеми модулями данной системы. Нажимайте на кнопку функций или двойной клик по строке в таблице чтобы открыть полную информацию о модуле.
+        -->
 
         <br><br>
         Website MAIN:
-        <a href="https://inside4sandbox.ikiev.biz/">https://inside4sandbox.ikiev.biz/</a>
+        <a href="https://inside4sandbox.ikiev.biz/" target="_blank">https://inside4sandbox.ikiev.biz/</a>
         <br>
-        Public Manual:
-        <a href="https://docs.google.com/document/d/1ra1ysCFIbnkd_kBDLPXVQziwaBlXRsqWXrNy3BhpsV4/edit?usp=sharing">https://docs.google.com/document/d/1ra1ysCFIbnkd_kBDLPXVQziwaBlXRsqWXrNy3BhpsV4/edit?usp=sharing</a>
-        <br>
-        System Elements Table:
-        <a href="https://docs.google.com/spreadsheets/d/1Yu8xkDLpXTrdMf9M3aCtChA_wFEJauaQN3j92tzFOfo/edit?usp=sharing">https://docs.google.com/spreadsheets/d/1Yu8xkDLpXTrdMf9M3aCtChA_wFEJauaQN3j92tzFOfo/edit?usp=sharing</a>
+        GitHub Link:
+        <a href="https://github.com/torrison1/inside4sandbox" target="_blank">https://github.com/torrison1/inside4sandbox</a>
         <br>
         Database:
-        <a href="https://inside4sandbox.ikiev.biz/inside/database">https://inside4sandbox.ikiev.biz/inside/database</a>
+        <a href="https://inside4sandbox.ikiev.biz/inside/database" target="_blank">https://inside4sandbox.ikiev.biz/inside/database</a>
         <br>
         Project Files:
-        <a href="https://inside4sandbox.ikiev.biz/inside/projectfiles">https://inside4sandbox.ikiev.biz/inside/projectfiles</a>
+        <a href="https://inside4sandbox.ikiev.biz/inside/projectfiles" target="_blank">https://inside4sandbox.ikiev.biz/inside/projectfiles</a>
         <br>
-        Inside 4 Modules:
-        <a href="https://inside4sandbox.ikiev.biz/inside/modules">https://inside4sandbox.ikiev.biz/inside/modules</a>
+
+        Inside 4 Modules (New):
+        <a href="https://inside4sandbox.ikiev.biz/inside/modules" target="_blank">https://inside4sandbox.ikiev.biz/inside/modules</a>
         <br>
-        Inside 4 Modules XML:
-        <a href="https://inside4sandbox.ikiev.biz/xTMP/modules.xml">https://inside4sandbox.ikiev.biz/xTMP/modules.xml</a>
+        Inside 4 Modules XML (New):
+        <a href="https://inside4sandbox.ikiev.biz/xTMP/modules.xml" target="_blank">https://inside4sandbox.ikiev.biz/xTMP/modules.xml</a>
         <br>
-        Refresh Modules Data:
-        <a href="https://inside4sandbox.ikiev.biz/inside/refresh_modules_data">https://inside4sandbox.ikiev.biz/inside/refresh_modules_data</a>
+        Refresh Modules Data (New):
+        <a href="https://inside4sandbox.ikiev.biz/inside/refresh_modules_data" target="_blank">https://inside4sandbox.ikiev.biz/inside/refresh_modules_data</a>
         <br>
 
         Left Menu Admin Table:
-        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu</a>
+        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu" target="_blank">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu</a>
         <br>
 
         Modules Table:
-        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules</a>
+        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules" target="_blank">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules</a>
         <br>
 
     </p>

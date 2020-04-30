@@ -84,7 +84,7 @@
                 <div class="row">
                     <div class="col-md-6 left_side">
                         <div class="form-group top_search_holder">
-                            <input type="text" class="form-control top_search" placeholder="Поиск">
+                            <input type="text" class="form-control top_search" placeholder="Search...">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                             <li><a href="/auth/profile"><i class="fa fa-user"
                                                            aria-hidden="true"></i>&nbsp;<?= $user['email'] ?></a><span
                                         class="nav_divider">|</span></li>
-                            <li><a href="/auth/logout">Выход</a></li>
+                            <li><a href="/auth/logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                 <li class="search_box_li">
                     <form>
                         <div class="search_box">
-                            <input type="text" class="menu_search form-control" placeholder="Поиск">
+                            <input type="text" class="menu_search form-control" placeholder="Search...">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                     </form>
