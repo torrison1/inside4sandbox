@@ -1,6 +1,7 @@
 <?php
 
 namespace Inside4\InsideTools;
+use stdClass;
 
 Class InsideDatabaseView {
 
@@ -64,7 +65,13 @@ Class InsideDatabaseView {
 
             $row_prev['Table'] = '';
 
-            foreach ($result as $row) { if (file_exists('/Inside4/AutoTables/config/pdg_tables/'.strtolower($row['Table']) .".php")) {
+            foreach ($result as $row) {
+
+                $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".ucfirst($row['Table']);
+                // echo ($table_class); exit();
+                // echo __DIR__.'/../InsideAutoTables/Tables/'.ucfirst($row['Table']) .".php";
+                if (file_exists(__DIR__.'/../InsideAutoTables/Tables/'.ucfirst($row['Table']) .".php")) {
+
 
                 // print_r($row);
                 // echo "test";
@@ -102,15 +109,18 @@ Class InsideDatabaseView {
                     @$rowSystem =$row['System'];
                     $table = $row['Table'];
 
-                    include_once APPPATH.'/config/pdg_tables/'.strtolower($rowTable) .".php";
+                    // echo "$table_class"; exit();
 
-                    usort($table_columns, function($a, $b) {
+                    $table_obj = new $table_class();
+                    $table_obj->init();
+
+                    usort($table_obj->table_columns, function($a, $b) {
                         return strcmp($a['name'], $b['name']);
                     });
-                    $inside_columns = $table_columns;
+                    $inside_columns = $table_obj->table_columns;
                     $table_i++;
                     echo "<tr class='tr-grey'>";
-                    echo "<td>$table_i. <a href='{$system_root_url}/inside/table/$rowTable'>$rowTable</a></td>
+                    echo "<td>$table_i. <a href='{$system_root_url}/inside_AT/table/$rowTable'>$rowTable</a></td>
                             <td>№</td>
                             <td>Name</td>
                             <td>Type</td>

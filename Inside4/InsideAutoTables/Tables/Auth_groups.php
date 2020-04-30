@@ -2,7 +2,7 @@
 
 namespace Inside4\InsideAutoTables\Tables;
 
-Class Groups
+Class Auth_groups
 {
     var $table_config;
     var $table_columns;
