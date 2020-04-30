@@ -67,6 +67,7 @@ Class Inside_modules
         $table_columns[$i]['input_type'] = 'text';
         $table_columns[$i]['in_crud'] = true;
 
+        /*
         $i++;
         $table_columns[$i]['name'] = 'desc';
         $table_columns[$i]['text'] = 'Description';
@@ -86,7 +87,7 @@ Class Inside_modules
         $table_columns[$i]['crop_center'] = true;
         $table_columns[$i]['new_width'] = 600;
         $table_columns[$i]['new_height'] = 400;
-
+         */
 
         $i++;
         $table_columns[$i]['name'] = 'owner';
@@ -116,7 +117,7 @@ Class Inside_modules
         $i++;
         $table_columns[$i] = Array(
             'name' => 'off',
-            'text' => 'off',
+            'text' => 'Hide',
             'tab' => 'main',
             'input_type' => 'select-checkbox',
             'in_crud' => true,

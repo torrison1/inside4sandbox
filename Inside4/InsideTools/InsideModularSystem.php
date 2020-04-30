@@ -104,7 +104,7 @@ Class InsideModularSystem
             foreach ($module['files'] as $file) { ?>
 
                 <b><?= $file['name'] ?></b> <?= $file['filename'] ?> :
-                <a href="/admin/inside_modules/file/<?= $system_name ?>?path=<?= urlencode($file['path']) ?>"><?= $file['path'] ?></a>
+                <a href="https://github.com/torrison1/inside4sandbox/blob/master/<?=$file['path'] ?>" target="_blank"><?= $file['path'] ?></a>
                 | <?= $file['type'] ?>
                 <br>
                 <div style="border: 1px solid silver; padding: 10px; margin-top: 5px; width: 60%">

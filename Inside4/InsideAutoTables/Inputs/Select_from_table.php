@@ -38,9 +38,25 @@ class Select_from_Table {
 
 	public function crud_view($input_array) {
         $db =& $GLOBALS['Commons']['db'];
-		$sql = "SELECT ".$input_array['select_field']." FROM ".$input_array['select_table']." WHERE ".$input_array['select_index']." = ".$db->quote($input_array['value'])."";
-        $res = $db->sql_get_data($sql);
-		if(isset($res[$input_array['select_field']])) return $res[$input_array['select_field']];
+
+        // >> TO DO | need refactoring and make only 1 request by page OR LEFT JOIN in MAIN REQUEST
+
+        if (!isset($GLOBALS['tmp_arrays']['table'][$input_array['select_table']])) {
+            $sql = "SELECT ".$input_array['select_field'].",".$input_array['select_index']." FROM ".$input_array['select_table'];
+            $res = $db->sql_get_data($sql);
+
+            // print_r($res);
+            $res_fast = Array();
+            foreach ($res as $row) {
+                $res_fast[$row[$input_array['select_index']]] = $row[$input_array['select_field']];
+            }
+            // print_r($res_fast);
+
+            $GLOBALS['tmp_arrays']['table'][$input_array['select_table']] = $res_fast;
+        }
+        $res = $GLOBALS['tmp_arrays']['table'][$input_array['select_table']];
+
+		if(isset($res[$input_array['value']])) return $res[$input_array['value']];
 		else return '';
 	}
 

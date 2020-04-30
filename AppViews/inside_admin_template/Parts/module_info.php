@@ -3,7 +3,9 @@
         <li class="list-group-item active"><?=$module_name?></li>
         <li class="list-group-item">
             <div class="wblock1" style="padding: 10px; margin-bottom: 20px;">
+                <!--
                 <img src="<?=$module_img?>" style="display: block; float: left; width: 15%; margin-right: 10px;" class="wblock1">
+                -->
                 <h2 style="margin-bottom: 7px;"><?=$module_name?></h2>
                 <p>
                     <b><?=$module_name?></b> - <?=$module_description?>

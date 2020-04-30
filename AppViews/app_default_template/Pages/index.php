@@ -4,13 +4,9 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h1 class="jumbotron-heading">Ваше лучшее предложение!</h1>
+                <h1 class="jumbotron-heading"><?=$t->get('your_best_offer');?></h1>
                 <p class="lead">
-                    Информация о акции для мотивации клиентов сразу-же оставить онлайн заказ или зарегистрироваться в личном кабинете и получить промо-код!
-                    <br><br>
-                    Это может дать скидку: -10%
-                    <br>
-                    Или какой-то подарок!
+                    <?=$t->get('sale_info');?>
                 </p>
                 <p>
                     <a href="#" class="btn btn-lg btn-success my-2" data-toggle="modal" data-target="#order_modal">&nbsp;&nbsp;&nbsp;<?=$t->get('order_now_btn');?>&nbsp;&nbsp;&nbsp;</a>

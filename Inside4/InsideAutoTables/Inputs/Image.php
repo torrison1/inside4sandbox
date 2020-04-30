@@ -35,7 +35,8 @@ class Image {
 	}
 	public function db_save($input_array)
 	{
-		$CI =& get_instance();
+		// $fileworks = ...
+
 		$tmp_name = $input_array['name'];
 
 		// echo $_FILES[$tmp_name]['name'];
@@ -46,21 +47,21 @@ class Image {
 		// Update File System!
 		if (isset($_POST['del_img_'.$tmp_name]))
 		{
-			$CI->inside_lib->c7_delete_image($_POST[$tmp_name], $folder);
+            // TO DO >>> $CI->inside_lib->c7_delete_image($_POST[$tmp_name], $folder);
 			return '';
 		}
 		else if (isset($_FILES[$tmp_name]['name']))
 		{
             // Rename if cirilic name
-            $_FILES[$tmp_name]['name'] = $CI->inside_lib->ru2en_img($_FILES[$tmp_name]['name']);
+            // TO DO >>> $_FILES[$tmp_name]['name'] = $CI->inside_lib->ru2en_img($_FILES[$tmp_name]['name']);
 
-			$_FILES[$tmp_name]['name'] = $CI->inside_lib->C7_fs_file_upload ($_FILES[$tmp_name]['tmp_name'], $_FILES[$tmp_name]['name'], "/files/uploads/".$folder);
+            // TO DO >>> $_FILES[$tmp_name]['name'] = $CI->inside_lib->C7_fs_file_upload ($_FILES[$tmp_name]['tmp_name'], $_FILES[$tmp_name]['name'], "/files/uploads/".$folder);
 
-
+            /*
 
 			if (isset($input_array['resize'])) {
 
-				$CI->load->library('image_lib');
+                // TO DO >>> $CI->load->library('image_lib');
 
 				$path_to_image = $_SERVER["DOCUMENT_ROOT"]."/files/uploads/".$folder.$_FILES[$tmp_name]['name'];
 				list($width, $height) = getimagesize($path_to_image);
@@ -117,7 +118,8 @@ class Image {
 				$config['source_image']	= $path_to_image;
 				// $config['create_thumb'] = TRUE;
 				$config['maintain_ratio'] = TRUE;
-				$CI->image_lib->initialize($config);
+                // TO DO >>> $CI->image_lib->initialize($config);
+
 				if ( ! $CI->image_lib->resize())
 				{
 					echo $CI->image_lib->display_errors();
@@ -138,9 +140,10 @@ class Image {
 
 				} }
 				$CI->image_lib->clear();
+
 			}
 			return $_FILES[$tmp_name]['name'];
-
+            */
 		}
 		else return $input_array['value'];
 	}
