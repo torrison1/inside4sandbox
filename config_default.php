@@ -1,6 +1,8 @@
 <?php
 
 $GLOBALS['inside4_main_config'] = Array(
+
+    //i--- Database connection config ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
     'Database' => Array (
         'db_host' => '',
         'db_database' => '',

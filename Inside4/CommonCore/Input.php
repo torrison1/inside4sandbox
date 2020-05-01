@@ -14,6 +14,7 @@ Class Input
 
     }
 
+    //i--- $this->input->get_secure($val) for prevent XSS from $_GET data ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
     public function get_secure($val)
     {
         $res = $this->security->xss_cleaner($_GET[$val]);
@@ -21,17 +22,21 @@ Class Input
 
     }
 
+    //i--- $this->input->post_secure($val) for prevent XSS from $_POST data ; inside_core ; torrison ; 01.05.2020 ; 2 ---/
     public function post_secure($val)
     {
         $res = $this->security->xss_cleaner($_POST[$val]);
         return $res;
     }
 
+    //i--- $this->input->cookie_secure($val) for prevent XSS from $_COOKIE data ; inside_core ; torrison ; 01.05.2020 ; 3 ---/
     public function cookie_secure($val)
     {
         $res = $this->security->xss_cleaner($_COOKIE[$val]);
         return $res;
     }
+
+    //i--- Legacy defend_filter function ; inside_core ; torrison ; 01.05.2020 ; 4 ---/
     public function defend_filter($defendtype, $data)
     {
 
@@ -98,7 +103,6 @@ Class Input
         if ($defendtype == "A") {   // No Filter
             $data = $data;
         }
-
 
         return $data;
     }

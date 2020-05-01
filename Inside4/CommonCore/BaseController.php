@@ -1,6 +1,8 @@
 <?php
 
 namespace Inside4\CommonCore;
+
+//i--- Base Systems Load and Relations ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
 use Inside4\CommonCore\Commons as Commons;
 use Inside4\AuthSystem\AuthSystem as AuthSystem;
 use Inside4\TextsTranslate\TextsTranslate as TextsTranslate;
@@ -79,7 +81,7 @@ Class BaseController {
         $this->response->sessions =& $this->sessions;
 
 
-        // Common View Variables
+        //i--- Define Common View Variable for Easy Access ; inside_core ; torrison ; 01.05.2020 ; 2 ---/
         $this->data['lang_link_prefix'] =& $GLOBALS['inside4']['translate']['uri_prefix'];
         $this->data['inside4_website'] =& $this->website;
         $this->data['inside4_auth'] =& $this->auth;
@@ -87,17 +89,18 @@ Class BaseController {
         $this->data['t'] =& $this->t;
         $this->data['user'] =& $this->auth->user;
 
-        // GLOBALS Objects
+        //i--- Define Global Object for Easy Access ; inside_core ; torrison ; 01.05.2020 ; 3 ---/
         $GLOBALS['Commons']['db'] =& $this->db;
         $GLOBALS['Commons']['user'] =& $this->auth->user;
         $GLOBALS['Commons']['security'] =& $this->security;
         $GLOBALS['Commons']['auth'] =& $this->auth;
         $GLOBALS['Commons']['input'] =& $this->input;
 
-        // TO DO : Need Refactor Language Check
+        //i--- >> TO DO >> Need Refactor Language Checks ; inside_core ; torrison ; 01.05.2020 ; 4 ---/
         if ($GLOBALS['inside4']['translate']['uri_prefix_value'] == '') $GLOBALS['Commons']['lang'] = 'en';
         $GLOBALS['Commons']['lang'] = str_replace('/', '', $GLOBALS['inside4']['translate']['uri_prefix_value']);
 
+        //i--- Add SEO data for Easy Access ; inside_core ; torrison ; 01.05.2020 ; 5 ---/
         $this->seo = new SEO();
         $this->data = $this->data + $this->seo->add_page_seo_data();
 

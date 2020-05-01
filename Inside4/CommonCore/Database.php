@@ -2,6 +2,7 @@
 
 namespace Inside4\CommonCore;
 
+//i--- Database Class based on PDO Object ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
 use \PDO;
 
 Class Database
@@ -52,6 +53,7 @@ Class Database
 
     }
 
+    //i--- $this->db->sql_get_data($sql) for SELECT Requests ; inside_core ; torrison ; 01.05.2020 ; 2 ---/
     function sql_get_data($query) {
 
         $sql = $this->conn->prepare($query);
@@ -60,6 +62,7 @@ Class Database
         return($data);
     }
 
+    //i--- $this->db->run_sql($sql) for Any Requests ; inside_core ; torrison ; 01.05.2020 ; 3 ---/
     function run_sql($query) {
 
         $sql = $this->conn->prepare($query);
@@ -67,6 +70,7 @@ Class Database
         return $res;
     }
 
+    //i--- $this->db->insert($table, $arr) for Insert Requests ; inside_core ; torrison ; 01.05.2020 ; 4 ---/
     function insert($table, $arr=array())
     {
         if (!is_array($arr) || !count($arr)) return false;
@@ -85,6 +89,7 @@ Class Database
         return false;
     }
 
+    //i--- $this->db->insert($table, $arr, $where) for Update Requests ; inside_core ; torrison ; 01.05.2020 ; 5 ---/
     function update($table, $arr=array(), $where)
     {
         $updates = array_filter($arr, function ($value) {
@@ -110,9 +115,12 @@ Class Database
         return true;
     }
 
+    //i--- $this->db->quote($data) for Defend string from SQL injection attack and quote string ; inside_core ; torrison ; 01.05.2020 ; 6 ---/
     function quote($data) {
         return $this->conn->quote($data);
     }
+
+    //i--- $this->db->last_id() get ID after the last insert ; inside_core ; torrison ; 01.05.2020 ; 7 ---/
     function last_id() {
         return $this->conn->lastInsertId();
     }

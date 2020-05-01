@@ -33,10 +33,22 @@ Class Security
 
     }
 
-    function xss_cleaner($input_str) {
-        $return_str = str_replace( array('<','>',"'",'"',')','('), array('&lt;','&gt;','&apos;','&#x22;','&#x29;','&#x28;'), $input_str );
-        $return_str = str_ireplace( '%3Cscript', '', $return_str );
-        return $return_str;
+    function xss_cleaner($input) {
+        if (is_array($input)) {
+            $return = Array();
+            foreach ($input as $value) {
+
+                $value = str_replace( array('<','>',"'",'"',')','('), array('&lt;','&gt;','&apos;','&#x22;','&#x29;','&#x28;'), $value );
+                $value = str_ireplace( '%3Cscript', '', $value );
+
+                $return[] = $value;
+            }
+        } else {
+            $return = str_replace( array('<','>',"'",'"',')','('), array('&lt;','&gt;','&apos;','&#x22;','&#x29;','&#x28;'), $input );
+            $return = str_ireplace( '%3Cscript', '', $return );
+        }
+
+        return $return;
     }
 
     function encrypt_secure($string) {

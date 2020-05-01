@@ -4,6 +4,7 @@ namespace Inside4\CommonCore;
 
 Class Sessions {
 
+    //i--- Session System make tokens and control users sessions ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
     var $session_data;
     var $sessions_table = 'inside_sessions';
     var $sessions_actions_table  = 'inside_sessions_actions';
@@ -21,6 +22,8 @@ Class Sessions {
 
         // Get Cookie inside_token
         // print_r($_COOKIE);
+
+        //i--- inside4_session in a session token in the COOKIE variable ; inside_core ; torrison ; 01.05.2020 ; 2 ---/
         if (isset($_COOKIE['inside4_session'])) {
 
             $this->session_data = $this->get_session_data($_COOKIE['inside4_session']);
@@ -40,6 +43,7 @@ Class Sessions {
         // print_r($GLOBALS['inside4']['main']['session_data']);
     }
 
+    //i--- Session data store info about user browser and IP address ; inside_core ; torrison ; 01.05.2020 ; 3 ---/
     public function get_session_data($token){
 
         $session_data = Array();
@@ -73,16 +77,19 @@ Class Sessions {
 
     }
 
+    //i--- On Authentication user_id adds to session user data  ; inside_core ; torrison ; 01.05.2020 ; 4 ---/
     public function add_user_to_session($user_id){
         $update_data['user_id'] = intval($user_id);
         $this->db->update($this->sessions_table, $update_data, 'WHERE id = '.$this->session_data['id']);
     }
 
+    //i--- On LogOut user_id removes from session user data  ; torrison ; 01.05.2020 ; 5 ---/
     public function remove_user_from_session(){
         $update_data['user_id'] = 0;
         $this->db->update($this->sessions_table, $update_data, 'WHERE id = '.$this->session_data['id']);
     }
 
+    //i--- When user come firstly system makes session data and give a token ; inside_core ; torrison ; 01.05.2020 ; 6 ---/
     public function create_session(){
 
         $tokens = $this->generate_tokens();
@@ -105,6 +112,7 @@ Class Sessions {
 
     }
 
+    //i--- Token generated randomly and checking to be unique ; inside_core ; torrison ; 01.05.2020 ; 7 ---/
     public function generate_tokens(){
 
         $token_ready = false;
@@ -133,6 +141,7 @@ Class Sessions {
         return $res;
     }
 
+    //i--- Also Session System has track_activity method for save users activities for analyse usability process ; inside_core ; torrison ; 01.05.2020 ; 8 ---/
     public function track_activity($action){
 
         $activity_row = Array();
@@ -144,6 +153,7 @@ Class Sessions {
         $this->db->insert($this->sessions_actions_table, $activity_row);
     }
 
+    //i--- Method get_ip helps to get client IP address ; inside_core ; torrison ; 01.05.2020 ; 9 ---/
     public function get_ip() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];

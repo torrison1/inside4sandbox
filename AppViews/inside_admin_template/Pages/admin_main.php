@@ -26,6 +26,7 @@
         <a href="https://inside4sandbox.ikiev.biz/inside/projectfiles" target="_blank">https://inside4sandbox.ikiev.biz/inside/projectfiles</a>
         <br>
 
+        <!--
         Inside 4 Modules (New):
         <a href="https://inside4sandbox.ikiev.biz/inside/modules" target="_blank">https://inside4sandbox.ikiev.biz/inside/modules</a>
         <br>
@@ -35,6 +36,7 @@
         Refresh Modules Data (New):
         <a href="https://inside4sandbox.ikiev.biz/inside/refresh_modules_data" target="_blank">https://inside4sandbox.ikiev.biz/inside/refresh_modules_data</a>
         <br>
+        -->
 
         Left Menu Admin Table:
         <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu" target="_blank">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu</a>

@@ -4,9 +4,7 @@ namespace Inside4\CommonCore;
 
 Class Commons {
 
-    // ---------------------------------
-    // Common functions for common usage
-    // ---------------------------------
+    //i--- Common functions for common usage ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
 
     public function make_tree_view() {
         $data = '';

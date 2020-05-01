@@ -4,6 +4,7 @@ use Inside4\CommonCore\BaseController as BaseController;
 
 Class Auth_API extends BaseController {
 
+    //i--- Auth API : Check Login /Auth_API/check_login (<a href='https://inside4sandbox.ikiev.biz/Auth_API/check_login?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 1 ---/
     public function check_login(){
 
         // ==========================  Test form  ==========================
@@ -57,6 +58,7 @@ Class Auth_API extends BaseController {
         $this->response->echo_json($res);
     }
 
+    //i--- Auth API : Check Registration /Auth_API/check_reg (<a href='https://inside4sandbox.ikiev.biz/Auth_API/check_reg?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 2 ---/
     public function check_reg(){
 
         // ==========================  Test form  ==========================
@@ -121,6 +123,7 @@ Class Auth_API extends BaseController {
         $this->response->echo_json($res);
     }
 
+    //i--- Auth API : Password Recovery /Auth_API/check_recovery (<a href='https://inside4sandbox.ikiev.biz/Auth_API/check_recovery?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 3 ---/
     public function check_recovery() {
 
         // ==========================  Test form  ==========================
@@ -159,6 +162,7 @@ Class Auth_API extends BaseController {
         $this->response->echo_json($res);
     }
 
+    //i--- Auth API : Change Password /Auth_API/change_password (<a href='https://inside4sandbox.ikiev.biz/Auth_API/change_password?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 4 ---/
     public function change_password() {
 
         // ==========================  Test form  ==========================
@@ -203,6 +207,8 @@ Class Auth_API extends BaseController {
         $this->response->echo_json($res);
 
     }
+
+    //i--- Auth API : Update User Data /Auth_API/update_user_data (<a href='https://inside4sandbox.ikiev.biz/Auth_API/update_user_data?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 5 ---/
     public function update_user_data() {
 
         // ==========================  Test form  ==========================
@@ -302,6 +308,7 @@ Class Auth_API extends BaseController {
 
     }
 
+    //i--- Auth API : Email Verification /Auth_API/email_verification (<a href='https://inside4sandbox.ikiev.biz/Auth_API/email_verification?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 6 ---/
     public function email_verification() {
 
         if (!isset($this->auth->user['id']) OR $this->auth->user['id'] == 0) $this->website->redirect_refresh_message('/',"Try Verify Email for Zero User");
@@ -313,10 +320,12 @@ Class Auth_API extends BaseController {
         $this->response->echo_json($result);
     }
 
+    //i--- >> TO DO >> Auth API : Phone Verification /Auth_API/phone_verification (<a href='https://inside4sandbox.ikiev.biz/Auth_API/phone_verification?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 7 ---/
     public function phone_verification() {
 
     }
 
+    //i--- Auth API : Get User Data /Auth_API/user_row_json (<a href='https://inside4sandbox.ikiev.biz/Auth_API/user_row_json?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 7 ---/
     public function user_row_json() {
 
         // ==========================  Test form  ==========================
