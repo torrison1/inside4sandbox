@@ -67,14 +67,14 @@ Class Inside_modules
         $table_columns[$i]['input_type'] = 'text';
         $table_columns[$i]['in_crud'] = true;
 
-        /*
+
         $i++;
-        $table_columns[$i]['name'] = 'desc';
+        $table_columns[$i]['name'] = 'description';
         $table_columns[$i]['text'] = 'Description';
         $table_columns[$i]['tab'] = 'main';
         $table_columns[$i]['input_type'] = 'textarea';
         $table_columns[$i]['defend_filter'] = "A";
-
+        /*
         $i++;
         $table_columns[$i]['name'] = 'img';
         $table_columns[$i]['text'] = 'Image (Resize to 600x400)';

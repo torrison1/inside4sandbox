@@ -62,7 +62,7 @@ Class InsideModularSystem
         else exit();
 
         $this->data['module_name'] = $this->data['module_arr']['name'];
-        $this->data['module_description'] = $this->data['module_arr']['desc'];
+        $this->data['module_description'] = $this->data['module_arr']['description'];
 
         $this->data['module_img'] = '';
         if ($this->data['module_arr']['img'] != '') ;

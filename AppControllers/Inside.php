@@ -8,6 +8,8 @@ Class Inside extends BaseController
     public function index() {
         $this->website->redirect_refresh('/inside/admin');
     }
+
+    //i--- Main Page of Admin Table with Modular System Table ; inside_modules_system ; torrison ; 01.05.2020 ; 1 ---/
     public function admin() {
 
         // Admin Panel
@@ -27,6 +29,7 @@ Class Inside extends BaseController
         $this->view->render($this->data,'admin_main', 'inside_admin_template');
     }
 
+    //i--- AJAX API for HTML of Module Info Block ; inside_modules_system ; torrison ; 01.05.2020 ; 2 ---/
     public function module_info() {
 
         $modules_system = new \Inside4\InsideTools\InsideModularSystem;
@@ -36,6 +39,7 @@ Class Inside extends BaseController
         echo $modules_system->module_info($_GET['system_name']);
     }
 
+    //i--- >> TO DO >> Refresh Modules Info API Link ; inside_modules_system ; torrison ; 01.05.2020 ; 3 ---/
     public function refresh_modules_data() {
 
         $modules_system = new \Inside4\InsideTools\InsideModularSystem;
@@ -71,6 +75,7 @@ Class Inside extends BaseController
 
     }
 
+    //i--- >> TO DO >> XML Modules System (New) ; inside_modules_system ; torrison ; 01.05.2020 ; 4 ---/
     public function generate_modules_xml() {
 
         // - Modules List : table => inside_modules { id, name, info_html, img, etc. }
@@ -144,6 +149,7 @@ Class Inside extends BaseController
         $this->response->echo_json($res);
     }
 
+    //i--- Show Database Method ; inside_modules_system ; torrison ; 01.05.2020 ; 5 ---/
     public function database() {
 
         // if Admin Check ( TO DO )
@@ -153,6 +159,7 @@ Class Inside extends BaseController
 
     }
 
+    //i--- Show Project Files Method ; inside_modules_system ; torrison ; 01.05.2020 ; 6 ---/
     public function projectfiles() {
 
         // if Admin Check ( TO DO )
@@ -162,6 +169,7 @@ Class Inside extends BaseController
 
     }
 
+    // OLD
     public function table($table_name) {
 
         $this->website->redirect_refresh('/inside_AT/table/'.$table_name);
