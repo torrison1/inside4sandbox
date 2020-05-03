@@ -13,6 +13,7 @@ Class TextsTranslate {
     // Dependencies
     var $db;
 
+    //i--- TextsTranslate init and define system language ; inside_text_transalate ; torrison ; 01.08.2018 ; 1 ---/
     public function init(){
 
         $this->activeLanguage = $this->defaultLanguage;
@@ -31,14 +32,19 @@ Class TextsTranslate {
 
         $this->LoadedVocabulary = $res;
 
+        //i--- GLOBALS Language Checks ; inside_text_transalate ; torrison ; 01.05.2020 ; 1a ---/
+        if ($GLOBALS['inside4']['translate']['uri_prefix_value'] == '') $GLOBALS['Commons']['lang'] = $this->defaultLanguage;
+        $GLOBALS['Commons']['lang'] = str_replace('/', '', $GLOBALS['inside4']['translate']['uri_prefix_value']);
+
     }
 
-    // Get Translated Words by alias
+    //i--- Get Translated Words by alias ; inside_text_transalate ; torrison ; 01.08.2018 ; 2 ---/
     public function get($alias) {
         if (!isset($this->LoadedVocabulary[$alias])) $this->LoadedVocabulary[$alias] = $alias;
         return $this->LoadedVocabulary[$alias];
     }
 
+    //i--- Get Languages List ; inside_text_transalate ; torrison ; 01.08.2018 ; 3 ---/
     public function getLanguages() {
 
         $query = "SELECT * FROM ".$this->LanguagesTable." WHERE off = 0 ORDER by priority";

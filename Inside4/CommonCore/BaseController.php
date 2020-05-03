@@ -96,10 +96,6 @@ Class BaseController {
         $GLOBALS['Commons']['auth'] =& $this->auth;
         $GLOBALS['Commons']['input'] =& $this->input;
 
-        //i--- >> TO DO >> Need Refactor Language Checks ; inside_core ; torrison ; 01.05.2020 ; 4 ---/
-        if ($GLOBALS['inside4']['translate']['uri_prefix_value'] == '') $GLOBALS['Commons']['lang'] = 'en';
-        $GLOBALS['Commons']['lang'] = str_replace('/', '', $GLOBALS['inside4']['translate']['uri_prefix_value']);
-
         //i--- Add SEO data for Easy Access ; inside_core ; torrison ; 01.05.2020 ; 5 ---/
         $this->seo = new SEO();
         $this->data = $this->data + $this->seo->add_page_seo_data();

@@ -6,6 +6,7 @@ Class Website {
 
     var $config;
 
+    //i--- Define and init global Website Variables ; inside_template ; torrison ; 01.05.2020 ; 1 ---/
     public function init(){
 
         $this->config['main']['sitename'] = $GLOBALS['inside4_main_config']['Website']['sitename'];
@@ -28,6 +29,7 @@ Class Website {
 
     }
 
+    //i--- Google Analytics Code ; inside_template ; torrison ; 01.05.2020 ; 2 ---/
     public function ga_code(){
         ob_start();
         ?>
@@ -44,6 +46,7 @@ Class Website {
         return ob_get_clean();
     }
 
+    //i--- Redirect Methods ; inside_template ; torrison ; 01.05.2020 ; 3 ---/
     public function redirect_301($redirect_301_url){
 
         header("HTTP/1.1 301 Moved Permanently");

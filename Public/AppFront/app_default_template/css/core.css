@@ -1,6 +1,6 @@
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* //i--- Sticky footer styles ; inside_template ; torrison ; 01.05.2020 ; CSS1 ---/ */
+
 html {
     position: relative;
     min-height: 100%;
@@ -20,7 +20,7 @@ body {
     background-color: #eee;
 }
 
-/* Medium devices (tablets, 768px and up) */
+/* //i---Medium devices (tablets, 768px and up) has smaller footer or footer hide ; inside_template ; torrison ; 01.05.2020 ; CSS2 ---/ */
 @media (max-width: 768px) {
 
     .footer {
@@ -35,14 +35,14 @@ body {
 }
 
 
-
+/* //i--- Default font: Ubuntu Condensed ; inside_template ; torrison ; 01.05.2020 ; CSS3 ---/ */
 body {
     font-family: 'Ubuntu Condensed', sans-serif;
     color: #333;
 }
 
-/* TOP line CSS
--------------------------------------------------- */
+/* //i--- TOP line CSS ; inside_template ; torrison ; 01.05.2020 ; CSS4 ---/ */
+/* -------------------------------------------------- */
 .top_line {
     background: #eee;
 }
@@ -60,8 +60,8 @@ body {
     color: #555;
 }
 
-/* TOP Navbar CSS
--------------------------------------------------- */
+/* //i--- TOP Navbar CSS ; inside_template ; torrison ; 01.05.2020 ; CSS5 ---/ */
+/* -------------------------------------------------- */
 .top_navbar {
     background: #fff;
     box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .12);
@@ -182,7 +182,7 @@ code {
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {  }
 
-/* -------  Bootstrap color ballance and fixes -------- */
+/* //i--- Bootstrap color ballance and fixes ; inside_template ; torrison ; 01.05.2020 ; CSS7 ---/ */
 a {
     color: #0074D9;
     cursor: pointer;
@@ -246,8 +246,7 @@ a {
     }
 }
 
-/* ------- Core CSS Classes -------- */
-
+/* //i--- Core CSS Classes ; inside_template ; torrison ; 01.05.2020 ; CSS8 ---/ */
 .bottom-shadow {
     box-shadow: 0 4px 2px -1px rgba(0, 0, 0, .12);
     z-index:10;

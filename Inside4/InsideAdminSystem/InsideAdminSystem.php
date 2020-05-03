@@ -12,6 +12,7 @@ Class InsideAdminSystem
 
     }
 
+    //i--- Admin Tree Top Menu Method ; inside_main_pages ; torrison ; 01.05.2020 ; 1 ---/
     public function get_top_menu_arr() {
 
         $user_id = $this->user['id'];

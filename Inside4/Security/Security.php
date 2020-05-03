@@ -21,6 +21,7 @@ Class Security
         $this->encryption_iv_static = $GLOBALS['inside4_main_config']['Security']['encryption_iv_static'];
     }
 
+    //i--- Encrypt/Decrypt test method ; inside_security ; torrison ; 01.08.2018 ; 2 ---/
     function test() {
 
         $test = "Test3z134aaaZZZi";
@@ -33,6 +34,7 @@ Class Security
 
     }
 
+    //i--- XSS Cleaner ; inside_security ; torrison ; 01.08.2018 ; 3 ---/
     function xss_cleaner($input) {
         if (is_array($input)) {
             $return = Array();
@@ -51,6 +53,7 @@ Class Security
         return $return;
     }
 
+    //i--- AES256 Encrypt/Decrypt methods ; inside_security ; torrison ; 01.08.2018 ; 4 ---/
     function encrypt_secure($string) {
 
         $string = $this->encryption_salt1.$string.$this->encryption_salt2;
@@ -75,6 +78,34 @@ Class Security
         return $string;
     }
 
+    function aes256_encode($data, $key) {
+
+        $iv = $this->generateRandomString(16);
+        $res = openssl_encrypt($data, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        $res = $iv . base64_encode($res);
+        return $res;
+    }
+
+    function aes256_encode_static($data, $key) {
+
+        $iv = $this->encryption_iv_static;
+        $res = openssl_encrypt($data, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        $res = $iv . base64_encode($res);
+        return $res;
+    }
+
+    function aes256_decode($data, $key) {
+
+        $iv = substr($data, 0, 16);
+        $decrypt = substr($data, 16);
+        $decrypt = base64_decode($decrypt);
+        $decrypted = openssl_decrypt(
+            $decrypt, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv
+        );
+        return $decrypted;
+    }
+
+    //i--- Random Strings Generators ; inside_security ; torrison ; 01.08.2018 ; 5 ---/
     function generateRandomString($length = 16) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -110,97 +141,6 @@ Class Security
         }
 
         return $random;
-    }
-
-    function aes256_encode($data, $key) {
-
-        $iv = $this->generateRandomString(16);
-        $res = openssl_encrypt($data, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
-        $res = $iv . base64_encode($res);
-        return $res;
-    }
-
-    function aes256_encode_static($data, $key) {
-
-        $iv = $this->encryption_iv_static;
-        $res = openssl_encrypt($data, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
-        $res = $iv . base64_encode($res);
-        return $res;
-    }
-
-    function aes256_decode($data, $key) {
-
-        $iv = substr($data, 0, 16);
-        $decrypt = substr($data, 16);
-        $decrypt = base64_decode($decrypt);
-        $decrypted = openssl_decrypt(
-            $decrypt, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv
-        );
-        return $decrypted;
-    }
-
-
-    function aes_256_encode_2($data, $key) {
-
-        $iv = substr(sha1(mt_rand()), 0, 16); // 16 rand symbols
-        $encrypted = openssl_encrypt(
-            json_encode($data), 'aes-256-cbc', $key, null, $iv
-        );
-        $encrypted = $encrypted.$iv;
-
-        return base64_encode($encrypted);
-    }
-
-    function aes_256_decode_2($data, $key) {
-
-        $decrypt = base64_decode($data);
-
-        $iv = substr($decrypt, -16);
-        $decrypt = substr($decrypt, 0, -16);
-        $decrypted = openssl_decrypt(
-            $decrypt, 'aes-256-cbc', $key, null, $iv
-        );
-
-        return $decrypted;
-    }
-
-    function String2Hex($string){
-        $hex='';
-        for ($i=0; $i < strlen($string); $i++){
-            $hex .= dechex(ord($string[$i]));
-        }
-        return $hex;
-    }
-
-    function Hex2String($hex){
-        $string='';
-        for ($i=0; $i < strlen($hex)-1; $i+=2){
-            $string .= chr(hexdec($hex[$i].$hex[$i+1]));
-        }
-        return $string;
-    }
-
-    function ascii2hex($ascii) {
-        $hex = '';
-        for ($i = 0; $i < strlen($ascii); $i++) {
-            $byte = strtoupper(dechex(ord($ascii{$i})));
-            $byte = str_repeat('0', 2 - strlen($byte)).$byte;
-            $hex.=$byte." ";
-        }
-        return $hex;
-    }
-
-    function hex2str($hex) {
-        $str = '';
-        for($i=0;$i<strlen($hex);$i+=2) $str .= chr(hexdec(substr($hex,$i,2)));
-        return $str;
-    }
-
-    function hexToAscii($inputHex) {
-        $inputHex = str_replace(' ', '', $inputHex);
-        $inputHex = str_replace('\x', '', $inputHex);
-        $ascii = pack('H*', $inputHex);
-        return $ascii;
     }
 
 }

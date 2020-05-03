@@ -9,6 +9,7 @@ $GLOBALS['inside4_main_config'] = Array(
         'db_user' => '',
         'db_password' => '',
     ),
+    //i--- Random constants and keys for security reasons ; inside_security ; torrison ; 01.08.2018 ; 1 ---/
     'Security' => Array (
         'encryption_salt1' => '',
         'encryption_salt2' => '',
@@ -21,6 +22,7 @@ $GLOBALS['inside4_main_config'] = Array(
         'from_name' => 'Inside Mailer',
         'mail_password' => '',
     ),
+    //i--- Website Config Data ; inside_template ; torrison ; 01.05.2020 ; C1 ---/
     'Website' => Array (
         'sitename' => 'Inside 4 Sandbox',
         'base_url' => 'https://inside4sandbox.ikiev.biz',

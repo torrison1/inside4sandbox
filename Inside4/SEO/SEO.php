@@ -5,6 +5,7 @@ namespace Inside4\SEO;
 Class SEO
 {
 
+    //i--- SEO texts for URLs ; inside_seo ; torrison ; 01.05.2020 ; 1 ---/
     var $seo_data = Array(
         Array(
             'page_url' => '/',
@@ -98,6 +99,7 @@ Class SEO
         ),
     );
 
+    //i--- Add SEO data method ; inside_seo ; torrison ; 01.05.2020 ; 2 ---/
     public function add_page_seo_data() {
 
         $res = Array();

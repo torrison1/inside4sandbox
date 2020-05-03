@@ -40,13 +40,6 @@
                 </ul>
             <?php } ?>
 
-            <ul class="list-group">
-                <li class="list-group-item active">Functions</li>
-                <li class="list-group-item">
-                    <a class="btn btn-xs btn-success">I Agree with this!</a>
-                </li>
-            </ul>
-
             <?php if ($manual_html != '') { ?>
                 <ul class="list-group">
                     <li class="list-group-item active">Files and blocks</li>
@@ -55,6 +48,14 @@
                     </li>
                 </ul>
             <?php } ?>
+
+            <ul class="list-group">
+                <li class="list-group-item active">Functions</li>
+                <li class="list-group-item">
+                    <a class="btn btn-xs btn-success">I Agree with this!</a>
+                </li>
+            </ul>
+
         </li>
     </ul>
 </td>
