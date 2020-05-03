@@ -132,7 +132,7 @@
             // alert(block.html());
 
             if (block.html() == '') {
-                $.get('/inside/module_info/?system_name='+module_system_name, function(data){
+                $.get('/Inside_Modules/module_info/?system_name='+module_system_name, function(data){
 
                     block.html(data);
 

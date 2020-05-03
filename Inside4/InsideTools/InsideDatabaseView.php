@@ -5,7 +5,9 @@ use stdClass;
 
 Class InsideDatabaseView {
 
-    public function view() {
+    public function view($to_var = true) {
+
+        if ($to_var) ob_start();
 
         // RAW COPY from Inside0
 
@@ -240,7 +242,8 @@ Class InsideDatabaseView {
         echo "</div>";
         echo "</body></html>";
 
-    }
+        if ($to_var) return ob_get_clean();
 
+    }
 
 }

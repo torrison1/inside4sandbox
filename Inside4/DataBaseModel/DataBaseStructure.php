@@ -7,6 +7,7 @@ Class DataBaseStructure
 
         $database_tables = Array();
 
+        // TO DO
         $table = Array(
             'module' => 'Auth_System',
             'name' => 'auth_users',
