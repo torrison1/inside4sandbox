@@ -1,6 +1,6 @@
 <td colspan="7">
     <ul class="list-group">
-        <li class="list-group-item active"><?=$module_name?></li>
+        <!-- <li class="list-group-item active"><?=$module_name?></li> -->
         <li class="list-group-item">
             <div class="wblock1" style="padding: 10px; margin-bottom: 20px;">
                 <!--
@@ -15,7 +15,7 @@
 
             <?php if ($module_terminal != '') { ?>
                 <ul class="list-group">
-                    <li class="list-group-item active">Dashboard</li>
+                    <li class="list-group-item">Dashboard</li>
                     <li class="list-group-item">
                         <?=$module_terminal?>
                     </li>
@@ -24,7 +24,7 @@
 
             <?php if ($system_elements != '') { ?>
                 <ul class="list-group">
-                    <li class="list-group-item active">Main System Elements</li>
+                    <li class="list-group-item" style="background-color:#f0f0f0; font-weight: bold;">Main System Elements</li>
                     <li class="list-group-item">
                         <?=$system_elements?>
                     </li>
@@ -33,7 +33,7 @@
 
             <?php if ($module_how_to_use != '') { ?>
                 <ul class="list-group">
-                    <li class="list-group-item active">How to use?</li>
+                    <li class="list-group-item">How to use?</li>
                     <li class="list-group-item">
                         <?=$module_how_to_use?>
                     </li>
@@ -42,20 +42,21 @@
 
             <?php if ($manual_html != '') { ?>
                 <ul class="list-group">
-                    <li class="list-group-item active">Files and blocks</li>
+                    <li class="list-group-item" style="background-color:#f0f0f0; font-weight: bold;">Files and blocks</li>
                     <li class="list-group-item">
                         <?=$manual_html?>
                     </li>
                 </ul>
             <?php } ?>
 
+            <!--
             <ul class="list-group">
-                <li class="list-group-item active">Functions</li>
+                <li class="list-group-item">Functions</li>
                 <li class="list-group-item">
                     <a class="btn btn-xs btn-success">I Agree with this!</a>
                 </li>
             </ul>
-
+            -->
         </li>
     </ul>
 </td>
