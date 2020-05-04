@@ -431,7 +431,7 @@
 
         $("<div dialog_id='" + dialog_id + "'></div>").dialog({
             autoOpen: true,
-            title: 'Добавить запись',
+            title: 'Add',
             width: screen_width,
             height: dialog_height,
             canMinimize: true,
@@ -473,7 +473,7 @@
 
         $("<div dialog_id='" + dialog_id + "'></div>").dialog({
             autoOpen: true,
-            title: 'Копировать #' + tmp_line_id,
+            title: 'Copy #' + tmp_line_id,
             width: screen_width,
             height: dialog_height,
             canMinimize: true,
@@ -521,7 +521,7 @@
 
             $("<div dialog_id='" + dialog_id + "'></div>").dialog({
                 autoOpen: true,
-                title: 'Редактировать #' + tmp_line_id,
+                title: 'Edit #' + tmp_line_id,
                 width: screen_width,
                 height: dialog_height,
                 canMinimize: true,
@@ -570,7 +570,7 @@
     function inside_temporary_dialog($message) {
         $("<div class='success_info' dialog_id=" + dialog_id + "><b>" + $message + "</b></div>").dialog({
             autoOpen: true,
-            title: 'Сообщение',
+            title: 'Message',
             width: 200,
             height: 90,
             canMinimize: true,
@@ -589,7 +589,7 @@
     function inside_temporary_dialog_with_time($message, $time) {
         $("<div class='success_info' dialog_id=" + dialog_id + "><b>" + $message + "</b></div>").dialog({
             autoOpen: true,
-            title: 'Сообщение',
+            title: 'Message',
             width: 230,
             height: 110,
             canMinimize: true,
