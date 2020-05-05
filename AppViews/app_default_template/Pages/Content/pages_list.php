@@ -60,14 +60,14 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-5 col-md-5 it-product-bg">
                             <div class="product-img">
-                                <a href="/content/show_by_alias/<?= $page['content_alias'] ?>">
+                                <a href="/info/page/<?= $page['content_alias'] ?>">
                                     <?php if ($page['content_img'] != '') { ?>
                                         <img class="img-responsive center-block wblock1"
-                                             src="/files/uploads/content_img/<?= $page['content_img'] ?>"
+                                             src="/Uploads/content_img/<?= $page['content_img'] ?>"
                                              alt="<?= $page['content_name'] ?>">
                                     <?php } else { ?>
                                         <img class="img-responsive center-block wblock1"
-                                             src="/files/uploads/post_images/no-image-available.jpg"
+                                             src="/Uploads/content_img/no-image-available.jpg"
                                              alt="<?= $page['content_name'] ?>">
                                     <?php } ?>
                                 </a>
@@ -76,7 +76,7 @@
                         <div class="col-sm-12 col-lg-7 col-md-7">
 
                             <h2 class="heading-left it-tw-6 content-name"><a
-                                    href="/content/show_by_alias/<?= $page['content_alias'] ?>"><?= $page['content_name'] ?></a>
+                                    href="/info/page/<?= $page['content_alias'] ?>"><?= $page['content_name'] ?></a>
                             </h2>
                             <div class="product-data d-inline-block">
                                     <i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;
@@ -102,7 +102,7 @@
                             </div>
                             <p><?= $page['content_desc'] ?></p>
                             <div>
-                                <a href="/content/show_by_alias/<?= $page['content_alias'] ?>" >Подробнее... &#8594;</a>
+                                <a href="/info/page/<?= $page['content_alias'] ?>" >Подробнее... &#8594;</a>
                             </div>
                         </div>
                     </div>

@@ -309,6 +309,10 @@ a {
     width: 100%;
     max-width: 365px;
 }
+.gallery_img_holder {
+    height:200px;
+    overflow: hidden;
+}
 
 /* --------- Fix Mobile TOP problem ---------- */
 

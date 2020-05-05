@@ -1,8 +1,8 @@
 <!-- Lightslider -->
-<script src="/files/admin/js/lightslider/js/lightslider.js"></script>
+<script src="/Public/InsideAdmin/inside_admin_template/js/lightslider/js/lightslider.js"></script>
 <!-- Lightgallery -->
-<script src="/files/admin/js/lightGallery/dist/js/lightgallery.min.js"></script>
-<script src="/files/admin/js/lightGallery/dist/js/lg-video.min.js"></script>
+<script src="/Public/InsideAdmin/inside_admin_template/js/lightGallery/dist/js/lightgallery.min.js"></script>
+<script src="/Public/InsideAdmin/inside_admin_template/js/lightGallery/dist/js/lg-video.min.js"></script>
 
 <script type="text/javascript">(function() {
         if (window.pluso)if (typeof window.pluso.start == "function") return;
@@ -31,7 +31,7 @@
         }
         else {
             var options = {
-                url: "/content/ajax_add_comment/",
+                url: "/info/ajax_add_comment/",
                 success: function(data) {
                     var obj = jQuery.parseJSON(data);
                     if (obj.status == "success") {

@@ -151,6 +151,53 @@ Class Info_system
         }
     }
 
+    public function get_page_row_by_alias($alias)
+    {
+        if ($GLOBALS['Commons']['lang'] == 'en')
+        {
+            $res = $this->db->sql_get_data("SELECT *
+							FROM it_content 
+							WHERE content_alias = ".$this->db->quote($alias)." 
+							LIMIT 1");
+
+            if (isset($res[0])) return $res[0];
+            else return false;
+        }
+        else
+        {
+            $res = $this->db->sql_get_data("SELECT 
+										
+										it_content_translate.content_name as content_name_translate,
+										it_content_translate.content_desc as content_desc_translate,
+										
+										it_content.* 
+										
+										FROM it_content
+										
+										LEFT JOIN it_content_translate ON it_content.content_id = it_content_translate.content_id 
+										
+										AND it_content_translate.content_lang_alias = ".$this->db->quote($GLOBALS['Commons']['lang'])."
+										
+										WHERE
+										it_content.content_alias = ".$this->db->quote($alias)." 
+
+										LIMIT 1
+										");
+
+            if (isset($res[0]))
+            {
+                $row = $res[0];
+                if ($row['content_name_translate'] != '') $row['content_name'] = $row['content_name_translate'];
+                if ($row['content_desc_translate'] != '') $row['content_desc'] = $row['content_desc_translate'];
+
+                return $row;
+            }
+            else return false;
+
+
+        }
+    }
+
 
 
     public function get_tags_list()

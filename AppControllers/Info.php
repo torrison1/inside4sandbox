@@ -50,33 +50,36 @@ Class Info extends BaseController
     }
 
     //i--- Show by Alias / Full Page View ; inside_content_pages ; torrison ; 01.10.2018 ; 11 ---/
-    public function page() {
+    public function page($alias = '') {
+
+        if ($alias !== '') $_GET['alias'] = $alias;
+
+        $info_system = new \Inside4\Content\Info_system;
+        $info_system->db =& $this->db;
 
         if (isset($_GET['alias'])) {
             $alias = $_GET['alias'];
-            $page_row = $this->pages->get_page_row_by_alias($alias);
+            $page_row = $info_system->get_page_row_by_alias($alias);
         }
         else if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            $page_row = $this->pages->get_page_row($id);
+            $page_row = $info_system->get_page_row($id);
         } else {
             echo "No ID or Alias";
             exit();
         }
 
-        $this->data['content_tags_arr'] = $this->pages->get_content_tags_arr();
-        $this->data['content_categories_arr'] = $this->categories->get_content_categories_arr();
+        $this->data['content_tags_arr'] = $info_system->get_content_tags_arr();
+        $this->data['content_categories_arr'] = $info_system->get_content_categories_arr();
         $this->data['page_row'] = $page_row;
-        $this->data['username'] = $page_row['content_user_id'] ? $this->ion_auth->user($page_row['content_user_id'])->row()->username : '';
+        $this->data['username'] = $page_row['content_user_id'] ? $this->auth->user['username'] : '';
 
-        $this->data['comments_arr'] = $this->db->query("SELECT it_comments.*, users.img as avatar, users.email, users.first_name, users.username FROM 
+        $this->data['comments_arr'] = $this->db->sql_get_data("SELECT it_comments.*, auth_users.img as avatar, auth_users.email, auth_users.username FROM 
 															it_comments 
-															LEFT JOIN users ON users.id = it_comments.comments_user_id
+															LEFT JOIN auth_users ON auth_users.id = it_comments.comments_user_id
 															WHERE comments_invisible != 1 AND comments_source = 1 AND comments_source_id = ".intval($page_row['content_id'])."
 															ORDER BY comments_datetime DESC
-															")->result_array();
-
-        $this->data['page_center'] = 'content/page';
+															");
 
         $this->data['seo_title'] = $this->data['page_row']['content_name'];
         $this->data['seo_description'] = $this->data['page_row']['content_name'];
@@ -86,21 +89,23 @@ Class Info extends BaseController
         if ($this->data['page_row']['content_seo_description'] != '') $this->data['seo_description'] = $this->data['page_row']['content_seo_description'];
         if ($this->data['page_row']['content_seo_keywords'] != '') $this->data['seo_keywords'] = $this->data['page_row']['content_seo_keywords'];
 
-        $this->__render();
+        $this->view->render($this->data,'Content/page', 'app_default_template');
     }
+
 
     //i--- Add Comment Method ; inside_content_pages ; torrison ; 01.10.2018 ; 13 ; red ---/
     public function ajax_add_comment() {
         $insert_arr['comments_source'] = '1';
-        $insert_arr['comments_source_id'] = $this->input->post('page_id', TRUE);
-        $insert_arr['comments_text'] = $this->input->post('comment', TRUE);
+        $insert_arr['comments_source_id'] = $this->input->post_secure('page_id');
+        $insert_arr['comments_text'] = $this->input->post_secure('comment');
         $insert_arr['comments_invisible'] = '1';
-        $insert_arr['comments_user_id'] = $this->data['user']->id;
-        $insert_arr['comments_link'] = $this->input->post('page_url', TRUE);
+        $insert_arr['comments_user_id'] = $this->auth->user['id'];
+        $insert_arr['comments_link'] = $this->input->post_secure('page_url');
         $insert_arr['comments_datetime'] = time() + (3600 * 3);
         $this->db->insert('it_comments', $insert_arr);
         echo '{"status":"success", "message": "<strong>Комментарий сохранен, он будет опубликован после модерации!</strong>"}';
         die();
+
         // New mailing functionality
         $this->load->library('mailer');
 

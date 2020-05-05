@@ -4,7 +4,7 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">Главная</a></li>
-				<li class="breadcrumb-item"><a href="/content/plist">Блог</a></li>
+				<li class="breadcrumb-item"><a href="/info/feed">Блог</a></li>
 				<li class="breadcrumb-item" aria-current="page">
 					<?=$page_row['content_name']?>
 				</li>
@@ -16,7 +16,7 @@
 	<section>
 		<div class="container content-page wblock1 p-3">
 			<div class="content-html">
-					<img class="page-image wblock1 mt-2" src="/files/uploads/content_img/<?=$page_row['content_img']?>" alt="<?=$page_row['content_name']?>">
+					<img class="page-image wblock1 mt-2" src="/Uploads/content_img/<?=$page_row['content_img']?>" alt="<?=$page_row['content_name']?>">
 					<h1 class="content-name"><?=$page_row['content_name']?></h1>
 					<div class="content-date">
 						<i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;
@@ -37,12 +37,14 @@
 								if($page_row['content_img_youtube'] != '') $y_img = $page_row['content_img_youtube'];
 
 								?>
-								<img class="img-responsive inside_gallery_img" src="/files/uploads/content_img/<?=$y_img?>">
+								<img class="img-responsive inside_gallery_img" src="/Uploads/content_img/<?=$y_img?>">
 							</a>
 						<?php } ?>
 						<?php foreach($gallery as $image) { ?>
-							<a data-src="/files/uploads/content_img/<?=$image?>">
-								<img class="img-responsive inside_gallery_img" src="/files/uploads/content_img/<?=$image?>">
+							<a data-src="/Uploads/content_img/<?=$image?>">
+                                <div class="gallery_img_holder">
+                                    <img class="img-responsive inside_gallery_img" src="/Uploads/content_img/<?=$image?>">
+                                </div>
 							</a>
 						<?php } ?>
 					</ul>
@@ -53,7 +55,7 @@
 				<i aria-hidden="true" class="fa fa-hashtag"></i>
 				<?php foreach ($content_tags_arr as $tag) { ?>
 					<?php if($tag['content_id'] == $page_row['content_id']) { ?>
-						<a href="<?=$lang_link_prefix?>/content/tag_list/<?=$tag['name']?>"><?=$tag['name']?></a>
+						<a href="<?=$lang_link_prefix?>/info/tag/<?=$tag['name']?>"><?=$tag['name']?></a>
 					<?php } ?>
 				<?php } ?>
 				<?php if($username) echo " by <b>$username"; ?>
@@ -73,7 +75,7 @@
 						<div class="comment mt-3">
 
 							<?php if ($comment['avatar'] == '') $comment['avatar'] = 'no_ava.png'?>
-							<img style="width: 30px;" alt='' src='/files/uploads/users_img/<?=$comment['avatar']?>' class='avatar avatar-35 photo fleft' />
+							<img style="width: 30px;" alt='' src='/Uploads/Users/Avatars/<?=$comment['avatar']?>' class='avatar avatar-35 photo fleft' />
 							<?php
 							if ($comment['username'] != '') {
 								$name = $comment['username'];
@@ -119,7 +121,7 @@
 					<?php } ?>
 
 					<div class="clearfix"></div>
-					<input type="hidden" name="page_url" value='http://prospektus.kiev.ua<?=$lang_link_prefix?>/content/al/<?=$page_row['content_alias']?>' />
+					<input type="hidden" name="page_url" value='/<?=$lang_link_prefix?>/info/page/<?=$page_row['content_alias']?>' />
 					<input type="hidden" name="page_id" value='<?=$page_row['content_id']?>' />
 
 				</form>
