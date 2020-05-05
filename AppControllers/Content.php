@@ -6,7 +6,6 @@ Class Content extends BaseController {
 
     public function contacts(){
 
-        // Page
         $this->view->render($this->data,'Content/contacts', 'app_default_template');
     }
 
