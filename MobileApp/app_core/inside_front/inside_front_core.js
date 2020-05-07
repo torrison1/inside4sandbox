@@ -118,14 +118,14 @@ function log_out() {
     load_page('app_core/pages/main.html', true);
     user_data = {};
     localStorage.setItem('user_data', '');
-    localStorage.setItem('ci_session', '');
-    $.cookie("ci_session", null, { path: '/' });
+    localStorage.setItem('inside4_session', '');
+    $.cookie("inside4_session", null, { path: '/' });
 
 }
 
 function api_call(url, method, callback_function, post_array = {}) {
 
-    let ci_session = encodeURIComponent(localStorage.getItem('ci_session'));
+    let inside4_session = encodeURIComponent(localStorage.getItem('inside4_session'));
 
     let api_server_url = 'https://inside4sandbox.ikiev.biz';
 
@@ -135,28 +135,28 @@ function api_call(url, method, callback_function, post_array = {}) {
 
         if (url.indexOf('?') > -1)
         {
-            url = url+'&inside4_session='+ci_session;
+            url = url+'&inside4_session='+inside4_session;
         } else {
-            url = url+'?inside4_session='+ci_session;
+            url = url+'?inside4_session='+inside4_session;
         }
 
         $.get(url, function(data) {
 
-            console.log(data.ci_session);
-            if (typeof data.ci_session !== 'undefined') {
-                localStorage.setItem('ci_session', data.ci_session)
+            console.log(data.new_token);
+            if (typeof data.new_token !== 'undefined') {
+                localStorage.setItem('inside4_session', data.new_token)
             }
             callback_function(data);
         });
     } else if (method === 'POST') {
 
-        post_array.ci_session = localStorage.getItem('ci_session');
+        post_array.inside4_session = localStorage.getItem('inside4_session');
 
         $.post(url, post_array, function(data) {
 
-            console.log(data.ci_session);
-            if (typeof data.ci_session !== 'undefined') {
-                localStorage.setItem('ci_session', data.ci_session)
+            console.log(data.new_token);
+            if (typeof data.new_token !== 'undefined') {
+                localStorage.setItem('inside4_session', data.new_token)
             }
             callback_function(data);
         });

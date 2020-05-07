@@ -175,6 +175,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/MobileApp"><?=$t->get('pwa_app');?></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/torrison1/inside4sandbox"><?=$t->get('GitHub');?></a>
+                    </li>
                     <li class="nav-item<?php if ($_SERVER['REQUEST_URI'] == '/info/feed') echo " active";?>">
                         <a class="nav-link" href="<?=$lang_link_prefix?>/info/feed"><?=$t->get('info');?></a>
                     </li>
