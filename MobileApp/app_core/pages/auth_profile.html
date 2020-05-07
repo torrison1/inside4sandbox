@@ -31,8 +31,8 @@
 
                                     <form method="post" id="ch_pass_form" class="p-3">
 
-                                        <!-- Easy CSRF Test -->
-                                        <input type="hidden" name="csrf_token" class="csrf_token" value="<?=$this->inside_lib->make_csfr_token($user->id)?>">
+                                        <!-- Easy CSRF Token -->
+                                        <input type="hidden" name="csrf_token" class="csrf_token" value="">
 
                                         <div class="form-group row mt-1">
                                             <label for="old_password" class="col-md-5 col-form-label text-left ttext" ttext="current_password"><?=$this->text->get('current_password');?></label>
@@ -91,8 +91,8 @@
                         <li class="list-group-item">
                             <form action="/auth_api/edit_info/" method="post" id="update_info_form" class="style_form form-inline" enctype="multipart/form-data">
 
-                                <!-- Easy CSRF Test -->
-                                <input type="hidden" name="csrf_token" class="csrf_token" value="<?=$this->inside_lib->make_csfr_token($user->id)?>">
+                                <!-- Easy CSRF Token -->
+                                <input type="hidden" name="csrf_token" class="csrf_token" value="">
 
                                 <div class="form-group row mt-1">
                                     <label for="name" class="col-md-3 col-form-label text-left">Name</label>

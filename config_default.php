@@ -16,6 +16,8 @@ $GLOBALS['inside4_main_config'] = Array(
         'encryption_salt_length' => 8,
         'encryption_aes_key' => '',
         'encryption_iv_static' => '',
+        'csrf_token_key' => '',
+        'csrf_token_salt' => '',
     ),
     'Mailer' => Array (
         'from_email' => '',

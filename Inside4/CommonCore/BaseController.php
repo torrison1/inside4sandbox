@@ -88,6 +88,7 @@ Class BaseController {
         $this->data['inside4_security'] =& $this->security;
         $this->data['t'] =& $this->t;
         $this->data['user'] =& $this->auth->user;
+        $this->data['inside4_input'] =& $this->input;
 
         //i--- Define Global Object for Easy Access ; inside_core ; torrison ; 01.05.2020 ; 3 ---/
         $GLOBALS['Commons']['db'] =& $this->db;

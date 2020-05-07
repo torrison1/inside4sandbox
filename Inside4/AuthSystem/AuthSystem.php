@@ -473,9 +473,4 @@ Class AuthSystem {
     }
 
 
-    public function make_csfr_token($user_id) {
-
-    }
-
-
 }

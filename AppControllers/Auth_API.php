@@ -182,6 +182,9 @@ Class Auth_API extends BaseController {
 
         if (!isset($this->auth->user['id']) OR $this->auth->user['id'] == 0) $this->website->redirect_refresh_message('/',"Try Change Password for Zero User");
 
+        // CSRF easy security
+        $this->security->check_csfr_token($this->auth->user['id']);
+
         $old_password = $this->security->xss_cleaner($_POST['old_password']);
         $new_password = $this->security->xss_cleaner($_POST['new_password']);
         $confirm_password = $this->security->xss_cleaner($_POST['confirm_password']);
@@ -231,6 +234,9 @@ Class Auth_API extends BaseController {
         // https://inside4sandbox.ikiev.biz/Auth_API/update_user_data?test_form=1
 
         if (!isset($this->auth->user['id']) OR $this->auth->user['id'] == 0) $this->website->redirect_refresh_message('/',"Try Update Profile for Zero User");
+
+        // CSRF easy security
+        $this->security->check_csfr_token($this->auth->user['id']);
 
         $result = Array();
         $result['message'] = '';
@@ -349,7 +355,7 @@ Class Auth_API extends BaseController {
             $result['is_admin'] = 0;
             if ($this->auth->in_groups(Array('admin_demo', 'admin')))$result['is_admin'] = 1;
 
-            $result['csfr_token'] = $this->auth->make_csfr_token($user_id);
+            $result['csfr_token'] = $this->security->make_csfr_token($user_id);
 
             $this->response->echo_json($result);
         } else {
@@ -360,6 +366,20 @@ Class Auth_API extends BaseController {
     }
 
     public function get_user_app_texts() {
+        $res = Array();
+        $lang = 'en';
+        foreach ($this->t->get_all_vocabulary_arr($lang) as $row) {
+            $res[$lang][$row['vocabulary_alias']] = $row['vocabulary_name'];
+        }
+        $lang = 'ru';
+        foreach ($this->t->get_all_vocabulary_arr($lang) as $row) {
+            $res[$lang][$row['vocabulary_alias']] = $row['vocabulary_name'];
+        }
+        $lang = 'ua';
+        foreach ($this->t->get_all_vocabulary_arr($lang) as $row) {
+            $res[$lang][$row['vocabulary_alias']] = $row['vocabulary_name'];
+        }
 
+        $this->response->echo_json($res);
     }
 }

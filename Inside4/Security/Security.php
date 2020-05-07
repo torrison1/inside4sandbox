@@ -9,6 +9,8 @@ Class Security
     var $encryption_salt_length = 8;
     var $encryption_aes_key = ''; // 8 symbols
     var $encryption_iv_static = ''; // 8 symbols
+    var $csrf_token_key = ''; // 32 symbols
+    var $csrf_token_salt = ''; // 32 symbols
 
     // Dependencies
     var $db;
@@ -19,6 +21,8 @@ Class Security
         $this->encryption_salt_length = $GLOBALS['inside4_main_config']['Security']['encryption_salt_length'];
         $this->encryption_aes_key = $GLOBALS['inside4_main_config']['Security']['encryption_aes_key'];
         $this->encryption_iv_static = $GLOBALS['inside4_main_config']['Security']['encryption_iv_static'];
+        $this->csrf_token_key = $GLOBALS['inside4_main_config']['Security']['csrf_token_key'];
+        $this->csrf_token_salt = $GLOBALS['inside4_main_config']['Security']['csrf_token_salt'];
     }
 
     //i--- Encrypt/Decrypt test method ; inside_security ; torrison ; 01.08.2018 ; 2 ---/
@@ -141,6 +145,22 @@ Class Security
         }
 
         return $random;
+    }
+
+    // ---------------------------------- CSRF ---------------------------------
+    function csfr_token($user_id) {
+        return $user_id.$this->csrf_token_salt.$user_id;
+    }
+
+    function make_csfr_token($user_id) {
+        return $this->aes256_encode($this->csfr_token($user_id), $this->csrf_token_key);
+    }
+
+    function check_csfr_token($user_id) {
+        if ($this->aes256_decode($_POST['csrf_token'], $this->csrf_token_key) != $this->csfr_token($user_id)) {
+            // echo $this->aes_256_decode_2($_POST['csrf_token'])." !== ".$this->csfr_token($user_id);
+            exit();
+        }
     }
 
 }

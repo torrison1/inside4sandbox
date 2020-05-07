@@ -4,9 +4,9 @@
 
 Demo Website: https://inside4sandbox.ikiev.biz/
 
-Demo PWA App: https://inside4sandbox.ikiev.biz/MobileApp
-
 Login Page: https://inside4sandbox.ikiev.biz/auth/login
+
+Demo Admin Panel: https://inside4sandbox.ikiev.biz/inside/admin
 
 |=================================================================|
 |   Test Demo Admin User                                          |
@@ -14,7 +14,14 @@ Login Page: https://inside4sandbox.ikiev.biz/auth/login
 |   Password: zzzABC123                                           |
 |=================================================================|
 
-Demo Admin Panel: https://inside4sandbox.ikiev.biz/inside/admin
+
+Demo PWA App: https://inside4sandbox.ikiev.biz/MobileApp
+
+|=================================================================|
+|   Test Demo Mobile App User                                     |
+|   Login: 1@1.com                                                |
+|   Password: zzz123                                              |
+|=================================================================|
 
 ==========================================================================================================================
 Inside 4 Sandbox Web-project Basis Info:

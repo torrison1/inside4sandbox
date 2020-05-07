@@ -29,6 +29,9 @@
 
                                     <form method="post" id="ch_pass_form" class="p-3">
 
+                                        <!-- Easy CSRF Token -->
+                                        <input type="hidden" name="csrf_token" value="<?=$inside4_security->make_csfr_token($user['id'])?>">
+
                                         <div class="form-group row mt-1">
                                             <label for="old_password" class="col-md-5 col-form-label text-left"><?=$t->get('current_password');?></label>
                                             <div class="col-md-7">
@@ -85,7 +88,11 @@
                         <li class="list-group-item active text-center"><?=$t->get('personal_data');?></li>
                         <li class="list-group-item">
                             <form action="/auth_api/edit_info/" method="post" id="update_info_form" class="style_form form-inline" enctype="multipart/form-data">
-                            <div class="form-group row mt-1">
+
+                                <!-- Easy CSRF Token -->
+                                <input type="hidden" name="csrf_token" value="<?=$inside4_security->make_csfr_token($user['id'])?>">
+
+                                <div class="form-group row mt-1">
                                 <label for="name" class="col-md-3 col-form-label text-left">NickName</label>
                                 <div class="col-md-9">
                                     <input class="form-control" type="text" id="name"  name="name" value="<?=$user['username']?>">

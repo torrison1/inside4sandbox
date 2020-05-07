@@ -52,4 +52,12 @@ Class TextsTranslate {
         return $data;
     }
 
+    //i--- Get All Language Array for Apps Cache List ; inside_text_transalate ; torrison ; 07.08.2018 ; 4 ---/
+    public function get_all_vocabulary_arr($lang_alias) {
+        $res = $this->db->sql_get_data("SELECT *
+									FROM ".$this->VocabularyTable."
+									WHERE vocabulary_lang = ".$this->db->quote($lang_alias)."
+									");
+        return $res;
+    }
 }
