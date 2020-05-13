@@ -5,6 +5,18 @@ use Inside4\CommonCore\BaseController as BaseController;
 Class Inside_Modules extends BaseController
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $admin_system = new \Inside4\InsideAdminSystem\InsideAdminSystem;
+        $admin_system->init();
+
+        $this->data['top_menu'] = 'MENU';
+        $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
+        $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
+    }
+
     //i--- AJAX API for HTML of Module Info Block ; inside_modules_system ; torrison ; 01.05.2020 ; 2 ---/
     public function module_info() {
 
@@ -12,7 +24,26 @@ Class Inside_Modules extends BaseController
 
         $modules_system->db =& $this->db;
         $modules_system->view =& $this->view;
-        echo $modules_system->module_info($_GET['system_name']);
+        echo $modules_system->module_info($this->input->get_secure('system_name'));
+    }
+
+    //i--- AModule Easy Page ; inside_modules_system ; torrison ; 01.05.2020 ; 2a ---/
+    public function module() {
+
+        $modules_system = new \Inside4\InsideTools\InsideModularSystem;
+
+        $modules_system->db =& $this->db;
+        $modules_system->view =& $this->view;
+
+        $this->data['content'] = '';
+        $system_names = $this->input->get_secure('system_name');
+        $system_names = explode(', ', $system_names);
+        foreach ($system_names as $system_name) {
+            $this->data['content'] .= $modules_system->module_info($system_name);
+        }
+
+
+        $this->view->render($this->data,'admin_page', 'inside_admin_template');
     }
 
     //i--- >> TO DO >> Refresh Modules Info API Link ; inside_modules_system ; torrison ; 01.05.2020 ; 3 ---/

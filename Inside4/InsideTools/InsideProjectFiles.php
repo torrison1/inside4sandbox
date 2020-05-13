@@ -6,6 +6,7 @@ Class InsideProjectFiles {
 
     var $i=0;
     var $db;
+    var $modules_files;
 
 
     var $vendor_folders = Array(
@@ -52,7 +53,44 @@ Class InsideProjectFiles {
     );
     public function view($to_var = true) {
 
+        $db =& $GLOBALS['Commons']['db'];
+
         if ($to_var) ob_start();
+
+        // Get Modules data
+        $query = "SELECT * FROM inside_modules WHERE off != 1 ORDER BY priority";
+        $modules_data = $db->sql_get_data($query);
+
+        $modules_files = Array();
+        echo "<pre>";
+        foreach ($modules_data as $m) {
+            // echo json_encode($m, JSON_PRETTY_PRINT);
+
+            if (isset($m['files_json']) AND $m['files_json'] != '') { foreach (json_decode($m['files_json'], true) as $file) {
+                // echo json_encode($file, JSON_PRETTY_PRINT);
+                // echo $file['path'];
+                $file['module_id'] =  $m['id'];
+                $file['module_name'] =  $m['name'];
+                $file['module_system_name'] =  $m['system_name'];
+                $file['path'] = str_replace('\\','', $file['path']);
+                if (substr($file['path'], 0, 1) == '/') $file['path'] = substr($file['path'], 1);
+                if (substr($file['path'], -1) == '/') $file['path'] = substr($file['path'], 0, -1);
+                // $file['path'] = str_replace('\\'. '|', $file['path']);
+                if (isset($modules_files[$file['path']])) {
+                    $modules_files[$file['path']]['module_id'] .= ', '.$file['module_id'];
+                    $modules_files[$file['path']]['module_name'] .= ', '.$file['module_name'];
+                    $modules_files[$file['path']]['module_system_name'] .= ', '.$file['module_system_name'];
+                } else {
+                    $modules_files[$file['path']] = $file;
+                }
+
+            } }
+
+        }
+
+        $this->modules_files = $modules_files;
+        // echo print_r($modules_files, true);
+        echo "</pre>";
 
         $path = str_replace('/Inside4/InsideTools/InsideProjectFiles.php','', __FILE__);
 
@@ -96,7 +134,13 @@ Class InsideProjectFiles {
         $str_result = "";
 
         $dir_view = str_replace('/home/ikiev/ikiev.biz/inside4sandbox/','',$parent_dir );
-        $str_result .= "<li style='font-weight: bold;'>". ($dir_view) ."</li>";
+        $str_result .= "<li style='font-weight: bold;'>";
+        $dir_view_a = "<a style='color:#333' href='https://github.com/torrison1/inside4sandbox/tree/master/{$dir_view}'>".$dir_view."</a>";
+        $str_result .= $dir_view_a;
+        if (isset($this->modules_files[$dir_view]))
+            $str_result .= " <a style='color: darkgreen' href='/Inside_Modules/module/?system_name=".$this->modules_files[$dir_view]['module_system_name']."'> +++ ".$this->modules_files[$dir_view]['module_name']."</a>";
+
+        $str_result .= "</li>";
         $str_result .= "<ul>";
 
         // $str_result .= ">> ".$parent_dir." <<";
@@ -121,7 +165,12 @@ Class InsideProjectFiles {
                 if( is_dir($parent_dir . "/" . $file) ){
                     $str_result .= "" . $this->read_dir_content($parent_dir . "/" . $file, $depth++) . "";
                 } else {
-                    $str_result .= "<li> [".$this->i."] {$file}</li>";
+                    $file_full = $parent_dir . "/" . $file;
+                    $file_full = str_replace('/home/ikiev/ikiev.biz/inside4sandbox/', '', $file_full);
+                    $modules = '';
+                    if (isset($this->modules_files[$file_full])) $modules = " <a style='color: darkgreen' href='/Inside_Modules/module/?system_name=".$this->modules_files[$file_full]['module_system_name']."'> +++ ".$this->modules_files[$file_full]['module_name']."</a>";
+                    $file = "<a style='color:#333' href='https://github.com/torrison1/inside4sandbox/tree/master/{$file_full}'>".$file."</a>";
+                    $str_result .= "<li> [".$this->i."] {$file} ({$modules})</li>";
                 }
                 $this->i++;
             }

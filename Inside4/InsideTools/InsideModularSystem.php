@@ -98,7 +98,7 @@ Class InsideModularSystem
             $json = $this->data['module_arr']['files_json'];
             $module['files'] = json_decode($json, true);
 
-            echo $json;
+            // echo $json;
 
             ob_start();
             foreach ($module['files'] as $file) { ?>
