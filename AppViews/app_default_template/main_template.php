@@ -196,7 +196,7 @@
 <?php include "AppViews/".$template_folder."/Pages/" . $page_center.".php" ?>
 
 <!-- //i--- Sticky Footer ; inside_template ; torrison ; 01.08.2018 ; 23 ---/ -->
-<footer class="footer pt-4 pt-md-5 border-top wblock1">
+<footer class="footer pt-4 pt-md-5 border-top">
     <div class="container mt-2">
         <div class="row">
             <div class="col-12 col-md text-center">
