@@ -14,7 +14,7 @@ Class Globals {
         $GLOBALS['inside4']['Timer']['time_start'] = microtime();
 
         //i--- Set Default Language [RAW] ; inside_4_core_structure ; torrison ; 01.05.2020 ; 2 ---/
-        $GLOBALS['inside4']['translate']['default_lang'] = 'en'; // <<< Default System Language
+        $GLOBALS['inside4']['translate']['default_lang'] = $GLOBALS['inside4_main_config']['Translate']['default_lang']; // <<< Default System Language
 
         //i--- Set Base URL ; inside_4_core_structure ; torrison ; 01.05.2020 ; 3 ---/
         $GLOBALS['inside4']['main']['base_url'] = sprintf(

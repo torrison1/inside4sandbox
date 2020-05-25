@@ -7,7 +7,7 @@ Class TextsTranslate {
     var $LanguagesTable = 'lang_names';
     var $VocabularyTable = 'lang_vocabulary';
     var $activeLanguage;
-    var $defaultLanguage = 'en';
+    var $defaultLanguage = '';
     var $LoadedVocabulary;
 
     // Dependencies
@@ -16,6 +16,7 @@ Class TextsTranslate {
     //i--- TextsTranslate init and define system language ; inside_text_transalate ; torrison ; 01.08.2018 ; 1 ---/
     public function init(){
 
+        if ($this->defaultLanguage == '') $this->defaultLanguage = $GLOBALS['inside4']['translate']['default_lang'];
         $this->activeLanguage = $this->defaultLanguage;
 
         foreach ($this->getLanguages() as $lang) {
