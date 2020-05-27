@@ -11,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-sliderAccess.js"></script>
 
 <!-- Geo complete -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCujX_HHmvBXud51cZPZjtfSXZELyZY9kQ&libraries=places&language=ru&region=RU" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?=$GLOBALS['inside4_main_config']['Website']['google_maps_key']?>&libraries=places&language=ru&region=RU" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/geocomplete/1.7.0/jquery.geocomplete.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>

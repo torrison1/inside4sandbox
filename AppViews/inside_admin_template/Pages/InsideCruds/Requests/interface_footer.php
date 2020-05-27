@@ -1,17 +1,11 @@
 <link rel="stylesheet" href="/Public/InsideAdmin/inside_admin_template/inside/css/ui.multiselect.css">
 <link rel="stylesheet" href="/Public/InsideAdmin/inside_admin_template/inside/css/ui.combobox.css">
-<!--chosen-->
-<link rel="stylesheet" href="/Public/InsideAdmin/inside_admin_template/inside/jquery_chosen/chosen.min.css">
 
 <script src="/Public/InsideAdmin/inside_admin_template/inside/js/jquery.dialog.extra.js"></script>
 
-
-<script src="/Public/InsideAdmin/inside_admin_template/inside/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="/Public/InsideAdmin/inside_admin_template/inside/js/scrollTo/jquery.scrollTo-min.js"></script>
 <script type="text/javascript" src="/Public/InsideAdmin/inside_admin_template/inside/js/ui.multiselect.js"></script>
 <script type="text/javascript" src="/Public/InsideAdmin/inside_admin_template/inside/js/ui.combobox.js"></script>
-
-<script type="text/javascript" src="/Public/InsideAdmin/inside_admin_template/inside/jquery_chosen/chosen.jquery.min.js"></script>
 
 <script src="/Public/InsideAdmin/inside_admin_template/inside/js/jquery.stickytableheaders.min.js" type="text/javascript"></script>
 
@@ -160,7 +154,7 @@
             var text = "Selected cells IDs: <br />" + del_ids.slice(0, -2);
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
-            // Make Dialog
+            // Delete Dialog
             $("<div cell_id='" + this.value + "'><form method='post' action='/inside_AT/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
@@ -204,14 +198,9 @@
 
             $(this).attr('disabled', 'disabled');
 
-            // Update HTML Editor if it created
-            for (var instanceName in CKEDITOR.instances)
-                CKEDITOR.instances[instanceName].updateElement();
-            // Send Form data for Update or Add
-            //var inside_temporary_dialog_message = 'Error';
             var inside_temporary_dialog_message;
             that = $(this);
-            console.log($(this).parent().parent());
+
             $(this).parent().parent().ajaxSubmit({
                 error: function () {
                     inside_temporary_dialog_message = 'Error';
@@ -224,73 +213,14 @@
                         inside_temporary_dialog_message = 'Access Denied';
                         that.removeAttr('disabled');
                     } else {
-                        if($('<div />').html(data).find('.activity').length > 0) {
-                            var activity = $(data).filter('.activity');
-                            $(".activity_comments_holder").prepend(activity);
-                        }
                         inside_temporary_dialog_message = 'Data Saved!';
                     }
                     inside_temporary_dialog(inside_temporary_dialog_message);
-
                     that.removeAttr('disabled');
-
                 }
             });
-
-            // Add activity
-            /*var mess_holder = $(".ui-dialog .activity_comments_holder");
-             $('form[tab_id="activities"]').ajaxSubmit({
-             success: function(data) {
-             mess_holder.prepend(data);
-             //Delete message 'OK!' on the end
-             $('.activity_comments_holder font').remove();
-             }
-             });*/
-
-            //inside_temporary_dialog(inside_temporary_dialog_message);
         });
 
-        // Chat Add Comment
-        $("body").on('click', ".add_chat_comment .add_comment", function () {
-
-            var mess_holder = $(this).parent().children(".comments_holder");
-
-            $(this).parent().ajaxSubmit({
-                success: function (data) {
-                    mess_holder.prepend(data);
-                }
-            });
-            inside_temporary_dialog('Data Saved!');
-        });
-
-        // Access Edit Data
-        $("body").on('click', ".edit_access", function () {
-
-            var table = $(this).parent().children("table");
-
-            $(this).parent().ajaxSubmit({
-                success: function (data) {
-                    table.prepend(data);
-                }
-            });
-            inside_temporary_dialog('Data Saved!');
-        });
-
-        // Access Add Rule
-        $("body").on('click', ".add_edit_rule", function () {
-
-            var tr_copy = $(this).parent().children("table").children("tbody").children("tr").eq(1).clone();
-            $(this).parent().children("table").children("tbody").append(tr_copy);
-            // alert (tr_copy.html());
-
-        });
-
-        // Access Del Rule
-        $("body").on('click', ".del_edit_rule", function () {
-            if (typeof ($(this).parent().parent().parent().children("tr").eq(2).html()) !== 'undefined') {
-                $(this).parent().parent().remove();
-            }
-        });
 
         // Click ALL
         $('#inside_terminal').on('click', 'input#box0', function () {
@@ -317,6 +247,7 @@
             $(this).find('.crud_edit_btn').trigger('click');
         });
 
+        // --------- FAST CRUD EDIT ---------------------- //
         $('#inside_terminal').on('click', '.crud_edit_btn', function (e) {
             var table_text = $(this).next();
             var new_value = prompt('', table_text.html());
@@ -333,88 +264,6 @@
             }
             e.stopPropagation();
         });
-
-
-        $(".dropdown-menu").on('mouseover', function () {
-            var items = inside_make_selected_array().length;
-            if(items < 1) {
-                $(this).find('#change_mass_status').prop('disabled',true);
-                $(this).find('#change_mass_status').attr('title','Выберите элементы для смены статуса!');
-                $(this).find('#change_mass_access').prop('disabled',true);
-                $(this).find('#change_mass_access').attr('title','Выберите элементы для смены прав доступа!');
-            } else if(items > 0) {
-                $(this).find('#change_mass_status').prop('disabled',false);
-                $(this).find('#change_mass_status').removeAttr('title');
-                $(this).find('#change_mass_access').prop('disabled',false);
-                $(this).find('#change_mass_access').removeAttr('title');
-            }
-        });
-
-        // Mass change access
-        $("body").on('change','#change_mass_access', function () {
-            var ids = inside_make_selected_array();
-            var value = parseInt($(this).val());
-            if(ids.length > 0) {
-                $.post('/admin/inside_ajax/change_mass_access', {
-                    ids: ids,
-                    access_value: value,
-                    table: global_pdg_table
-                }).done(function (data) {
-                    if(data) {
-                        var obj = JSON.parse(data);
-                        inside_temporary_dialog_with_time(obj.message, 2500);
-                    }
-                }).fail(function() {
-                    inside_temporary_dialog('Ошибка');
-                })
-            }
-            // Reset select value
-            $('option',this).prop('selected', function() {
-                return this.defaultSelected;
-            });
-        });
-
-        // Mass change status
-        $("body").on('change','#change_mass_status', function () {
-            var ids = inside_make_selected_array();
-            var status = parseInt($(this).val());
-            var color = $('option:selected', this).attr('color');
-            var div_color = $('option:selected', this).attr('div-color');
-            if(ids.length > 0) {
-                $.post('/admin/inside_ajax/change_mass_status', {
-                    ids: ids,
-                    status_value: status,
-                    table: global_pdg_table
-                }).done(function (data) {
-                    if(data) {
-                        var obj = JSON.parse(data);
-                        if (obj.update) {
-                            if ($(window).width() > 1007) {
-                                $.each(obj.update, function (index, value) {
-                                    $('.status_select[line_id=' + value + ']').find('select').val(status);
-                                    $('.status_select[line_id=' + value + ']').closest('.table_cell').closest('tr').children('td').css('background-color', color);
-                                    $('.status_select[line_id=' + value + ']').children('.status_line').css('background-color', div_color);
-                                });
-                            } else {
-                                $.each(obj.update, function (index, value) {
-                                    $('.status_select[line_id=' + value + ']').find('select').val(status);
-                                    $('.status_select[line_id=' + value + ']').closest('.table_cell').css('background-color', color);
-                                    $('.status_select[line_id=' + value + ']').children('.status_line').css('background-color', div_color);
-                                });
-                            }
-                        }
-                        inside_temporary_dialog_with_time(obj.message, 2500);
-                    }
-                }).fail(function() {
-                    inside_temporary_dialog('Ошибка');
-                })
-            }
-            // Reset select value
-            $('option',this).prop('selected', function() {
-                return this.defaultSelected;
-            });
-        });
-
 
     // End of Ready.Document Functions
     });
@@ -614,7 +463,7 @@
 
                 var options = {
                     target: "#inside_terminal",
-                    url: "/Inside_AT/scope/",
+                    url: "/Inside_cruds/requests_scope/",
                     success: function () {
 
                         // Resizable
