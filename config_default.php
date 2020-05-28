@@ -36,5 +36,10 @@ $GLOBALS['inside4_main_config'] = Array(
         'g_client_secret' => '',
         'g_redirect_uri' => 'https://inside4sandbox.ikiev.biz/auth/google_redirect/',
         'admin_email' => 'torrison1@gmail.com',
+        'google_maps_key' => '',
+        'google_maps_key2' => '',
+    ),
+    'Translate' => Array(
+        'default_lang' => 'en',
     )
 );
