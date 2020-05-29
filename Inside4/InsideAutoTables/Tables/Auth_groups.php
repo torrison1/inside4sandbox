@@ -7,6 +7,7 @@ Class Auth_groups
     var $table_config;
     var $table_columns;
     var $db_table_name = 'auth_groups';
+    var $interface_name = 'Groups Management';
 
     public function init()
     {

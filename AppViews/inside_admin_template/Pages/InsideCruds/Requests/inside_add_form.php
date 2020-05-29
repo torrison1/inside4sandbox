@@ -8,7 +8,7 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        <form method="post" enctype="multipart/form-data" action="/Inside_cruds/add_request/?table_name=<?=$table_name?>" class="add_tab_form">
+        <form method="post" enctype="multipart/form-data" action="/inside_AT/add_request/?table_name=<?=$table_name?>" class="add_tab_form">
 
             <div class="top_controls">
                 <input type="button" style="" class="btn btn-info cell_tab_submit" tab_id="<?=$key?>" value="Save"/>
@@ -20,7 +20,7 @@
 
                 <?php for ($tab_column=1; $tab_column<=4; $tab_column++) { ?>
                     <div style="max-width: 700px; width: 100%; display: inline-block;">
-
+!!!
                         <!--FIX FOR ADV PRIORITY BlOCK STARTS-->
                         <?php
                         // For Relations Inputs

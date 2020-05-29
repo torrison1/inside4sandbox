@@ -7,6 +7,7 @@ Class Auth_users
     var $table_config;
     var $table_columns;
     var $db_table_name = 'auth_users';
+    var $interface_name = 'Users Management';
 
     public function init()
     {

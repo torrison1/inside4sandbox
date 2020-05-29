@@ -26,6 +26,7 @@ Class Inside extends BaseController
     public function admin() {
 
         // Admin Panel
+        $this->data['admin_interface_name'] = 'Welcome to Inside!';
 
         $modules_system = new \Inside4\InsideTools\InsideModularSystem;
         $modules_system->db =& $this->db;
@@ -37,6 +38,8 @@ Class Inside extends BaseController
 
 
     public function menu_tree() {
+
+        $this->data['admin_interface_name'] = 'Full Menu';
 
         $this->data['data'] = $this->data['top_menu'];
 
@@ -50,6 +53,8 @@ Class Inside extends BaseController
     //i--- Show Database Method ; inside_admin ; torrison ; 01.05.2020 ; 5 ---/
     public function database() {
 
+        $this->data['admin_interface_name'] = 'DB and Admin Tables';
+
         // if Admin Check ( TO DO )
         $obj = new \Inside4\InsideTools\InsideDatabaseView;
         $obj->db =& $this->db;
@@ -60,6 +65,8 @@ Class Inside extends BaseController
 
     //i--- Show Project Files Method ; inside_admin ; torrison ; 01.05.2020 ; 6 ---/
     public function projectfiles() {
+
+        $this->data['admin_interface_name'] = 'Files View';
 
         // if Admin Check ( TO DO )
 

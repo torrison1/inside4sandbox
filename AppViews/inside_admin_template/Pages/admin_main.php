@@ -14,36 +14,36 @@
 
         <br><br>
         Website MAIN:
-        <a href="https://inside4sandbox.ikiev.biz/" target="_blank">https://inside4sandbox.ikiev.biz/</a>
+        <a href="/" target="_blank"><?=$GLOBALS['inside4_main_config']['Website']['base_url']?></a>
         <br>
         GitHub Link:
         <a href="https://github.com/torrison1/inside4sandbox" target="_blank">https://github.com/torrison1/inside4sandbox</a>
         <br>
         Database:
-        <a href="https://inside4sandbox.ikiev.biz/inside/database" target="_blank">https://inside4sandbox.ikiev.biz/inside/database</a>
+        <a href="/inside/database" target="_blank"><?=$GLOBALS['inside4_main_config']['Website']['base_url']?>/inside/database</a>
         <br>
         Project Files:
-        <a href="https://inside4sandbox.ikiev.biz/inside/projectfiles" target="_blank">https://inside4sandbox.ikiev.biz/inside/projectfiles</a>
+        <a href="/inside/projectfiles" target="_blank"><?=$GLOBALS['inside4_main_config']['Website']['base_url']?>/inside/projectfiles</a>
         <br>
 
         <!--
         Inside 4 Modules (New):
-        <a href="https://inside4sandbox.ikiev.biz/inside/modules" target="_blank">https://inside4sandbox.ikiev.biz/inside/modules</a>
+        <a href="/inside/modules" target="_blank">/inside/modules</a>
         <br>
         Inside 4 Modules XML (New):
-        <a href="https://inside4sandbox.ikiev.biz/xTMP/modules.xml" target="_blank">https://inside4sandbox.ikiev.biz/xTMP/modules.xml</a>
+        <a href="/xTMP/modules.xml" target="_blank">/xTMP/modules.xml</a>
         <br>
         Refresh Modules Data (New):
-        <a href="https://inside4sandbox.ikiev.biz/inside/refresh_modules_data" target="_blank">https://inside4sandbox.ikiev.biz/inside/refresh_modules_data</a>
+        <a href="/inside/refresh_modules_data" target="_blank">/inside/refresh_modules_data</a>
         <br>
         -->
 
         Left Menu Admin Table:
-        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu" target="_blank">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_top_menu</a>
+        <a href="/inside_AT/table/inside_top_menu" target="_blank">/inside_AT/table/inside_top_menu</a>
         <br>
 
         Modules Table:
-        <a href="https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules" target="_blank">https://inside4sandbox.ikiev.biz/inside_AT/table/inside_modules</a>
+        <a href="/inside_AT/table/inside_modules" target="_blank">/inside_AT/table/inside_modules</a>
         <br>
 
     </p>

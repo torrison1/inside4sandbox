@@ -122,7 +122,7 @@
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
             // Make Dialog
-            $("<div cell_id='" + mob_line_id + "'><form method='post' action='/inside_AT/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
+            $("<div cell_id='" + mob_line_id + "'><form method='post' action='/Inside_cruds/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
                 width: 300,
@@ -155,7 +155,7 @@
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
             // Delete Dialog
-            $("<div cell_id='" + this.value + "'><form method='post' action='/inside_AT/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
+            $("<div cell_id='" + this.value + "'><form method='post' action='/Inside_cruds/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
                 width: 300,
@@ -252,7 +252,7 @@
             var table_text = $(this).next();
             var new_value = prompt('', table_text.html());
             if (new_value !== null) {
-                $.post('/inside_AT/fast_edit/', {
+                $.post('/Inside_cruds/fast_edit/', {
                     table: '<?=$table_name?>',
                     column: $(this).attr('column'),
                     key_id: $(this).attr('key_id'),
@@ -296,7 +296,7 @@
         });
         // AJAX load information
         var array = {pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/inside_AT/add_dialog/', array, function (data) {
+        $.post('/Inside_cruds/add_dialog/', array, function (data) {
             // Add new AJAX Data
             $('div[dialog_id=' + dialog_id + ']').html(data);
             // Activate Tabs
@@ -338,7 +338,7 @@
         });
         // AJAX load information
         var array = {cell_id: tmp_line_id, pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/inside_AT/add_dialog/' + tmp_line_id, array, function (data) {
+        $.post('/Inside_cruds/add_dialog/' + tmp_line_id, array, function (data) {
             // Add new AJAX Data
             $('div[dialog_id=' + dialog_id + ']').html(data);
             // Activate Tabs
@@ -400,7 +400,7 @@
         $('div[dialog_id=' + dialog_id + ']').html('...');
         // AJAX load information
         var array = {cell_id: tmp_line_id, pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/inside_AT/edit_dialog/', array, function (data) {
+        $.post('/Inside_cruds/edit_dialog/', array, function (data) {
             $('div[dialog_id=' + dialog_id + ']').html(data);
             $('div[dialog_id=' + dialog_id + ']').show();
             // Activate Tabs

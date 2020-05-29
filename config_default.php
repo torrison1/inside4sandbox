@@ -41,5 +41,8 @@ $GLOBALS['inside4_main_config'] = Array(
     ),
     'Translate' => Array(
         'default_lang' => 'en',
+    ),
+    'Admin' => Array (
+        'admin_panel_name' => 'Admin Panel',
     )
 );

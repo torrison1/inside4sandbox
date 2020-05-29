@@ -83,10 +83,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 left_side">
+                        <?php if (isset($admin_interface_name)) echo "<h3>".$admin_interface_name."</h3>";?>
+                        <!--
                         <div class="form-group top_search_holder">
                             <input type="text" class="form-control top_search" placeholder="Search...">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
+                        -->
                     </div>
                     <div class="col-md-6 right_side">
                         <ul class="top_nav">
@@ -145,19 +148,22 @@
     <!--/sidebar-menu-->
     <div class="sidebar-menu">
         <header class="logo1">
-            <a class="mobile_logo" href="/inside/admin">Inside 3.1</a>
+            <a class="mobile_logo" href="/inside/admin"><?=$GLOBALS['inside4_main_config']['Admin']['admin_panel_name']?></a>
             <button type="button" class="sidebar-icon"><span class="fa fa-bars"></span></button>
         </header>
         <div class="menu">
 
             <ul id="menu">
                 <li class="search_box_li">
+                    <br>
+                    <!--
                     <form>
                         <div class="search_box">
                             <input type="text" class="menu_search form-control" placeholder="Search...">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                     </form>
+                    -->
                 </li>
                 <div class="inside_menu_search">
                 </div>

@@ -39,6 +39,8 @@ Class Inside_AT extends BaseController
             $this->data['terminal'] = 'Sorry, this table does not exists';
         }
 
+        if (isset($table_obj->interface_name)) $this->data['admin_interface_name'] = $table_obj->interface_name;
+        else $this->data['admin_interface_name'] = $table_name;
 
         $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
         $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
