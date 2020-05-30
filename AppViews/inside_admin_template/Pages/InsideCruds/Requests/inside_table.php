@@ -1,5 +1,5 @@
 ﻿<?php
-
+//i--- Get Table Object ; inside_custom_cruds ; torrison ; 01.06.2020 ; 1 ---/
 $table_class = "\\Inside4\\InsideAutoTables\\Tables\\".$table_name;
 if (!class_exists($table_class)) exit('No Table '.$table_name.' class!');
 $table_obj = new $table_class();
@@ -12,32 +12,8 @@ $key_column = $table_config['key'];
 $columns_names = array();
 $tab_name = '';
 
-// ========= Status ===================
-
-// IF isse status
-// $status_array = this->db->SQL($sql)
-
-// SQL
-// Get Colors
-// ====================================
-if (isset($table_config['sum_function'])) {
-    $sum = array();
-    foreach ($table_config['sum_function'] as $sum_field) {
-        $sum[$sum_field] = 0;
-    }
-}
-if (isset($table_config['avg_function'])) {
-    $sum_avg = array();
-    $qnt = array();
-    foreach ($table_config['avg_function'] as $sum_field) {
-        $sum_avg[$sum_field] = 0;
-        $qnt[$sum_field] = 0;
-    }
-}
-
-
 ?>
-
+<!-- //i--- Table View ; inside_custom_cruds ; torrison ; 01.06.2020 ; 2 ---/ -->
 <table class="table table-responsive table-bordered stickytable">
     <thead>
     <tr>
@@ -46,43 +22,24 @@ if (isset($table_config['avg_function'])) {
             <label for="box0"></label>
         </th>
 
+        <!-- //i--- Make Headers for Table ; inside_custom_cruds ; torrison ; 01.06.2020 ; 3 ---/ -->
         <?php
         foreach ($table_columns as $config_row) {
             if (isset($config_row['in_crud'])) {
                 $tmp_name = $config_row['name'];
                 $columns_names[$tmp_name] = $config_row['text'];
                 ?>
-
-
                 <th class="pdg_column_header" column="<?= $config_row['name'] ?>">
                     <?= $config_row['text'] ?>
-                    <!--
-                    <div class="sort_box">
-                        <a href="#">
-                            <i class="fa fa-caret-up" aria-hidden="true"></i>
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    -->
                 </th>
-
             <?php }
         } ?>
-        <?php if (isset($table_config['status_rel_name'])) { ?>
-            <?php foreach ($adv_rel_inputs as $rel_row) { ?>
-                <?php if ($rel_row['name'] == $table_config['status_rel_name']) { ?>
-                    <th class="pdg_column_header"><?= $rel_row['status_title_name']; ?></th>
-                    <?php
-                    $status_name = $rel_row['status_title_name'];
-                } ?>
-            <?php } ?>
-        <?php } ?>
-
         <th class="">
         </th>
     </tr>
     </thead>
 
+    <!-- //i--- Make default static Table blocks ; inside_custom_cruds ; torrison ; 01.06.2020 ; 4 ---/ -->
     <?php
     foreach ($table_arr as $table_row) {
         ?>
@@ -106,13 +63,10 @@ if (isset($table_config['avg_function'])) {
                     <ul class="dropdown-menu">
                         <li><a line_id="<?= $table_row[$key_column] ?>" class="mobile_copy_btn">Копировать</a></li>
                         <li><a line_id="<?= $table_row[$key_column] ?>" class="mobile_del_btn">Удалить</a></li>
-                        <!--
-                        <li><a>Удалить</a></li>
-                        -->
                     </ul>
                 </td>
             </div>
-
+            <!-- //i--- Put Data blocks to Table ; inside_custom_cruds ; torrison ; 01.06.2020 ; 5 ---/ -->
             <?php
             foreach ($table_columns as $config_row) {
                 if (isset($config_row['in_crud'])) {
@@ -140,20 +94,6 @@ if (isset($table_config['avg_function'])) {
                                 <?php } ?>
                                 <span class="crud_value_span"><?php if (isset($config_row['instead_name'])) $tmp_name = $config_row['instead_name'];
                         echo $table_row[$tmp_name] ?></span>
-                        <!-- Суммируем значения поля sum_function-->
-                        <?php if (isset($table_config['sum_function'])) {
-                            foreach ($sum as $key => $value) {
-                                if($key == $tmp_name) $sum[$key] += (float)$table_row[$tmp_name];
-                            }
-                        }
-                        /*avg*/
-                        if (isset($table_config['avg_function'])) {
-                            foreach ($sum_avg as $key => $value) {
-                                if($key == $tmp_name) {$sum_avg[$key] += (float)$table_row[$tmp_name]; $qnt[$key]++;}
-                            }
-                        }
-
-                        ?>
 
                             </td>
                         </table>
@@ -162,11 +102,11 @@ if (isset($table_config['avg_function'])) {
                 <?php }
             } ?>
 
-
+            <!-- //i--- Last Cell with Functions buttons ; inside_custom_cruds ; torrison ; 01.06.2020 ; 6 ---/ -->
             <td class="status_cell pdg_column_cell" line_id="<?= $table_row[$key_column] ?>">
-                <?php if (!isset($table_config['status_rel_name'])) { ?>
-                    <div class="status_line"></div>
-                <?php } ?>
+
+                <div class="status_line"></div>
+
                 <a href="/inside/pdg_edit/<?= $table_name ?>/<?= $table_row[$key_column] ?>" OnClick="return false;"
                    class="btn pdg_button_edit" line_id="<?= $table_row[$key_column] ?>"><i class="fa fa-pencil-square-o"
                                                                                            aria-hidden="true"></i></a>

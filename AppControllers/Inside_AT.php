@@ -360,7 +360,7 @@ Class Inside_AT extends BaseController
         $this->db->update(
             $table_obj->db_table_name,
             Array($this->input->post_secure('column') => $this->input->post_secure('value')),
-            " WHERE ".$_POST['key_id']." = ".intval($cell_id)
+            " WHERE `".str_replace('`','',($this->input->post_secure('key_id')))."` = ".intval($cell_id)
         );
 
         // Need Refactoring

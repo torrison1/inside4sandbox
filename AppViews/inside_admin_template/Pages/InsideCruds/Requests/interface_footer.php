@@ -1,3 +1,6 @@
+
+<!-- //i--- Pre-load JS Scripts and CSS Files ; inside_custom_cruds ; torrison ; 01.06.2020 ; 1 ---/ -->
+
 <link rel="stylesheet" href="/Public/InsideAdmin/inside_admin_template/inside/css/ui.multiselect.css">
 <link rel="stylesheet" href="/Public/InsideAdmin/inside_admin_template/inside/css/ui.combobox.css">
 
@@ -11,30 +14,26 @@
 
 <script>
 
-    // JavaScript for Inside System + PowerDataGrid v. 2.1.
-    // Swith off async AJAX
-    $.ajaxSetup({async: false});
+    <!-- //i--- Legacy Code from Inside System + PowerDataGrid v. 2.1. ; inside_custom_cruds ; torrison ; 01.06.2020 ; 2 ---/ -->
 
     var global_pdg_table = $('#pdg_table').val();
+    var global_api_path = '/Inside_cruds/';
 
     $(document).ready(function () {
 
-        // Show main tab
-        $('.nav-tabs li:eq(1) a').tab('show');
+        // Swith off async AJAX
+        $.ajaxSetup({async: false});
 
-        $('.pdg_mass_functions').on('click', function () {
-            console.log(inside_make_selected_string());
-        });
-
-        //open edit dialog from site
+        //i--- Open edit dialog from GET link ?site_open={$row_id}  ; inside_custom_cruds ; torrison ; 01.06.2020 ; 3 ---/
         if(Number(getUrlParameter('site_open')) > 0) {
             open_edit_dialog(getUrlParameter('site_open'), global_pdg_table);
         }
 
-        // Send First Control Form
+        //i--- Send First Control Form On Load  ; inside_custom_cruds ; torrison ; 01.06.2020 ; 4 ---/
         inside_send_control_form();
 
-        // --------------------------------------------------------- CONTROL FORM actions --------------------
+        //i--- CONTROL FORM actions : Send/Update, Order by Column, Fast Search, Limit Change, Pagination  ; inside_custom_cruds ; torrison ; 01.06.2020 ; 5 ---/
+
         // Send Button Click
         $("#pdg_send").on('click', inside_send_control_form);
         // Order Column Click
@@ -77,8 +76,7 @@
             }
         });
 
-        // --------------------------------------------------------- TERMINAL table actions --------------------
-
+        //i--- TERMINAL table actions : click on line, checkboxes, add, copy, delete buttons ; inside_custom_cruds ; torrison ; 01.06.2020 ; 6 ---/
 
         // Click on Line
         $("#inside_terminal").on('click', 'tr.table_row', function () {
@@ -112,6 +110,8 @@
             open_copy_dialog($(this).attr('line_id'), global_pdg_table);
         });
 
+        //i--- Delete Dialogs with API Requests ; inside_custom_cruds ; torrison ; 01.06.2020 ; 7 ---/
+
         // Mobile delete
         $('#inside_terminal').on('click', '.mobile_del_btn', function (e) {
 
@@ -122,7 +122,7 @@
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
             // Make Dialog
-            $("<div cell_id='" + mob_line_id + "'><form method='post' action='/Inside_cruds/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
+            $("<div cell_id='" + mob_line_id + "'><form method='post' action='"+global_api_path+"del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
                 width: 300,
@@ -155,7 +155,7 @@
             var button = '<br /><br /><div class="del_btn_div"><input type="button" class="btn btn-danger cell_tab_submit" tabindex="-1" dialog_id="' + dialog_id + '" value="Delete" /></div>';
 
             // Delete Dialog
-            $("<div cell_id='" + this.value + "'><form method='post' action='/Inside_cruds/del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
+            $("<div cell_id='" + this.value + "'><form method='post' action='"+global_api_path+"del_request/?table_name=" + global_pdg_table + "' dialog_id=" + dialog_id + ">" + text + input + button + "</form></div>").dialog({
                 autoOpen: true,
                 title: 'Delete fields',
                 width: 300,
@@ -174,7 +174,7 @@
 
         });
 
-        // ------------------------------------  CRUD Edit, Delete Dialogs Load ---------------------------------
+        //i--- CRUD Edit, Delete Dialogs Load on Table Cells DblClick or Buttons Click ; inside_custom_cruds ; torrison ; 01.06.2020 ; 8 ---/
 
         // Dbl Clink on Line
         $("#inside_terminal").on('dblclick', '.pdg_column_cell', function () {
@@ -191,9 +191,8 @@
             update_edit_dialog($(this).attr('line_id'), $(this).attr('dialog_id'), $(this).attr('table'))
         });
 
-        // ------------------------------------  Edit, Delete Dialogs Requsts Answers ----------------------------
 
-
+        //i--- Edit, Delete Dialogs Requsts Answers ; inside_custom_cruds ; torrison ; 01.06.2020 ; 9 ---/
         $("body").on('click', '.cell_tab_submit', function () {
 
             $(this).attr('disabled', 'disabled');
@@ -222,7 +221,7 @@
         });
 
 
-        // Click ALL
+        //i--- Checkboxes Click ALL ; inside_custom_cruds ; torrison ; 01.06.2020 ; 10 ---/
         $('#inside_terminal').on('click', 'input#box0', function () {
 
             var check_all = this;
@@ -247,13 +246,13 @@
             $(this).find('.crud_edit_btn').trigger('click');
         });
 
-        // --------- FAST CRUD EDIT ---------------------- //
+        //i--- Cells FAST CRUD EDIT System ; inside_custom_cruds ; torrison ; 01.06.2020 ; 11 ---/
         $('#inside_terminal').on('click', '.crud_edit_btn', function (e) {
             var table_text = $(this).next();
             var new_value = prompt('', table_text.html());
             if (new_value !== null) {
-                $.post('/Inside_cruds/fast_edit/', {
-                    table: '<?=$table_name?>',
+                $.post(global_api_path+'fast_edit/', {
+                    table: global_pdg_table,
                     column: $(this).attr('column'),
                     key_id: $(this).attr('key_id'),
                     line_id: $(this).attr('line_id'),
@@ -268,9 +267,11 @@
     // End of Ready.Document Functions
     });
 
-    //=============================================================================
-    // -------------------------------------     FUNCTIONS    -------------------------------------------------------------
-    // Open ADD tabs Forms in Dialog ---------------------------------------------------------------------------------
+    //===========================================================================================================
+    // -------------------------------------    MAIN FUNCTIONS    -----------------------------------------------
+    //===========================================================================================================
+
+    //i--- Open ADD tabs Forms in Dialog ; inside_custom_cruds ; torrison ; 01.06.2020 ; 12 ---/
     function open_add_dialog(pdg_table) {
         var dialog_height;
         var screen_width = $(document).width();
@@ -296,7 +297,7 @@
         });
         // AJAX load information
         var array = {pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/Inside_cruds/add_dialog/', array, function (data) {
+        $.post(global_api_path+'add_dialog/', array, function (data) {
             // Add new AJAX Data
             $('div[dialog_id=' + dialog_id + ']').html(data);
             // Activate Tabs
@@ -312,7 +313,7 @@
         dialog_shift();
     }
 
-    // Open COPY tabs Forms in Dialog ---------------------------------------------------------------------------------
+    //i--- Open COPY tabs Forms in Dialog ; inside_custom_cruds ; torrison ; 01.06.2020 ; 13 ---/
     function open_copy_dialog(tmp_line_id, pdg_table) {
         var dialog_height;
         var screen_width = $(document).width();
@@ -338,7 +339,7 @@
         });
         // AJAX load information
         var array = {cell_id: tmp_line_id, pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/Inside_cruds/add_dialog/' + tmp_line_id, array, function (data) {
+        $.post(global_api_path+'add_dialog/' + tmp_line_id, array, function (data) {
             // Add new AJAX Data
             $('div[dialog_id=' + dialog_id + ']').html(data);
             // Activate Tabs
@@ -354,7 +355,7 @@
         dialog_shift();
     }
 
-    // Open Edit tabs Forms in Dialog ---------------------------------------------------------------------------------
+    //i--- Open Edit tabs Forms in Dialog ; inside_custom_cruds ; torrison ; 01.06.2020 ; 14 ---/
     function open_edit_dialog(tmp_line_id, pdg_table) {
 
         if ($('.dialog_edit[edit_id=' + tmp_line_id + ']').length > 0 && global_pdg_table == pdg_table) {
@@ -393,14 +394,13 @@
             dialog_shift();
         }
     }
-
-    // Update Edit tabs Forms in Dialog ---------------------------------------------------------------------------------
+    // Update Edit tabs Forms in Dialog
     function update_edit_dialog(tmp_line_id, dialog_id, pdg_table) {
         //dump_alert(pdg_table);
         $('div[dialog_id=' + dialog_id + ']').html('...');
         // AJAX load information
         var array = {cell_id: tmp_line_id, pdg_table: pdg_table, dialog_id: dialog_id};
-        $.post('/Inside_cruds/edit_dialog/', array, function (data) {
+        $.post(global_api_path+'edit_dialog/', array, function (data) {
             $('div[dialog_id=' + dialog_id + ']').html(data);
             $('div[dialog_id=' + dialog_id + ']').show();
             // Activate Tabs
@@ -414,7 +414,7 @@
         });
     }
 
-    // Temporary Dialog message
+    //i--- Temporary Dialogs ; inside_custom_cruds ; torrison ; 01.06.2020 ; 15 ---/
     function inside_temporary_dialog($message) {
         $("<div class='success_info' dialog_id=" + dialog_id + "><b>" + $message + "</b></div>").dialog({
             autoOpen: true,
@@ -452,9 +452,10 @@
         setTimeout("$('.success_info[dialog_id=" + dialog_id + "]').fadeIn('slow', function(){$(this).remove()})", $time);
         dialog_id++;
     }
+
     //=====================================================================
 
-    // Get CRUD by AJAX
+    //i--- Get Scope API Request ; inside_custom_cruds ; torrison ; 01.06.2020 ; 15 ---/
     function inside_send_control_form() {
         $('#inside_terminal').animate(
             {
@@ -463,7 +464,7 @@
 
                 var options = {
                     target: "#inside_terminal",
-                    url: "/Inside_cruds/requests_scope/",
+                    url: global_api_path+"requests_scope/",
                     success: function () {
 
                         // Resizable
@@ -480,6 +481,7 @@
             });
     };
 
+    //i--- Reset Filters Form Action ; inside_custom_cruds ; torrison ; 01.06.2020 ; 16 ---/
     function refresh_control_form() {
 
         $('#control_form')[0].reset();
@@ -492,7 +494,7 @@
 
     }
 
-    // INSIDE FUNCTIONS
+    //i--- INSIDE FUNCTIONS Helpers ; inside_custom_cruds ; torrison ; 01.06.2020 ; 17 ---/
     function inside_make_selected_array() {
         var ids = [];
 
@@ -532,7 +534,6 @@
         // Dialog Shift
         dialog_shift();
     }
-
 
     // GET PARAMETERS
     var getUrlParameter = function getUrlParameter(sParam) {

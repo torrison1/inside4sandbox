@@ -62,6 +62,7 @@ Class It_requests
         $table_columns[$i]['text'] = 'Time';
         $table_columns[$i]['tab'] = 'main';
         $table_columns[$i]['input_type'] = 'unix_time';
+        $table_columns[$i]['help'] = 'Stored in Unixtime format';
         $table_columns[$i]['in_crud'] = true;
 
 
