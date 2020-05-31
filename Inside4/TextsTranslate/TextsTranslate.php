@@ -23,6 +23,8 @@ Class TextsTranslate {
             if ($GLOBALS['inside4']['translate']['uri_prefix_value'] == $lang['lang_alias']) $this->activeLanguage = $lang['lang_alias'];
         }
 
+        $GLOBALS['inside4']['translate']['active_language'] = $this->activeLanguage;
+
         // Load Vocabulary
         $query = "SELECT * FROM ".$this->VocabularyTable." WHERE vocabulary_lang = ".$this->db->quote($this->activeLanguage);
         $data = $this->db->sql_get_data($query);

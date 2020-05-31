@@ -131,7 +131,7 @@
                                     <select class="wbgs1 form-control lang_select" name="lang" onchange="location.href = $(this).val();">
                                         <?php foreach ($t->getLanguages() as $lang) {
                                             ?>
-                                            <option value="/<?=$lang['lang_alias']?><?=$GLOBALS['inside4']['main']['clear_uri']?>" lang="<?=$lang['lang_alias']?>"<?php if ($lang['lang_alias'] == $GLOBALS['inside4']['translate']['uri_prefix_value']) echo " selected";?>>
+                                            <option value="/<?=$lang['lang_alias']?><?=$GLOBALS['inside4']['main']['clear_uri']?>" lang="<?=$lang['lang_alias']?>"<?php if ($lang['lang_alias'] == $GLOBALS['inside4']['translate']['active_language']) echo " selected";?>>
                                                 <?=$t->get($lang['lang_name']);?>
                                             </option>
                                         <?php } ?>
