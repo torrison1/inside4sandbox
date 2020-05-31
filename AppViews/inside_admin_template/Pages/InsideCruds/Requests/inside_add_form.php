@@ -10,7 +10,7 @@
     <div class="tab-content">
 
         <!-- //i--- Add Request Form ; inside_custom_cruds ; torrison ; 01.06.2020 ; 2 ---/ -->
-        <form method="post" enctype="multipart/form-data" action="/Inside_cruds/add_request/?table_name=<?=$table_name?>" class="add_tab_form">
+        <form method="post" enctype="multipart/form-data" action="<?=$default_API_path?>add_request/?table_name=<?=$table_name?>" class="add_tab_form">
 
             <div class="top_controls">
                 <input type="button" style="" class="btn btn-info cell_tab_submit" tab_id="<?=$key?>" value="Save"/>

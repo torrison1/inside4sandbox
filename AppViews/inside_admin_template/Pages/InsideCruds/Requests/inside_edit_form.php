@@ -21,7 +21,7 @@
                     <!-- //i--- Edit Request Forms (for every Tab) ; inside_custom_cruds ; torrison ; 01.06.2020 ; 2 ---/ -->
                     <div class="row">
                         <form method="post" enctype="multipart/form-data"
-                              action="/Inside_cruds/edit_request/?table_name=<?= $table_name ?>&tab=<?= $key ?>&cell_id=<?= $edit_cell_arr[$key_field] ?>"
+                              action="<?=$default_API_path?>edit_request/?table_name=<?= $table_name ?>&tab=<?= $key ?>&cell_id=<?= $edit_cell_arr[$key_field] ?>"
                               class="edit_tab_form" tab_id="<?= $key ?>">
                             <div class="top_controls">
 

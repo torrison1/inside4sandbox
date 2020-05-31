@@ -17,7 +17,7 @@
     <!-- //i--- Legacy Code from Inside System + PowerDataGrid v. 2.1. ; inside_custom_cruds ; torrison ; 01.06.2020 ; 2 ---/ -->
 
     var global_pdg_table = $('#pdg_table').val();
-    var global_api_path = '/Inside_cruds/';
+    var global_api_path = '<?=$default_API_path?>';
 
     $(document).ready(function () {
 

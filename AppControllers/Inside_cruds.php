@@ -30,6 +30,8 @@ Class Inside_cruds extends BaseController
         $this->data['top_menu'] = 'MENU';
         $this->data['menu_arr'] = $admin_system->get_top_menu_arr();
         $this->data['top_menu'] = $this->view->render_to_var($this->data, 'Parts/inside_menu.php', $template_folder = 'inside_admin_template');
+
+        $this->data['default_API_path'] = '/Inside_cruds/';
     }
 
     //i--- ---------------------------------------- ; inside_custom_cruds ; torrison ; 01.06.2020 ; - ---/
