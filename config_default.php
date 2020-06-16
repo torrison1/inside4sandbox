@@ -11,13 +11,13 @@ $GLOBALS['inside4_main_config'] = Array(
     ),
     //i--- Random constants and keys for security reasons ; inside_security ; torrison ; 01.08.2018 ; 1 ---/
     'Security' => Array (
-        'encryption_salt1' => '',
-        'encryption_salt2' => '',
+        'encryption_salt1' => 'Aaaaa1aa',
+        'encryption_salt2' => 'B11bb11b',
         'encryption_salt_length' => 8,
-        'encryption_aes_key' => '',
-        'encryption_iv_static' => '',
-        'csrf_token_key' => '',
-        'csrf_token_salt' => '',
+        'encryption_aes_key' => 'Aaaaa11a',
+        'encryption_iv_static' => '1111111100abcdef',
+        'csrf_token_key' => '1234567890abcdefghiiaabbccddddAA',
+        'csrf_token_salt' => '1234567890aaaabbbbccddeeooxxxzOP',
     ),
     'Mailer' => Array (
         'from_email' => '',

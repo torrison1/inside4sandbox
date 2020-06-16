@@ -472,5 +472,23 @@ Class AuthSystem {
         else return false;
     }
 
+    public function make_email_enter_token($user_id) // Experimental Method [TO DO]
+    {
+
+        do {
+            $token = $this->security->generateRandomString('64').time();
+            $res = $this->db->sql_get_data("SELECT
+                                        email_enter_token
+										FROM {$this->users_table}
+										WHERE email_enter_token = ".$this->db->quote($token)."
+										LIMIT 1
+										");
+        } while(isset($res[0]['email_enter_token']));
+
+        $update_data['email_enter_token'] = $token;
+        $this->db->update($this->users_table, $update_data, 'WHERE id = '.intval($user_id));
+
+        return true;
+    }
 
 }
