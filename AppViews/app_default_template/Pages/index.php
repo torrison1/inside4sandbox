@@ -35,7 +35,7 @@
                 <img class="card-img-top" data-src="/Public/AppFront/app_default_template/img/app2.png" src="/Public/AppFront/app_default_template/img/app2.png" alt="Card image cap">
                 <div class="top-shadow">&nbsp;</div>
                 <div class="card-body">
-                    <h3>App development</h3>
+                    <h3><?=$t->get('add_dev');?></h3>
                     <ul>
                         <li>Product Plan - from 200$</li>
                         <li>Wireframes - from 500$</li>
@@ -49,7 +49,7 @@
                 <img class="card-img-top" data-src="/Public/AppFront/app_default_template/img/website2.png" src="/Public/AppFront/app_default_template/img/website2.png" alt="Card image cap">
                 <div class="top-shadow">&nbsp;</div>
                 <div class="card-body">
-                    <h3>Web-site</h3>
+                    <h3><?=$t->get('web_site');?></h3>
                     <ul>
                         <li>Product Plan - from 40$</li>
                         <li>Wireframes - from 100$</li>
@@ -64,7 +64,7 @@
                 <img class="card-img-top" data-src="/Public/AppFront/app_default_template/img/startup2.png" src="/Public/AppFront/app_default_template/img/startup2.png" alt="Card image cap">
                 <div class="top-shadow">&nbsp;</div>
                 <div class="card-body">
-                    <h3>Custom Web-service / Startup</h3>
+                    <h3><?=$t->get('custom_startups');?></h3>
                     <ul>
                         <li>Product Plan - from 200$</li>
                         <li>Wireframes - from 500$</li>

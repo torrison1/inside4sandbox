@@ -10,6 +10,8 @@ header("Pragma: no-cache");
 //i--- Autoloader based on PSR-o Standard ; inside_4_core_structure ; torrison ; 01.05.2020 ; 3 ---/
 // https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
 
+require ('app_api.php');
+
 require ('config.php');
 
 function autoload($className)
