@@ -16,12 +16,10 @@ class Files {
             if (! (
                 $file_type == '.png' OR
                 $file_type == '.jpg' OR
-                $file_type == '.jpeg' OR
                 $file_type == '.svg' OR
                 $file_type == '.gif' OR
                 $file_type == '.PNG' OR
                 $file_type == '.JPG' OR
-                $file_type == '.JPEG' OR
                 $file_type == '.pdf'
             )) exit ('Bad file type!');
 
