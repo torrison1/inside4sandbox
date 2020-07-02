@@ -11,6 +11,20 @@ class Files {
 
             echo $GLOBALS['inside4']['DIR'] . $path . $new_file_name;
 
+            $file_type = substr($new_file_name, -4);
+
+            if (! (
+                $file_type == '.png' OR
+                $file_type == '.jpg' OR
+                $file_type == '.jpeg' OR
+                $file_type == '.svg' OR
+                $file_type == '.gif' OR
+                $file_type == '.PNG' OR
+                $file_type == '.JPG' OR
+                $file_type == '.JPEG' OR
+                $file_type == '.pdf'
+            )) exit ('Bad file type!');
+
             move_uploaded_file($filetmp, $GLOBALS['inside4']['DIR'] . $path . $new_file_name);
 
             if ($this->is_exists_file($new_file_name, $path)) return $new_file_name;
