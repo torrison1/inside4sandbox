@@ -28,7 +28,7 @@
                 <?php if($tab_column == 1) { ?>
                     <div class="form-group">
                         <label>Text Search</label>
-                        <input type="text" class="form-control" value="<?php if (isset($_GET['inside_search'])) echo $this->input->get('inside_search', true) ?>" id="pdg_fsearch" name="pdg_fsearch" placeholder="Search..." />
+                        <input type="text" class="form-control" value="<?php if (isset($_GET['inside_search'])) echo $inside4_input->get_secure('inside_search') ?>" id="pdg_fsearch" name="pdg_fsearch" placeholder="Search..." />
                     </div>
                 <?php } ?>
                 <?php foreach ($filters as $filter) { if ($filter['filters_tab'] == $ftab AND $filter['filters_column'] == $tab_column) { ?>

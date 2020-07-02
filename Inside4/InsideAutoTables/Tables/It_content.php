@@ -68,6 +68,7 @@ Class It_content
         $table_columns[$i]['defend_filter'] = "A";
         $translate_columns[] = $table_columns[$i];
 
+        /*
         $i++;
         $table_columns[$i]['name'] = 'content_img';
         $table_columns[$i]['text'] = 'Image (Resize to 600x400)';
@@ -88,6 +89,7 @@ Class It_content
         $table_columns[$i]['tab'] = 'main';
         $table_columns[$i]['input_type'] = 'm_images_sortable';
         $table_columns[$i]['folder'] = 'content_img';
+        */
 
         $i++;
         $table_columns[$i]['name'] = 'content_img_youtube';
@@ -100,6 +102,7 @@ Class It_content
         $table_columns[$i]['crop_center'] = true;
         $table_columns[$i]['new_width'] = 700;
         $table_columns[$i]['new_height'] = 500;
+        $table_columns[$i]['in_crud'] = true;
 
         $i++;
         $table_columns[$i]['name'] = 'content_youtube_link';

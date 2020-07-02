@@ -3,6 +3,13 @@ namespace Inside4\InsideAutoTables\Inputs;
 
 class Image {
 
+    public function crud_view($input_array)
+    {
+        if ($input_array['value'] != '') {
+            return "<img src='{$input_array['value']}' style='width: 150px;'>";
+        }
+        else return "-";
+    }
 
 	public function input_form($input_array)
 	{
@@ -17,7 +24,7 @@ class Image {
 		{  	if (isset($img_folder)) $link_folder = $img_folder."/";
 
 			if ($row_img == "error_file") $data .= "<font color=\"darkred\">pics/".$link_folder.$row_img."</font>";
-			else $data .= "<a href=\"/files/uploads/".$link_folder.$row_img."\" target=\"_blank\">files/pics/".$link_folder.$row_img."</a>";
+			else $data .= "<a href=\"".$row_img."\" target=\"_blank\">".$row_img."</a>";
 			$data .= "
 			<input name=\"del_img_".$name."\" type=\"checkbox\" value=\"1\">Del?
 			<input name=\"".$name."\" type=\"hidden\" value=\"".$row_img."\">
@@ -35,10 +42,9 @@ class Image {
 	}
 	public function db_save($input_array)
 	{
-		// $fileworks = ...
+        $fileworks = new \Inside4\Filesworks\Files();
 
 		$tmp_name = $input_array['name'];
-
 		// echo $_FILES[$tmp_name]['name'];
 
 		// Check folder change
@@ -47,11 +53,18 @@ class Image {
 		// Update File System!
 		if (isset($_POST['del_img_'.$tmp_name]))
 		{
-            // TO DO >>> $CI->inside_lib->c7_delete_image($_POST[$tmp_name], $folder);
+            $fileworks->file_delete($input_array['value']);
 			return '';
 		}
 		else if (isset($_FILES[$tmp_name]['name']))
 		{
+
+		    print_r($_FILES[$tmp_name]);
+
+            $filename = $fileworks->file_upload($_FILES[$tmp_name]['tmp_name'], $_FILES[$tmp_name]['name'], "/Uploads/".$folder);
+
+            $input_array['value'] = "/Uploads/".$folder.$filename;
+
             // Rename if cirilic name
             // TO DO >>> $_FILES[$tmp_name]['name'] = $CI->inside_lib->ru2en_img($_FILES[$tmp_name]['name']);
 
@@ -144,6 +157,7 @@ class Image {
 			}
 			return $_FILES[$tmp_name]['name'];
             */
+            return $input_array['value'];
 		}
 		else return $input_array['value'];
 	}

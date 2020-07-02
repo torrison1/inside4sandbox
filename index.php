@@ -35,6 +35,7 @@ spl_autoload_register('autoload');
 
 //i--- Composer Autoload ; inside_4_core_structure ; torrison ; 01.05.2020 ; 4 ---/
 require __DIR__."/Inside4/vendor/autoload.php";
+$GLOBALS['inside4']['DIR'] = __DIR__;
 
 //i--- Class with Globals objects and variables ; inside_4_core_structure ; torrison ; 01.05.2020 ; 5 ---/
 $GLOBALS['inside4']['Globals'] = new \Inside4\CommonCore\Globals();

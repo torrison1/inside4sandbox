@@ -17,6 +17,6 @@ if (
 
 )
 {
-    header("Access-Control-Allow-Origin: $http_origin");
+    header("Access-Control-Allow-Origin: *");
 }
 
