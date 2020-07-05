@@ -214,6 +214,9 @@ Class Auth_API extends BaseController {
     //i--- Auth API : Update User Data /Auth_API/update_user_data (<a href='https://inside4sandbox.ikiev.biz/Auth_API/update_user_data?test_form=1'>Test Form</a>) ; inside_auth ; torrison ; 01.08.2018 ; 5 ---/
     public function update_user_data() {
 
+        // For Debug API
+        // $this->db->insert('log_api', Array( 'time' => time(), 'data' => json_encode($_POST, JSON_PRETTY_PRINT)));
+
         // ==========================  Test form  ==========================
         if (isset($_GET['test_form'])) {
 
