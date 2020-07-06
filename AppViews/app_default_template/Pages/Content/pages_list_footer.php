@@ -1,7 +1,7 @@
-<!-- jquery ui css -->
+<!-- jquery ui
 <link rel="stylesheet" href="/files/admin/js/jquery-ui-1.12.1/jquery-ui.css">
-<!-- jquery ui js -->
 <script src="/files/admin/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+-->
 
 <script>
     $(function(){

@@ -68,28 +68,31 @@ Class It_content
         $table_columns[$i]['defend_filter'] = "A";
         $translate_columns[] = $table_columns[$i];
 
-        /*
+
         $i++;
         $table_columns[$i]['name'] = 'content_img';
         $table_columns[$i]['text'] = 'Image (Resize to 600x400)';
         $table_columns[$i]['tab'] = 'main';
-        $table_columns[$i]['input_type'] = 'image_mod';
+        $table_columns[$i]['input_type'] = 'image_mod'; // NOT WORK NOW
         $table_columns[$i]['folder'] = 'content_img';
         $table_columns[$i]['in_crud'] = true;
+
+        // tmp fix
+        $table_columns[$i]['input_type'] = 'image';
 
         $table_columns[$i]['resize'] = true;
         $table_columns[$i]['crop_center'] = true;
         $table_columns[$i]['new_width'] = 600;
         $table_columns[$i]['new_height'] = 400;
 
-
-        $i++;
-        $table_columns[$i]['name'] = 'content_gallery';
-        $table_columns[$i]['text'] = 'Gallery';
-        $table_columns[$i]['tab'] = 'main';
-        $table_columns[$i]['input_type'] = 'm_images_sortable';
-        $table_columns[$i]['folder'] = 'content_img';
-        */
+        /*
+             $i++;
+             $table_columns[$i]['name'] = 'content_gallery';
+             $table_columns[$i]['text'] = 'Gallery';
+             $table_columns[$i]['tab'] = 'main';
+             $table_columns[$i]['input_type'] = 'm_images_sortable';
+             $table_columns[$i]['folder'] = 'content_img';
+         */
 
         $i++;
         $table_columns[$i]['name'] = 'content_img_youtube';

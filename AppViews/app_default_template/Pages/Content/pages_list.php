@@ -63,7 +63,7 @@
                                 <a href="/info/page/<?= $page['content_alias'] ?>">
                                     <?php if ($page['content_img'] != '') { ?>
                                         <img class="img-responsive center-block wblock1"
-                                             src="/Uploads/content_img/<?= $page['content_img'] ?>"
+                                             src="<?= $page['content_img'] ?>"
                                              alt="<?= $page['content_name'] ?>">
                                     <?php } else { ?>
                                         <img class="img-responsive center-block wblock1"
