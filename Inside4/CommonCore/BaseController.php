@@ -38,6 +38,13 @@ Class BaseController {
 
         $this->commons = new Commons();
 
+        $this->db = new Database();
+        $this->db->init();
+
+        $this->security = new Security();
+        $this->security->init();
+        $this->security->db =& $this->db;
+
         $this->input = new Input();
         $this->input->db =& $this->db;
         $this->input->security =& $this->security;
@@ -48,14 +55,6 @@ Class BaseController {
 
         $this->mailer =  new Mailer();
         $this->mailer->init();
-
-        $this->db = new Database();
-        $this->db->init();
-
-        $this->security = new Security();
-        $this->security->init();
-        $this->security->db =& $this->db;
-
 
         $this->sessions = new Sessions();
         $this->sessions->db =& $this->db;

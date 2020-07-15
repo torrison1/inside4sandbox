@@ -126,7 +126,6 @@ Class Auth_users
         $adv_rel_inputs[$i]['help'] = 'Выберете группы, в которые входит данный пользователь';
         $adv_rel_inputs[$i]['table'] = 'auth_groups';
         $adv_rel_inputs[$i]['rel_table'] = 'auth_users_groups';
-        $adv_rel_inputs[$i]['this_key'] = 'user_id';
         $adv_rel_inputs[$i]['rel_key'] = 'user_id';
         $adv_rel_inputs[$i]['rel_join'] = 'group_id';
         $adv_rel_inputs[$i]['join_key'] = 'id';
