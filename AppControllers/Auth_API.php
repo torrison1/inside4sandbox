@@ -358,7 +358,7 @@ Class Auth_API extends BaseController {
             $result['is_admin'] = 0;
             if ($this->auth->in_groups(Array('admin_demo', 'admin')))$result['is_admin'] = 1;
 
-            $result['csfr_token'] = $this->security->make_csfr_token($user_id);
+            $result['csrf_token'] = $this->security->make_csfr_token($user_id);
 
             $this->response->echo_json($result);
         } else {
