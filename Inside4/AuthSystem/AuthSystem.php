@@ -26,7 +26,8 @@ Class AuthSystem {
         // Get User Data to $this->user if Session is Logged In
         if ($this->sessions->session_data['user_id'] > 0) {
             $this->user = $this->get_user($this->sessions->session_data['user_id']);
-            $this->logged_in = true;
+            if ($this->user) $this->logged_in = true;
+            else $this->logged_in = false;
         } else {
             $this->user = false;
             $this->logged_in = false;
@@ -327,7 +328,8 @@ Class AuthSystem {
         ";
         $data = $this->db->sql_get_data($query);
 
-        $user = $data[0];
+        if (isset($data[0])) $user = $data[0];
+        else $user = false;
 
         return $user;
 
