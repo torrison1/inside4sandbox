@@ -35,8 +35,21 @@ Class Info_API extends BaseController
         // $this->data['content_categories_arr'] = $info_system->get_content_categories_arr();
         // $this->data['pagination'] = $this->create_pagination($info_system->pages_count());
 
+        $res = $info_system->pages_list($page, $this->per_page);
 
-        $result['pages_list'] = $info_system->pages_list($page, $this->per_page);
+        $pages_list = Array();
+
+        foreach ($res as $row) {
+            $page = Array();
+            $page['content_id'] = $row['content_id'];
+            $page['content_name'] = $row['content_name'];
+            $page['content_desc'] = $row['content_desc'];
+            $page['content_html'] = $row['content_html'];
+            $page['content_img'] = $row['content_img'];
+            $pages_list[] = $page;
+        }
+
+        $result['pages_list'] = $pages_list;
         $result['status'] = "success";
         $this->response->echo_json($result);
 
