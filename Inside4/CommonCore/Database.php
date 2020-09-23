@@ -58,6 +58,7 @@ Class Database
 
         $sql = $this->conn->prepare($query);
         $sql->execute();
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
         $data = $sql->fetchAll();
         return($data);
     }
