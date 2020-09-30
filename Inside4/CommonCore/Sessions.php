@@ -2,6 +2,8 @@
 
 namespace Inside4\CommonCore;
 
+use Inside4\InsideAutoTables\Inputs\Parent_select_custom;
+
 Class Sessions {
 
     //i--- Session System make tokens and control users sessions ; inside_core ; torrison ; 01.05.2020 ; 1 ---/
@@ -10,6 +12,7 @@ Class Sessions {
     var $sessions_actions_table  = 'inside_sessions_actions';
     var $client_ip;
     var $token;
+    var $session_change_interval = 60; // '0' for best security but any async request break session relations
 
     // Dependencies
     var $db;
@@ -54,7 +57,7 @@ Class Sessions {
 
         // Get Session Row
         $query = "SELECT 
-                    id, start_time, last_activity, user_agent, ip_address, user_id
+                    id, start_time, last_activity, user_agent, ip_address, user_id, token_encrypted
                     FROM ".$this->sessions_table." 
                     WHERE token_encrypted = ".$this->db->quote($encrypted_random_token)." LIMIT 1
         ";
@@ -64,11 +67,16 @@ Class Sessions {
             $session_data = $data[0];
 
             // Update Session Row
-            $tokens = $this->generate_tokens();
-            $update_data['token_encrypted'] = $tokens['token_encrypted'];
-            $update_data['last_activity'] = time();
-            $this->db->update($this->sessions_table, $update_data, 'WHERE id = '.intval($data[0]['id']));
-
+            if (time() - $session_data['last_activity'] >= $this->session_change_interval)
+            {
+                $tokens = $this->generate_tokens();
+                $update_data['token_encrypted'] = $tokens['token_encrypted'];
+                $update_data['last_activity'] = time();
+                $this->db->update($this->sessions_table, $update_data, 'WHERE id = '.intval($data[0]['id']));
+            } else {
+                $this->use_old_token($token);
+                $this->token = $token;
+            }
 
         }
         else $session_data = false;
@@ -140,6 +148,12 @@ Class Sessions {
 
         return $res;
     }
+    //i--- Use OLD Token for slow requests ; inside_core ; torrison ; 01.05.2020 ; 7 ---/
+    public function use_old_token($encrypted_random_token)
+    {
+        setcookie('inside4_session', $encrypted_random_token, strtotime("+1 year"), '/');
+    }
+
 
     //i--- Also Session System has track_activity method for save users activities for analyse usability process ; inside_core ; torrison ; 01.05.2020 ; 8 ---/
     public function track_activity($action){
