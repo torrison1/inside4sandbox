@@ -26,7 +26,7 @@ Class InsideDatabaseView {
             cols.EXTRA 'Extra'
         FROM information_schema.columns as cols
         WHERE cols.table_schema = '{$database}'
-        ORDER BY cols.TABLE_NAME, cols.COLUMN_NAME";
+        ORDER BY cols.TABLE_NAME";
         $result = $this->db->sql_get_data($sql);
 
         echo "<html><title>System DataBase</title><body>";
@@ -116,9 +116,10 @@ Class InsideDatabaseView {
                     $table_obj = new $table_class();
                     $table_obj->init();
 
-                    usort($table_obj->table_columns, function($a, $b) {
-                        return strcmp($a['name'], $b['name']);
-                    });
+                    foreach ($table_obj->table_columns as $column) {
+                        $table_obj->table_columns[$column['name']] = $column;
+                    };
+
                     $inside_columns = $table_obj->table_columns;
                     $table_i++;
                     echo "<tr class='tr-grey'>";
@@ -143,8 +144,8 @@ Class InsideDatabaseView {
 
                 $inside_row = new stdClass;
 
-                if (isset($inside_columns[$rowCount-1]['input_type'])) {
-                    $inside_row->input_type = $inside_columns[$rowCount-1]['input_type'];
+                if (isset($inside_columns[$row['Field']]['input_type'])) {
+                    $inside_row->input_type = $inside_columns[$row['Field']]['input_type'];
                 } else {
                     $inside_row->input_type = '-';
                 }
@@ -153,12 +154,12 @@ Class InsideDatabaseView {
                 } else {
                     $inside_row->tab = '-';
                 }
-                if (isset($inside_columns[$rowCount-1]['text'])) {
-                    $inside_row->text = $inside_columns[$rowCount-1]['text'];
+                if (isset($inside_columns[$row['Field']]['text'])) {
+                    $inside_row->text = $inside_columns[$row['Field']]['text'];
                 } else {
                     $inside_row->text = '-';
                 }
-
+                // echo "<pre>".json_encode($inside_columns, JSON_PRETTY_PRINT)."</pre>"; exit();
 
                 if (isset($inside_columns[$rowCount-1]['in_crud']) AND $inside_columns[$rowCount-1]['in_crud']) {
                     $inside_row->in_table = "'+";
