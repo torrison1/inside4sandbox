@@ -3,8 +3,8 @@
 	<section class="container mt-3">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/">Главная</a></li>
-				<li class="breadcrumb-item"><a href="/info/feed">Блог</a></li>
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item"><a href="/info/feed">Content</a></li>
 				<li class="breadcrumb-item" aria-current="page">
 					<?=$page_row['content_name']?>
 				</li>
@@ -16,7 +16,7 @@
 	<section>
 		<div class="container content-page wblock1 p-3">
 			<div class="content-html">
-					<img class="page-image wblock1 mt-2" src="/Uploads/content_img/<?=$page_row['content_img']?>" alt="<?=$page_row['content_name']?>">
+					<img class="page-image wblock1 mt-2" src="<?=$page_row['content_img']?>" alt="<?=$page_row['content_name']?>">
 					<h1 class="content-name"><?=$page_row['content_name']?></h1>
 					<div class="content-date">
 						<i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;

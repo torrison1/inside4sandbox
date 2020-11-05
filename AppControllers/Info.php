@@ -5,30 +5,66 @@ use Inside4\CommonCore\BaseController as BaseController;
 Class Info extends BaseController
 {
     //i--- Per Page in Controller Code  ; inside_content_pages ; torrison ; 01.10.2018 ; 2 ---/
-    protected $per_page = 5;
+    protected $per_page = 3;
 
-    public function feed($page = false) {
+    public function category($alias, $page = false) {
+        if ($page == 1) $this->website->redirect_301 ('/info/category/'.$alias);
+        $this->feed($page, 'cat', $alias);
+    }
+    public function tag($alias, $page = false) {
+        if ($page == 1) $this->website->redirect_301 ('/info/tag/'.$alias);
+        $this->feed($page, 'tag', $alias);
+    }
+
+    public function feed($page = false, $filter_type = false, $alias = false) {
 
         //i--- Redirect for page = 1 ; inside_content_pages ; torrison ; 01.10.2018 ; 4 ---/
-        if ($page == 1) redirect ('/info/feed/', 301);
+        if ($page == 1) $this->website->redirect_301 ('/info/feed');
         if (!$page) $page = 1;
 
         $info_system = new \Inside4\Content\Info_system;
         $info_system->db =& $this->db;
 
         //i--- Catalog Tree ; inside_content_pages ; torrison ; 01.10.2018 ; 6 ---/
-        // $this->data['catalog_tree'] = $this->inside_lib->make_tree_view($this->info_system->get_tree_categories_arr(), false, $this->data['lang_link_prefix']);
-        $this->data['catalog_tree'] = '';
+        $this->data['catalog_tree'] = $this->commons->make_tree_view($info_system->get_tree_categories_arr(), false, $this->data['lang_link_prefix']);
+        // $this->data['catalog_tree'] = '';
 
         //i--- Special arrays for work with content categories and tags ; inside_content_pages ; torrison ; 01.10.2018 ; 7 ---/
         $this->data['tags_arr'] = $info_system->get_tags_list();
         $this->data['content_tags_arr'] = $info_system->get_content_tags_arr();
         $this->data['content_categories_arr'] = $info_system->get_content_categories_arr();
 
+        if (!$filter_type) {
+            $this->data['pages_list_arr'] = $info_system->pages_list($page, $this->per_page);
+            $this->data['page_uri'] = '/info/feed';
+            $this->data['seo_title'] = 'Content';
+            $this->data['seo_description'] = 'Information feed';
+        } else {
+            $this->data['pages_list_arr'] = $info_system->pages_list($page, $this->per_page, false, $filter_type, $alias);
+            if ($filter_type == 'cat') {
+                $this->data['category_row'] = $info_system->get_categories_row($alias);
+                $this->data['page_uri'] = '/info/category/'.$alias;
+                $this->data['seo_title'] = 'Content about '.$this->data['category_row']['categories_name'];
+                $this->data['seo_description'] = 'Some information about '.$this->data['category_row']['categories_name'];
+            }
+            if ($filter_type == 'tag') {
+                $this->data['tag'] = $alias;
+                $this->data['page_uri'] = '/info/tag/'.$alias;
+                $this->data['seo_title'] = 'Content about '.$alias;
+                $this->data['seo_description'] = 'Some information about '.$alias;
+            }
+        }
+
+        $this->data['page'] = $page;
+        if ($page > 1) {
+            $this->data['seo_title'] .= ' page '.$page;
+            $this->data['seo_description'] .= ' page '.$page;
+        }
 
         $this->data['pagination'] = $this->create_pagination($info_system->pages_count());
 
-        $this->data['pages_list_arr'] = $info_system->pages_list($page, $this->per_page);
+        $this->data['prev_page'] = ($page < 2) ? false : $page-1;
+        $this->data['next_page'] = (count($this->data['pages_list_arr']) < $this->per_page) ? false : $page+1;
 
         //i--- Prepare View and SEO data ; inside_content_pages ; torrison ; 01.10.2018 ; 8 ---/
         // TO DO
@@ -39,8 +75,9 @@ Class Info extends BaseController
             $this->view->render($this->data,'Content/pages_list', 'app_default_template');
         }
 
-
     }
+
+
 
     //i--- Code Igniter Pagination Class used ; inside_content_pages ; torrison ; 01.10.2018 ; 5 ---/
     private function create_pagination($count) {

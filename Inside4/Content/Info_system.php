@@ -315,4 +315,54 @@ Class Info_system
     {
 
     }
+
+    public function get_categories_row($alias)
+    {
+        if ($GLOBALS['Commons']['lang'] == 'en')
+        {
+            $res = $this->db->sql_get_data("SELECT * 
+									FROM it_categories 
+									WHERE categories_alias = ".$this->db->quote($alias)."
+									LIMIT 1
+									");
+            if (isset($res[0]))
+                return $res[0];
+            else
+                return false;
+        }
+        else
+        {
+            $res = $this->db->sql_get_data("SELECT 
+										
+										it_categories_translate.categories_name as categories_name_translate,
+										it_categories_translate.categories_img as categories_img_translate,
+										it_categories_translate.categories_desc as categories_desc_translate,
+										
+										it_categories.* 
+										
+										FROM it_categories
+										
+										LEFT JOIN it_categories_translate ON it_categories.categories_id = it_categories_translate.categories_id 
+										
+										AND it_categories_translate.categories_lang_alias = ".$this->db->quote($GLOBALS['Commons']['lang'])."
+										
+										WHERE
+										it_categories.categories_alias = ".$this->db->quote($alias)."
+
+										LIMIT 1
+										");
+
+
+            if (isset($res[0]))
+            {
+                $row = $res[0];
+                if ($row['categories_name_translate'] != '') $row['categories_name'] = $row['categories_name_translate'];
+                if ($row['categories_img_translate'] != '') $row['categories_img'] = $row['categories_img_translate'];
+                if ($row['categories_desc_translate'] != '') $row['categories_desc'] = $row['categories_desc_translate'];
+
+                return $row;
+            }
+            else return false;
+        }
+    }
 }

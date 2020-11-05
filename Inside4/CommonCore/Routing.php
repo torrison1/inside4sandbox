@@ -52,7 +52,8 @@ Class Routing {
         // echo "<br>".$route_class."->"; echo $route_method."<br>"; echo "OK"; exit();
 
         $run_controller = new $route_class();
-        if (isset($result[3])) $run_controller->$route_method($result[3]);
+        if (isset($result[4])) $run_controller->$route_method($result[3], $result[4]);
+        else if (isset($result[3])) $run_controller->$route_method($result[3]);
         else $run_controller->$route_method();
 
     }

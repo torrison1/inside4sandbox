@@ -1,3 +1,21 @@
+<style>
+    @media(max-width:1024px){
+        .toggle_filters {
+            display: block !important;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        .content_filters {
+            display: none;
+            margin-bottom: 10px;
+        }
+        h2.content-name {
+            margin-top: 10px;
+        }
+    }
+</style>
 <div class="content content-blog">
     <section>
         <div class="container">
@@ -5,38 +23,43 @@
 
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/info/feed">Content</a></li>
                         <li class="breadcrumb-item" aria-current="plist">
                             <?php if(isset($category_row['categories_name'])) { ?>
                                 <?=$category_row['categories_name']?>
-                            <?php } else if(isset($tag_row['tags_name'])) { ?>
-                                <?=$tag_row['tags_name']?>
+                            <?php } else if(isset($tag)) { ?>
+                                <?=$tag?>
                             <?php } else { ?>
-                                Мой блог
+                                Feed
                             <?php } ?>
+
+                            <?php if ($page > 1) { ?> page 2<?php } ?>
                         </li>
                     </ol>
                 </nav>
             </div>
         </div>
-
     </section>
     <!-- Product-list -->
     <div class="container">
         <div class="row">
         <section class="col-md-3 category_tags_list">
-            <div class="wblock1 p-3">
-                <h4><a href="/content/plist">Категории</a></h4>
+            <div class="toggle_filters wblock1" onclick="$(this).next().toggle();" style="display: none;">
+                <i class="fa fa-book"></i> Categories / Tags / Filters
+            </div>
+            <div class="wblock1 p-3 content_filters">
+                <h4><a href="/info/feed">Content</a></h4>
                 <div class="categoties_tree it-mb-10">
                     <?=$catalog_tree?>
                 </div>
-                <h4 class="it-mb-10"><a href="/content/plist">Теги</a></h4>
+                <h4 class="it-mb-10">#hashtags</h4>
                 <ul>
                     <?php foreach($tags_arr as $tag) { ?>
-                        <li><a href="<?= $lang_link_prefix ?>/content/tag_list/<?= $tag['tags_name'] ?>"><?= $tag['tags_name'] ?></a></li>
+                        <li><a href="<?= $lang_link_prefix ?>/info/tag/<?= $tag['tags_name'] ?>"><?= $tag['tags_name'] ?></a></li>
                     <?php } ?>
                 </ul>
-                <form action="/content/plist" method="get" class="showListFilterForm">
+                <form action="/info/feed" method="get" class="showListFilterForm">
                     <div class="input-group mb-3">
 
                         <input style="background: #fff;" name="search" class="show-list-search-input"
@@ -86,7 +109,7 @@
                                 <i class="fas fa-bookmark"></i>&nbsp;
                                 <?php foreach ($content_categories_arr as $content_tags) {
                                     if ($content_tags['content_id'] == $page['content_id']) { ?>
-                                        <a href="<?= $lang_link_prefix ?>/content/category_list/<?= $content_tags['alias'] ?>"><?= $content_tags['name'] ?></a>
+                                        <a href="<?= $lang_link_prefix ?>/info/category/<?= $content_tags['alias'] ?>"><?= $content_tags['name'] ?></a>
                                         &nbsp;
                                     <?php }
                                 } ?>
@@ -95,27 +118,33 @@
                                 <i aria-hidden="true" class="fa fa-hashtag"></i>&nbsp;
                                 <?php foreach ($content_tags_arr as $content_tags) {
                                     if ($content_tags['content_id'] == $page['content_id']) { ?>
-                                        <a href="<?= $lang_link_prefix ?>/content/tag_list/<?= $content_tags['name'] ?>"><?= $content_tags['name'] ?></a>
-                                        &nbsp;
+                                        <a href="<?= $lang_link_prefix ?>/info/tag/<?= $content_tags['name'] ?>"><?= $content_tags['name'] ?></a>
                                     <?php }
                                 } ?>
                             </div>
                             <p><?= $page['content_desc'] ?></p>
                             <div>
-                                <a href="/info/page/<?= $page['content_alias'] ?>" >Подробнее... &#8594;</a>
+                                <a href="/info/page/<?= $page['content_alias'] ?>" >More... &#8594;</a>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php } ?>
             <?php if (!isset($not_empty)) { ?>
-                <h3 class="text-center" style="margin-top: 100px;">Нет страниц в данном разделе</h3>
+                <h3 class="text-center" style="margin-top: 100px;">No Content here...</h3>
             <?php } ?>
+            <div class="inside_pagination text-right mb-5">
+                <?php if ($prev_page) { ?>
+                    <a class="wblock1 p-2" href="<?=$page_uri.'/'.$prev_page?>">&lt;&lt; prev</a>
+                <?php } ?>
+                <?php if ($next_page) { ?>
+                    <a class="wblock1 p-2" href="<?=$page_uri.'/'.$next_page?>">next &gt;&gt;</a>
+                <?php } ?>
+                <!-- <?= $pagination ?> -->
+            </div>
         </section>
+
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="pagination"><?= $pagination ?></div>
 </div>
 			
