@@ -95,6 +95,7 @@ Class BaseController {
         $GLOBALS['Commons']['security'] =& $this->security;
         $GLOBALS['Commons']['auth'] =& $this->auth;
         $GLOBALS['Commons']['input'] =& $this->input;
+        $GLOBALS['Commons']['t'] =& $this->t;
 
         //i--- Add SEO data for Easy Access ; inside_core ; torrison ; 01.05.2020 ; 5 ---/
         $this->seo = new SEO();

@@ -23,8 +23,8 @@
 
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/info/feed">Content</a></li>
+                        <li class="breadcrumb-item"><a href="<?= $lang_link_prefix ?>/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?= $lang_link_prefix ?>/info/feed">Content</a></li>
                         <li class="breadcrumb-item" aria-current="plist">
                             <?php if(isset($category_row['categories_name'])) { ?>
                                 <?=$category_row['categories_name']?>
@@ -49,7 +49,7 @@
                 <i class="fa fa-book"></i> Categories / Tags / Filters
             </div>
             <div class="wblock1 p-3 content_filters">
-                <h4><a href="/info/feed">Content</a></h4>
+                <h4><a href="<?= $lang_link_prefix ?>/info/feed">Content</a></h4>
                 <div class="categoties_tree it-mb-10">
                     <?=$catalog_tree?>
                 </div>
@@ -59,7 +59,7 @@
                         <li><a href="<?= $lang_link_prefix ?>/info/tag/<?= $tag['tags_name'] ?>"><?= $tag['tags_name'] ?></a></li>
                     <?php } ?>
                 </ul>
-                <form action="/info/feed" method="get" class="showListFilterForm">
+                <form action="<?= $lang_link_prefix ?>/info/feed" method="get" class="showListFilterForm">
                     <div class="input-group mb-3">
 
                         <input style="background: #fff;" name="search" class="show-list-search-input"
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-5 col-md-5 it-product-bg">
                             <div class="product-img">
-                                <a href="/info/page/<?= $page['content_alias'] ?>">
+                                <a href="<?= $lang_link_prefix ?>/info/page/<?= $page['content_alias'] ?>">
                                     <?php if ($page['content_img'] != '') { ?>
                                         <img class="img-responsive center-block wblock1"
                                              src="<?= $page['content_img'] ?>"
@@ -99,7 +99,7 @@
                         <div class="col-sm-12 col-lg-7 col-md-7">
 
                             <h2 class="heading-left it-tw-6 content-name"><a
-                                    href="/info/page/<?= $page['content_alias'] ?>"><?= $page['content_name'] ?></a>
+                                    href="<?= $lang_link_prefix ?>/info/page/<?= $page['content_alias'] ?>"><?= $page['content_name'] ?></a>
                             </h2>
                             <div class="product-data d-inline-block">
                                     <i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;
@@ -124,7 +124,7 @@
                             </div>
                             <p><?= $page['content_desc'] ?></p>
                             <div>
-                                <a href="/info/page/<?= $page['content_alias'] ?>" >More... &#8594;</a>
+                                <a href="<?= $lang_link_prefix ?>/info/page/<?= $page['content_alias'] ?>" >More... &#8594;</a>
                             </div>
                         </div>
                     </div>
@@ -135,10 +135,10 @@
             <?php } ?>
             <div class="inside_pagination text-right mb-5">
                 <?php if ($prev_page) { ?>
-                    <a class="wblock1 p-2" href="<?=$page_uri.'/'.$prev_page?>">&lt;&lt; prev</a>
+                    <a class="wblock1 p-2" href="<?= $lang_link_prefix ?><?=$page_uri.'/'.$prev_page?>">&lt;&lt; prev</a>
                 <?php } ?>
                 <?php if ($next_page) { ?>
-                    <a class="wblock1 p-2" href="<?=$page_uri.'/'.$next_page?>">next &gt;&gt;</a>
+                    <a class="wblock1 p-2" href="<?= $lang_link_prefix ?><?=$page_uri.'/'.$next_page?>">next &gt;&gt;</a>
                 <?php } ?>
                 <!-- <?= $pagination ?> -->
             </div>

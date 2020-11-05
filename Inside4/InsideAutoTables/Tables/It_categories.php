@@ -135,10 +135,24 @@ Class It_categories
         // System names: access = Access System, Chat = Chat communication
         $table_config['cell_tabs_arr'] = Array (
             'main' => 'Main',
+            'translate' => 'Translate',
             'seo' => 'SEO'
         );
 
+        $i=0;
+        $adv_rel_inputs[$i]['name'] = 'categories_translate';
+        $adv_rel_inputs[$i]['input_type'] = 'translate_form';
+        $adv_rel_inputs[$i]['text'] = 'Translate';
+        $adv_rel_inputs[$i]['help'] = '';
+        $adv_rel_inputs[$i]['table'] = 'it_categories_translate';
+        $adv_rel_inputs[$i]['id_column'] = 'categories_id';
+        $adv_rel_inputs[$i]['lang_alias_column'] = 'categories_lang_alias';
+        $adv_rel_inputs[$i]['columns'] = $translate_columns;
+        $adv_rel_inputs[$i]['tab'] = 'translate';
+
+
         $this->table_config = $table_config;
         $this->table_columns = $table_columns;
+        $this->adv_rel_inputs = $adv_rel_inputs;
     }
 }

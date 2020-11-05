@@ -8,18 +8,18 @@ Class Info extends BaseController
     protected $per_page = 3;
 
     public function category($alias, $page = false) {
-        if ($page == 1) $this->website->redirect_301 ('/info/category/'.$alias);
+        if ($page == 1) $this->website->redirect_301 ($this->data['lang_link_prefix'].'/info/category/'.$alias);
         $this->feed($page, 'cat', $alias);
     }
     public function tag($alias, $page = false) {
-        if ($page == 1) $this->website->redirect_301 ('/info/tag/'.$alias);
+        if ($page == 1) $this->website->redirect_301 ($this->data['lang_link_prefix'].'/info/tag/'.$alias);
         $this->feed($page, 'tag', $alias);
     }
 
     public function feed($page = false, $filter_type = false, $alias = false) {
 
         //i--- Redirect for page = 1 ; inside_content_pages ; torrison ; 01.10.2018 ; 4 ---/
-        if ($page == 1) $this->website->redirect_301 ('/info/feed');
+        if ($page == 1) $this->website->redirect_301 ($this->data['lang_link_prefix'].'/info/feed');
         if (!$page) $page = 1;
 
         $info_system = new \Inside4\Content\Info_system;

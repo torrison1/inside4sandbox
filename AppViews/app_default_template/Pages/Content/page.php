@@ -3,8 +3,8 @@
 	<section class="container mt-3">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item"><a href="/info/feed">Content</a></li>
+				<li class="breadcrumb-item"><a href="<?= $lang_link_prefix ?>/">Home</a></li>
+				<li class="breadcrumb-item"><a href="<?= $lang_link_prefix ?>/info/feed">Content</a></li>
 				<li class="breadcrumb-item" aria-current="page">
 					<?=$page_row['content_name']?>
 				</li>
@@ -111,7 +111,7 @@
 							<div>
 								<b>Only for register users</b>
 								<br /><br />
-								<a href="/auth/login" id="comment_reg_btn" class="btn btn-sm btn-primary">Register</a>
+								<a href="<?= $lang_link_prefix ?>/auth/login" id="comment_reg_btn" class="btn btn-sm btn-primary">Register</a>
 							</div>
 						</div>
 					<?php } else { ?>
